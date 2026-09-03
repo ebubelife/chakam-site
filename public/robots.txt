@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://chakam.app/sitemap-index.xml
+Sitemap: https://chakam.site/sitemap-index.xml
