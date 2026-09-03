@@ -1,4 +1,13 @@
 ---
+// Imported (not a plain <link>) so Astro's build fingerprints the output
+// filename per deploy (e.g. global.a1b2c3.css) — a browser that cached an
+// old CSS file under the old URL is forced to fetch the new one, since the
+// URL itself changes. A plain `<link href="/assets/css/style.css">` (the
+// previous setup) never changes URL between deploys, so once a browser
+// cached it, CSS updates silently stopped applying for that visitor until
+// they manually hard-refreshed — which is exactly what broke the hero.
+import '../styles/global.css';
+
 interface Props {
   title: string;
   description: string;
@@ -33,7 +42,6 @@ const ogImageURL = new URL(ogImage, Astro.site);
 <link rel="canonical" href={canonicalURL}>
 {noindex && <meta name="robots" content="noindex">}
 <link rel="icon" href="/assets/img/logo.png">
-<link rel="stylesheet" href="/assets/css/style.css">
 <link rel="alternate" type="application/rss+xml" title="Chakam Blog" href="/blog/rss.xml">
 
 <!-- Open Graph / Twitter — every page gets a shareable card, not just the
