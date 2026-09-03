@@ -17,15 +17,26 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # withastro/action@v3 (the previous setup here) hung indefinitely on its
+    # install/build step twice in a row on this repo, for no attributable
+    # reason (identical steps had succeeded in ~20s on every earlier run) —
+    # a wrapper action's own overhead adds a failure mode we don't need.
+    # Plain, well-documented GitHub-maintained actions instead: same outcome,
+    # one less moving part to hang. A per-step timeout also means a stuck
+    # step now fails loudly within minutes instead of hanging for hours.
     steps:
       - uses: actions/checkout@v4
-      - uses: withastro/action@v3
-        # Builds with `npm ci && npm run build` and uploads `dist/` as the
-        # Pages artifact — nothing else needed here. node-version pinned to
-        # match package.json's engines.node (astro@7 requires >=22.12) —
-        # the action defaults to Node 20, which fails the build outright.
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
+      - run: npm ci
+        timeout-minutes: 5
+      - run: npm run build
+        timeout-minutes: 5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
 
   deploy:
     needs: build
