@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const appStoreUrl = 'https://apps.apple.com/ng/app/chakam-chat-wrapped-red-flag/id6792742396';
+const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.chakam.chatanalyzer';
 ---
 <BaseLayout
   title="Chakam — Chat Wrapped, Red Flags Decoded"
@@ -12,8 +15,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <img class="glyph" src="/assets/img/logo.png" alt="">
       <h1>Your chat,<br>fully wrapped.</h1>
       <p class="tagline">Import a chat, get the receipts — who's more into who, red flags, reply speed, who ghosts first. Everything's read on your phone, not a server.</p>
-      <div class="cta-row">
-        <a class="btn primary" href="#download">Get the app</a>
+      <div class="store-row">
+        <a class="store-badge" href={appStoreUrl}>
+          <img src="/assets/img/apple_icon.png" alt="App Store">
+          <span class="store-text">
+            <span class="store-eyebrow">Download on the</span>
+            <span class="store-name">App Store</span>
+          </span>
+        </a>
+        <a class="store-badge" href={playStoreUrl}>
+          <img src="/assets/img/playstore_icon.png" alt="Google Play">
+          <span class="store-text">
+            <span class="store-eyebrow">Get it on</span>
+            <span class="store-name">Google Play</span>
+          </span>
+        </a>
+      </div>
+      <div class="cta-row" style="margin-top:14px;">
         <a class="btn ghost" href="#how">How it works</a>
       </div>
     </section>
@@ -155,9 +173,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="final-cta">
         <h2>Ready to see your wrapped?</h2>
         <p>Import a chat and get your full breakdown in under a minute — free to start, on iOS and Android.</p>
-        <div class="cta-row">
-          <a class="btn primary" href="mailto:info@kodeblooded.com.ng?subject=Notify me when Chakam launches">Get notified</a>
-          <a class="btn ghost" href="/about/">Learn more</a>
+        <div class="store-row">
+          <a class="store-badge" href={appStoreUrl}>
+            <img src="/assets/img/apple_icon.png" alt="App Store">
+            <span class="store-text">
+              <span class="store-eyebrow">Download on the</span>
+              <span class="store-name">App Store</span>
+            </span>
+          </a>
+          <a class="store-badge" href={playStoreUrl}>
+            <img src="/assets/img/playstore_icon.png" alt="Google Play">
+            <span class="store-text">
+              <span class="store-eyebrow">Get it on</span>
+              <span class="store-name">Google Play</span>
+            </span>
+          </a>
         </div>
       </div>
     </div>

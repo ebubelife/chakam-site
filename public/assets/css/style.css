@@ -660,3 +660,61 @@ footer.site .links a:hover { color: var(--ink); }
 }
 
 .back-link:hover { color: var(--ink); }
+
+/* ---- store badges ---- */
+
+.store-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.store-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--ink);
+  color: #fff;
+  border-radius: 14px;
+  padding: 10px 18px;
+  text-decoration: none;
+}
+
+.store-badge img {
+  width: 26px;
+  height: 26px;
+  flex: none;
+}
+
+.store-badge .store-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.store-badge .store-eyebrow {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #C9C9D1;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.store-badge .store-name {
+  font-size: 16.5px;
+  font-weight: 800;
+}
+
+/* On the dark final-cta card, the badge would disappear against its own
+   ink background — flip it to a light badge there instead. */
+.final-cta .store-badge {
+  background: #fff;
+  color: var(--ink);
+}
+
+.final-cta .store-badge .store-eyebrow { color: var(--muted); }
+
+.final-cta .store-badge img[alt="App Store"] {
+  filter: invert(1);
+}
