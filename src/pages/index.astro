@@ -9,33 +9,60 @@ const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.chakam.c
   description="Chakam turns your WhatsApp, Telegram, and DM chats into a private, on-device wrapped: who's more into who, red flags, reply speed, and more."
   active="home"
 >
+  <section class="hero-band">
+    <div class="hero-wrap">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <h1>Your chat,<br>fully wrapped.</h1>
+          <p class="tagline">Import a chat, get the receipts — who's more into who, red flags, reply speed, who ghosts first. Everything's read on your phone, not a server.</p>
+
+          <div class="store-row">
+            <a class="store-badge" href={appStoreUrl}>
+              <img src="/assets/img/apple_icon.png" alt="App Store">
+              <span class="store-text">
+                <span class="store-eyebrow">Download on the</span>
+                <span class="store-name">App Store</span>
+              </span>
+            </a>
+            <a class="store-badge" href={playStoreUrl}>
+              <img src="/assets/img/png-clipart-goggle-playstore-icon-google-play-computer-icons-android-play-button-angle-rectangle.png" alt="Google Play">
+              <span class="store-text">
+                <span class="store-eyebrow">Get it on</span>
+                <span class="store-name">Google Play</span>
+              </span>
+            </a>
+          </div>
+
+          <div class="trust-row">
+            <span class="trust-pill">🔒 100% on-device by default</span>
+            <span class="trust-pill">🆓 Free to start</span>
+            <span class="trust-pill">🚫 No account required</span>
+          </div>
+
+          <a class="hero-how" href="#how">See how it works &darr;</a>
+        </div>
+
+        <div class="hero-visual">
+          <img class="phone-mock" src="/assets/img/Add_a_subheading_4_-removebg-preview.png"
+               alt="The Chakam app showing a chat's Vibe Check, AI verdict, and Green Flag Report">
+          <div class="float-card float-card--1">
+            <span class="float-emoji">🚩</span>
+            <div class="float-text"><strong>Red Flag Report</strong><span>Score, plus the receipts</span></div>
+          </div>
+          <div class="float-card float-card--2">
+            <span class="float-emoji">❤️‍🔥</span>
+            <div class="float-text"><strong>Who's More Into Who</strong><span>Effort, ranked</span></div>
+          </div>
+          <div class="float-card float-card--3">
+            <span class="float-emoji">👻</span>
+            <div class="float-text"><strong>Ghost Risk Meter</strong><span>See it coming</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <div class="wrap">
-
-    <section class="hero">
-      <img class="glyph" src="/assets/img/logo.png" alt="">
-      <h1>Your chat,<br>fully wrapped.</h1>
-      <p class="tagline">Import a chat, get the receipts — who's more into who, red flags, reply speed, who ghosts first. Everything's read on your phone, not a server.</p>
-      <div class="store-row">
-        <a class="store-badge" href={appStoreUrl}>
-          <img src="/assets/img/apple_icon.png" alt="App Store">
-          <span class="store-text">
-            <span class="store-eyebrow">Download on the</span>
-            <span class="store-name">App Store</span>
-          </span>
-        </a>
-        <a class="store-badge" href={playStoreUrl}>
-          <img src="/assets/img/playstore_icon.png" alt="Google Play">
-          <span class="store-text">
-            <span class="store-eyebrow">Get it on</span>
-            <span class="store-name">Google Play</span>
-          </span>
-        </a>
-      </div>
-      <div class="cta-row" style="margin-top:14px;">
-        <a class="btn ghost" href="#how">How it works</a>
-      </div>
-    </section>
-
     <section class="grid">
       <div class="card">
         <span class="emoji">🔒</span>
@@ -182,7 +209,7 @@ const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.chakam.c
             </span>
           </a>
           <a class="store-badge" href={playStoreUrl}>
-            <img src="/assets/img/playstore_icon.png" alt="Google Play">
+            <img src="/assets/img/png-clipart-goggle-playstore-icon-google-play-computer-icons-android-play-button-angle-rectangle.png" alt="Google Play">
             <span class="store-text">
               <span class="store-eyebrow">Get it on</span>
               <span class="store-name">Google Play</span>
