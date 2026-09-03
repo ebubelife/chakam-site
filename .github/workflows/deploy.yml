@@ -21,7 +21,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: withastro/action@v3
         # Builds with `npm ci && npm run build` and uploads `dist/` as the
-        # Pages artifact — nothing else needed here.
+        # Pages artifact — nothing else needed here. node-version pinned to
+        # match package.json's engines.node (astro@7 requires >=22.12) —
+        # the action defaults to Node 20, which fails the build outright.
+        with:
+          node-version: 22
 
   deploy:
     needs: build
