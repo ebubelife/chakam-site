@@ -1,0 +1,90 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  active?: 'home' | 'about' | 'privacy' | 'terms' | 'child-safety' | 'blog';
+  legal?: boolean; // wraps <main> content in .legal for the article-style pages
+  ogImage?: string; // absolute or root-relative; defaults to the logo
+  noindex?: boolean; // rare — not used today, kept for a future draft/preview page
+}
+
+const {
+  title,
+  description,
+  active,
+  legal = false,
+  ogImage = '/assets/img/logo.png',
+  noindex = false,
+} = Astro.props;
+
+// Astro.site comes from astro.config.mjs's `site` — set once there, every
+// page gets a correct absolute canonical/OG URL without repeating the
+// domain per page.
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(ogImage, Astro.site);
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{title}</title>
+<meta name="description" content={description}>
+<link rel="canonical" href={canonicalURL}>
+{noindex && <meta name="robots" content="noindex">}
+<link rel="icon" href="/assets/img/logo.png">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="alternate" type="application/rss+xml" title="Chakam Blog" href="/blog/rss.xml">
+
+<!-- Open Graph / Twitter — every page gets a shareable card, not just the
+     home page, since a blog post is exactly what gets shared. -->
+<meta property="og:type" content="website">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={canonicalURL}>
+<meta property="og:image" content={ogImageURL}>
+<meta property="og:site_name" content="Chakam">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content={title}>
+<meta name="twitter:description" content={description}>
+<meta name="twitter:image" content={ogImageURL}>
+<slot name="head" />
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <img src="/assets/img/logo.png" alt="Chakam">
+      Chakam
+    </a>
+    <nav class="site-nav">
+      <a href="/" class={active === 'home' ? 'active' : ''}>Home</a>
+      <a href="/blog/" class={active === 'blog' ? 'active' : ''}>Blog</a>
+      <a href="/about/" class={active === 'about' ? 'active' : ''}>About</a>
+      <a href="/privacy/" class={active === 'privacy' ? 'active' : ''}>Privacy</a>
+      <a href="/terms/" class={active === 'terms' ? 'active' : ''}>Terms</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  {legal ? <div class="wrap legal"><slot /></div> : <slot />}
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p>&copy; 2026 Chakam · a Kodeblooded product</p>
+    <div class="links">
+      <a href="/blog/">Blog</a>
+      <a href="/about/">About</a>
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
+      <a href="/child-safety/">Child Safety</a>
+      <a href="mailto:info@kodeblooded.com.ng">Contact</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const dateFmt = new Intl.DateTimeFormat('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+});
+
+// JSON-LD Article schema — helps Google understand this is a real article
+// (author, publish date) rather than just a page of text, which is worth
+// more for a content-marketing play than it costs to add.
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date.toISOString(),
+  dateModified: (post.data.updated ?? post.data.date).toISOString(),
+  author: { '@type': 'Organization', name: 'Chakam' },
+  publisher: { '@type': 'Organization', name: 'Chakam' },
+};
+---
+<BaseLayout title={`${post.data.title} — Chakam`} description={post.data.description} active="blog">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  </Fragment>
+
+  <div class="wrap">
+    <a class="back-link" href="/blog/">&larr; All posts</a>
+
+    <div class="post-header">
+      <span class="post-date">{dateFmt.format(post.data.date)}</span>
+      <h1>{post.data.title}</h1>
+      <p class="post-desc">{post.data.description}</p>
+      {post.data.tags.length > 0 && (
+        <div class="post-tags">
+          {post.data.tags.map((tag) => <a href={`/blog/`}>#{tag}</a>)}
+        </div>
+      )}
+    </div>
+
+    <article class="prose">
+      <Content />
+    </article>
+
+    <div class="post-cta">
+      <h2>Curious what your own chats say?</h2>
+      <p>Chakam reads a chat you already have and turns it into the same kind of breakdown — on-device, free to start.</p>
+      <a class="btn primary" href="/#download">Get Chakam</a>
+    </div>
+  </div>
+</BaseLayout>

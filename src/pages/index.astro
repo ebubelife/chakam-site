@@ -1,36 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chakam — Chat Wrapped, Red Flags Decoded</title>
-<meta name="description" content="Chakam turns your WhatsApp, Telegram, and DM chats into a private, on-device wrapped: who's more into who, red flags, reply speed, and more.">
-<link rel="icon" href="assets/img/logo.png">
-<link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
-
-<header class="site">
-  <div class="wrap">
-    <a class="brand" href="index.html">
-      <img src="assets/img/logo.png" alt="Chakam">
-      Chakam
-    </a>
-    <nav class="site-nav">
-      <a href="index.html" class="active">Home</a>
-      <a href="about.html">About</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
-      <a href="child-safety.html">Child Safety</a>
-    </nav>
-  </div>
-</header>
-
-<main>
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Chakam — Chat Wrapped, Red Flags Decoded"
+  description="Chakam turns your WhatsApp, Telegram, and DM chats into a private, on-device wrapped: who's more into who, red flags, reply speed, and more."
+  active="home"
+>
   <div class="wrap">
 
     <section class="hero">
-      <img class="glyph" src="assets/img/logo.png" alt="">
+      <img class="glyph" src="/assets/img/logo.png" alt="">
       <h1>Your chat,<br>fully wrapped.</h1>
       <p class="tagline">Import a chat, get the receipts — who's more into who, red flags, reply speed, who ghosts first. Everything's read on your phone, not a server.</p>
       <div class="cta-row">
@@ -108,12 +87,12 @@
         <p>Export-based sources are read directly; the rest work from screenshots.</p>
       </div>
       <div class="sources-row">
-        <span class="source-pill"><img src="assets/img/sources/whatsapp.png" alt="">WhatsApp</span>
-        <span class="source-pill"><img src="assets/img/sources/telegram.png" alt="">Telegram</span>
-        <span class="source-pill"><img src="assets/img/sources/instagram.jpg" alt="">Instagram</span>
-        <span class="source-pill"><img src="assets/img/sources/snapchat.png" alt="">Snapchat</span>
-        <span class="source-pill"><img src="assets/img/sources/messenger.jpg" alt="">Messenger</span>
-        <span class="source-pill"><img src="assets/img/sources/imessage.jpg" alt="">iMessage</span>
+        <span class="source-pill"><img src="/assets/img/sources/whatsapp.png" alt="">WhatsApp</span>
+        <span class="source-pill"><img src="/assets/img/sources/telegram.png" alt="">Telegram</span>
+        <span class="source-pill"><img src="/assets/img/sources/instagram.jpg" alt="">Instagram</span>
+        <span class="source-pill"><img src="/assets/img/sources/snapchat.png" alt="">Snapchat</span>
+        <span class="source-pill"><img src="/assets/img/sources/messenger.jpg" alt="">Messenger</span>
+        <span class="source-pill"><img src="/assets/img/sources/imessage.jpg" alt="">iMessage</span>
       </div>
       <p class="source-note">More to follow — Tinder, Bumble, and Hinge are on the way.</p>
     </div>
@@ -153,7 +132,7 @@
       <div class="faq">
         <div class="faq-item">
           <h3>Does my raw chat ever leave my phone?</h3>
-          <p>No — the metrics and cards you see are calculated on-device. The only things that can leave are a small, aliased sample used to write the AI verdict, and screenshot images for sources that require OCR (Instagram, Snapchat, Messenger, iMessage) — full details in the <a href="privacy.html">Privacy Policy</a>.</p>
+          <p>No — the metrics and cards you see are calculated on-device. The only things that can leave are a small, aliased sample used to write the AI verdict, and screenshot images for sources that require OCR (Instagram, Snapchat, Messenger, iMessage) — full details in the <a href="/privacy/">Privacy Policy</a>.</p>
         </div>
         <div class="faq-item">
           <h3>Do I need to create an account?</h3>
@@ -175,29 +154,12 @@
     <div class="wrap">
       <div class="final-cta">
         <h2>Ready to see your wrapped?</h2>
-        <p>Chakam is on its way to the App Store. Drop your email and we'll let you know the moment it's live.</p>
+        <p>Import a chat and get your full breakdown in under a minute — free to start, on iOS and Android.</p>
         <div class="cta-row">
           <a class="btn primary" href="mailto:info@kodeblooded.com.ng?subject=Notify me when Chakam launches">Get notified</a>
-          <a class="btn ghost" href="about.html">Learn more</a>
+          <a class="btn ghost" href="/about/">Learn more</a>
         </div>
       </div>
     </div>
   </section>
-
-</main>
-
-<footer class="site">
-  <div class="wrap">
-    <p>&copy; 2026 Chakam · a Kodeblooded product</p>
-    <div class="links">
-      <a href="about.html">About</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
-      <a href="child-safety.html">Child Safety</a>
-      <a href="mailto:info@kodeblooded.com.ng">Contact</a>
-    </div>
-  </div>
-</footer>
-
-</body>
-</html>
+</BaseLayout>
