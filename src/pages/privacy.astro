@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Privacy Policy — Chakam"
+  description="What happens to your data when you use Chakam — written to match exactly what the app does, not a generic template."
+  active="privacy"
+  legal
+>
+  <h1>Privacy Policy</h1>
+  <p class="updated">Last updated: August 7, 2026</p>
+
+  <p>Chakam ("the app") is built by Kodeblooded ("we", "us"). This policy explains what happens to your data when you use Chakam on iOS. It's written to match exactly what the app does — not a generic template.</p>
+
+  <h2>No account required</h2>
+  <p>Chakam doesn't require sign-up, a password, an email address, or a phone number to use. Anything you tell the app about yourself (like the name you'd like to be called) stays on your device unless described otherwise below.</p>
+
+  <h2>Chats you import</h2>
+  <p>When you import a WhatsApp or Telegram chat export, the app reads and analyzes it <strong>on your device</strong>. All of the metrics you see — message counts, reply times, who texts first, red-flag scores, and similar cards — are calculated locally, in the app, without sending your raw chat to a server.</p>
+  <p>When you use screenshot import (Instagram, Snapchat, Messenger, or iMessage), the process is different because it requires reading text out of an image — see "Screenshot import" below.</p>
+
+  <h2>The AI verdict</h2>
+  <p>Each analysis includes a short AI-written "verdict" summarizing the dynamic between you and the other person. To generate it, the app sends a limited, de-identified package to our backend, which forwards it to a third-party AI provider (routed through OpenRouter, currently DeepSeek). Before anything leaves your device:</p>
+  <ul>
+    <li>Real names are replaced with generic placeholders ("Person A" / "Person B") and swapped back to display names only after the response comes back, on your device.</li>
+    <li>Only a small sample of shorter messages is included, not the full chat.</li>
+    <li>Phone numbers, email addresses, links, and @handles found in that sample are automatically redacted before sending.</li>
+    <li>What's sent otherwise is aggregate statistics (counts, percentages, timing) rather than a full transcript.</li>
+  </ul>
+  <div class="note">If you're offline, or the request fails, Chakam falls back to a verdict generated entirely on your device from the same local statistics — no data leaves your phone in that case.</div>
+
+  <h2>Screenshot import</h2>
+  <p>Instagram, Snapchat, Messenger, and iMessage don't offer a chat export file, so importing a conversation from one of these requires screenshots. Those screenshot images are uploaded to our backend, which forwards them to a third-party vision AI model (routed through OpenRouter, currently Anthropic's Claude) solely to transcribe the messages shown in them into text. Unlike the verdict feature above, this requires the image itself — including any names or text visible in it — to leave your device. The transcription is returned to the app and processed the same way as an imported chat export from there on.</p>
+
+  <h2>What our servers store</h2>
+  <p>Our backend (hosted on Supabase) does not write anything it receives to a database — each request is processed in memory solely to generate a response, then discarded. We don't keep a copy of your chats, screenshots, or verdicts. Once data reaches a third-party AI provider (OpenRouter and the model it routes to), it's subject to that provider's own privacy practices for API traffic, which are generally not used to train their models — see OpenRouter's own privacy policy for specifics.</p>
+
+  <h2>Purchases</h2>
+  <p>Subscriptions are handled through Apple's In-App Purchase system and RevenueCat, which we use to manage and validate entitlements. RevenueCat receives a device/purchase identifier and transaction data needed to confirm your subscription — not your chats or analyses.</p>
+
+  <h2>What stays on your device</h2>
+  <p>Your imported chats, computed analyses, and saved reports are stored locally in the app's own storage on your phone. Deleting the app, or using the in-app "Clear all data" option, removes them. We have no copy to delete on our end because we never had one.</p>
+
+  <h2>Notifications</h2>
+  <p>Chakam can show local notifications (e.g. when an analysis is ready, or an occasional reminder). These are scheduled and delivered entirely on your device — they don't involve a push notification server or any external service.</p>
+
+  <h2>Analytics</h2>
+  <p>Chakam uses Firebase Analytics (Google) to understand how the app is used — since we never see your chats or reports on a server, this is our only signal for things like which import source people use, whether an analysis completed successfully, and whether a purchase succeeded. The events we log are things like "app opened," "analysis started/completed/failed," "result shared," and "purchase completed" — each tagged with simple, low-detail labels (e.g. which chat platform, a short failure reason, whether you're a subscriber). <strong>No chat content, message text, contact names, or anything from your imported conversations is ever included in an analytics event.</strong></p>
+  <p>Chakam doesn't include ad networks. We don't sell your data, and we don't build an advertising profile from it.</p>
+
+  <h2>Children</h2>
+  <p>Chakam is not directed at children and isn't intended for use by anyone under the age required by the App Store's age rating for this app.</p>
+
+  <h2>Changes to this policy</h2>
+  <p>If how the app handles data changes in a meaningful way, we'll update this page and change the date at the top.</p>
+
+  <h2>Contact</h2>
+  <p>Questions about this policy or your data: <a href="mailto:info@kodeblooded.com.ng">info@kodeblooded.com.ng</a>.</p>
+</BaseLayout>

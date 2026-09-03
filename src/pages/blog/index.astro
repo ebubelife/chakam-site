@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+// draft posts (draft: true) never appear here or on their own page — see
+// [...slug].astro's matching guard.
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+const dateFmt = new Intl.DateTimeFormat('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+});
+---
+<BaseLayout
+  title="Blog — Chakam"
+  description="Straight talk on texting patterns, red flags, and what your chat history actually says about a relationship — from the team building Chakam."
+  active="blog"
+>
+  <div class="wrap">
+    <div class="blog-hero">
+      <h1>The Chakam Blog</h1>
+      <p>What your texts actually say — red flags, effort, ghosting, and the patterns worth noticing.</p>
+    </div>
+
+    <div class="post-list">
+      {posts.map((post) => (
+        <a class="post-card" href={`/blog/${post.id}/`}>
+          <span class="post-date">{dateFmt.format(post.data.date)}</span>
+          <h2>{post.data.title}</h2>
+          <p>{post.data.description}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
