@@ -628,11 +628,24 @@ section.block:first-of-type { border-top: none; }
   object-fit: cover;
 }
 
-.source-note {
-  text-align: center;
+/* Tinder/Bumble/Hinge have no icon asset sourced yet — same brand-color +
+   glyph fallback the Flutter app itself uses (see import_screen.dart's
+   _SourceIcon) rather than inventing a different look here. */
+.source-pill .source-glyph {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 900;
+  color: #fff;
+}
+
+.source-pill-more {
   color: var(--muted);
-  font-size: 13.5px;
-  margin-top: 18px;
+  border-style: dashed;
 }
 
 .trust-split {
