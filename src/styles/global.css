@@ -648,34 +648,31 @@ section.block:first-of-type { border-top: none; }
   border-style: dashed;
 }
 
-.trust-split {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 40px;
-  align-items: center;
+/* ---- privacy: checklist with real detail + a lock mark ---- */
+
+.privacy-band {
+  padding: 64px 0;
+  border-top: 1px solid var(--line);
 }
 
-.trust-split ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.privacy-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
+  margin-top: 28px;
 }
 
-.trust-split li {
+.privacy-item {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   align-items: flex-start;
-  font-size: 14.5px;
-  color: #2c2c33;
 }
 
-.trust-split li .tick {
+.privacy-item .tick {
   flex: none;
   width: 22px;
   height: 22px;
+  margin-top: 2px;
   border-radius: 50%;
   background: var(--yellow);
   display: flex;
@@ -685,28 +682,49 @@ section.block:first-of-type { border-top: none; }
   font-weight: 900;
 }
 
-.trust-card {
-  background: var(--ink);
-  color: #fff;
-  border-radius: var(--radius);
-  padding: 32px 28px;
+.privacy-item h3 {
+  font-size: 15.5px;
+  font-weight: 800;
+  margin: 0 0 4px;
 }
 
-.trust-card .big {
-  font-size: 40px;
-  font-weight: 900;
-  color: var(--yellow);
-  line-height: 1;
-  margin-bottom: 8px;
+.privacy-item p {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.55;
+  margin: 0;
 }
 
-.trust-card p {
-  color: #C9C9D1;
-  font-size: 14px;
-  margin: 0 0 22px;
+.privacy-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.trust-card p:last-child { margin-bottom: 0; }
+.privacy-ring {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.privacy-ring--outer {
+  width: 280px;
+  height: 280px;
+  border: 1px solid var(--line);
+}
+
+.privacy-ring--inner {
+  width: 190px;
+  height: 190px;
+  background: var(--yellow);
+}
+
+@media (max-width: 860px) {
+  .privacy-visual { margin-top: 8px; }
+  .privacy-ring--outer { width: 200px; height: 200px; }
+  .privacy-ring--inner { width: 140px; height: 140px; }
+}
 
 .faq {
   max-width: 680px;

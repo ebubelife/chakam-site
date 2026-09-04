@@ -270,26 +270,48 @@ const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.chakam.c
     </div>
   </section>
 
-  <section class="block">
-    <div class="wrap">
-      <div class="trust-split">
-        <div>
-          <div class="section-head" style="text-align:left; margin:0 0 26px;">
-            <span class="kicker">Privacy first</span>
-            <h2>Built so your chats stay yours</h2>
+  <section class="privacy-band">
+    <div class="why-wrap">
+      <div class="why-grid">
+        <div class="why-copy">
+          <span class="kicker">Privacy first</span>
+          <h2>Your chats were never ours to keep.</h2>
+          <p>Chakam reads your chat to build your report, not to hold onto it. Every metric on the free tier never leaves your phone — and what does get sent for the AI verdict is stripped of names and identifying details before it goes anywhere.</p>
+
+          <div class="privacy-list">
+            <div class="privacy-item">
+              <span class="tick">✓</span>
+              <div>
+                <h3>Most of your analysis never leaves your phone</h3>
+                <p>Message counts, reply speed, red flags, ghost risk — every metric on the result screen is computed locally, in the app. There's nothing to intercept, because there's nothing in transit.</p>
+              </div>
+            </div>
+            <div class="privacy-item">
+              <span class="tick">✓</span>
+              <div>
+                <h3>What is sent gets your name stripped out first</h3>
+                <p>The AI verdict works from a small, de-identified sample — real names swapped for placeholders, phone numbers and links redacted, before anything reaches a server. Names are only swapped back on your device, after the answer comes home.</p>
+              </div>
+            </div>
+            <div class="privacy-item">
+              <span class="tick">✓</span>
+              <div>
+                <h3>Nothing is kept once your report is built</h3>
+                <p>Our backend processes each request in memory and forgets it immediately — no database of your chats, no screenshots kept around, nothing sitting on a server waiting to be leaked.</p>
+              </div>
+            </div>
           </div>
-          <ul>
-            <li><span class="tick">✓</span> Every metric on the result screen is computed locally, in the app.</li>
-            <li><span class="tick">✓</span> Names are aliased before anything touches the network — never sent as-is.</li>
-            <li><span class="tick">✓</span> Our servers don't store what they receive — nothing to leak, nothing to delete.</li>
-            <li><span class="tick">✓</span> No ad networks, no trackers, no data resold to anyone.</li>
-          </ul>
         </div>
-        <div class="trust-card">
-          <div class="big">0</div>
-          <p>chats stored on our servers, ever — by design, not by policy.</p>
-          <div class="big">1</div>
-          <p>place your analyses live: your own phone. Delete the app, and they're gone with it.</p>
+
+        <div class="privacy-visual">
+          <div class="privacy-ring privacy-ring--outer">
+            <div class="privacy-ring privacy-ring--inner">
+              <svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="#17171C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="11" width="16" height="10" rx="2.5"></rect>
+                <path d="M7.5 11V7.5a4.5 4.5 0 0 1 9 0V11"></path>
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
     </div>
