@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// One place to define each help topic — keeps the page skimmable without
+// needing a search bar or a help-desk platform: a small, indie-built chat
+// analyzer doesn't have hundreds of articles to sift through, just the
+// handful of things people actually get stuck on.
+const categories = [
+  {
+    title: 'Getting started',
+    items: [
+      {
+        q: 'How do I import a WhatsApp chat into Chakam?',
+        a: 'Open Chakam, tap the + button to start a new analysis, and choose WhatsApp. The app walks you through exporting the chat straight from WhatsApp\'s own share menu — no separate app or website needed. Once it\'s shared into Chakam, your AI chat analysis and relationship insights are ready in under a minute.',
+      },
+      {
+        q: 'Can I analyze a chat from Instagram, Snapchat, Tinder, or another dating app?',
+        a: 'Yes — Chakam supports screenshot-based analysis for Instagram, Snapchat, Messenger, iMessage, Tinder, Hinge, and Bumble. Pick the platform, select up to 20 screenshots of the conversation from your camera roll, and Chakam reads the messages directly off the images using on-device-first OCR.',
+      },
+      {
+        q: 'Do I need to create an account?',
+        a: 'No signup, no password, no account required. Open the app, import a chat, and you\'re straight into your results — Chakam is built to get you to real dating advice and relationship insights as fast as possible, not to collect your details first.',
+      },
+    ],
+  },
+  {
+    title: 'Troubleshooting',
+    items: [
+      {
+        q: 'My WhatsApp export won\'t import — what\'s wrong?',
+        a: 'Make sure you exported "Without Media" (Chakam only needs the text, and media-heavy exports are much larger and slower) and that the file is a plain .txt or .zip straight from WhatsApp\'s own export flow, not renamed or edited afterward. Re-exporting fresh from WhatsApp almost always fixes this.',
+      },
+      {
+        q: 'Why did my screenshot analysis come back with errors or missing messages?',
+        a: 'Screenshot-based chat analysis depends on the text being clearly readable — cropped, blurry, dark-mode-with-low-contrast, or heavily edited screenshots can be misread. Try re-taking the screenshots at full resolution and double-check you picked the exact platform (Instagram vs. Snapchat, for example) the chat is actually from.',
+      },
+      {
+        q: 'I didn\'t get a notification when my analysis was ready.',
+        a: 'Notifications need permission granted at the device level — check your phone\'s Settings → Notifications → Chakam is switched on. Your report is saved in the app regardless of notification permission, so nothing is lost; you\'ll just need to check the home screen yourself.',
+      },
+    ],
+  },
+  {
+    title: 'Subscriptions & billing',
+    items: [
+      {
+        q: 'How do I manage or cancel my Chakam subscription?',
+        a: 'Chakam\'s premium plans are billed through the App Store or Google Play, so subscriptions are managed and cancelled from your device\'s own account settings — Chakam itself has no ability to cancel a subscription on your behalf. Turning off auto-renew at least 24 hours before your renewal date avoids the next charge.',
+      },
+      {
+        q: 'I was charged but premium isn\'t unlocked in the app.',
+        a: 'Start with Settings → Restore Purchases inside Chakam — this re-syncs your subscription status and fixes most cases instantly. If it\'s still not showing after that, email us with your purchase receipt and we\'ll help sort it out directly.',
+      },
+      {
+        q: 'Do you offer refunds?',
+        a: 'Refunds for subscriptions and in-app purchases are handled directly by Apple or Google under their own store policies, not by Chakam or Kodeblooded — you can request one through your App Store or Google Play purchase history.',
+      },
+    ],
+  },
+  {
+    title: 'Privacy & your data',
+    items: [
+      {
+        q: 'How do I delete my data?',
+        a: '"Clear all data" in Settings wipes every analysis stored on your device instantly. We don\'t keep a server-side copy to delete on our end, because we never store one in the first place — see the Privacy Policy for exactly what is and isn\'t processed.',
+      },
+      {
+        q: 'Does my chat ever leave my phone?',
+        a: 'Most of your chat analysis — message stats, red flags, ghost risk, vibe — is computed entirely on-device. Only a small, de-identified sample (for the written AI verdict) or your screenshots (for OCR-based sources) are ever sent anywhere, and neither is stored afterward on our servers.',
+      },
+    ],
+  },
+];
+---
+<BaseLayout
+  title="Help & Support — Chakam"
+  description="Get help with importing a chat, troubleshooting analysis, managing your Chakam subscription, or understanding your data and privacy."
+  active="help"
+>
+  <div class="wrap">
+    <div class="help-hero">
+      <span class="kicker">Help &amp; support</span>
+      <h1>How can we help?</h1>
+      <p>Answers to the most common questions about using Chakam's chat analyzer — importing a chat, troubleshooting an analysis, managing your subscription, and your data privacy.</p>
+    </div>
+
+    <div class="help-contact">
+      <div>
+        <h2>Still stuck?</h2>
+        <p>We're a small, independent team — email us and you'll get a real reply from a real person, usually within a day or two.</p>
+      </div>
+      <a class="btn primary" href="mailto:info@kodeblooded.com.ng">Email info@kodeblooded.com.ng</a>
+    </div>
+
+    {categories.map((cat) => (
+      <div class="help-category">
+        <h2>{cat.title}</h2>
+        <div class="faq">
+          {cat.items.map((item) => (
+            <div class="faq-item">
+              <h3>{item.q}</h3>
+              <p>{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</BaseLayout>

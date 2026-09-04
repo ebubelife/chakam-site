@@ -11,7 +11,7 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description: string;
-  active?: 'home' | 'about' | 'privacy' | 'terms' | 'child-safety' | 'blog';
+  active?: 'home' | 'about' | 'privacy' | 'terms' | 'child-safety' | 'blog' | 'help' | 'pricing';
   legal?: boolean; // wraps <main> content in .legal for the article-style pages
   ogImage?: string; // absolute or root-relative; defaults to the logo
   noindex?: boolean; // rare — not used today, kept for a future draft/preview page
@@ -85,6 +85,8 @@ const ogImageURL = new URL(ogImage, Astro.site);
     <p>&copy; 2026 Chakam · a Kodeblooded product</p>
     <div class="links">
       <a href="/blog/">Blog</a>
+      <a href="/pricing/">Pricing</a>
+      <a href="/help/">Help &amp; Support</a>
       <a href="/about/">About</a>
       <a href="/privacy/">Privacy</a>
       <a href="/terms/">Terms</a>
