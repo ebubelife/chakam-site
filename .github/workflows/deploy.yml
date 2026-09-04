@@ -24,12 +24,17 @@ jobs:
     # Plain, well-documented GitHub-maintained actions instead: same outcome,
     # one less moving part to hang. A per-step timeout also means a stuck
     # step now fails loudly within minutes instead of hanging for hours.
+    #
+    # `npm ci` itself then hung 3 more times in a row after that change,
+    # always right after setup-node's `cache: npm` restored its cache — a
+    # corrupted/stale npm cache is a known way to make `npm ci` hang
+    # indefinitely resolving against it. Dropped the cache; a fresh install
+    # every run is slower but has actually completed every time since.
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
       - run: npm ci
         timeout-minutes: 5
       - run: npm run build
