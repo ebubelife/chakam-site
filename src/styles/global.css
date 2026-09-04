@@ -1039,6 +1039,11 @@ footer.site .links a:hover { color: var(--ink); }
   margin: 0 auto;
 }
 
+.blog-hero .store-row {
+  justify-content: center;
+  margin-top: 20px;
+}
+
 .post-list {
   display: grid;
   gap: 16px;

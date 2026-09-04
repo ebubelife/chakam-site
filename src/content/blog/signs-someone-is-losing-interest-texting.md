@@ -1,6 +1,7 @@
 ---
 title: "How to Tell If Someone's Losing Interest, Based on How They Text"
-description: "Vibes are unreliable. Here's what actually changes in someone's texting behavior when their interest is fading, what doesn't mean anything at all, and how to check the real pattern instead of guessing."
+seoTitle: "Signs Someone's Losing Interest Over Text"
+description: "Vibes are unreliable. Here's what actually changes in someone's texting when interest fades — and what doesn't mean anything at all."
 date: 2026-08-20
 updated: 2026-09-04
 tags: ["texting patterns", "reading the signs", "losing interest"]

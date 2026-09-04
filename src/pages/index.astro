@@ -60,14 +60,33 @@ const faqSchema = {
     acceptedAnswer: { '@type': 'Answer', text: stripTags(f.a) },
   })),
 };
+
+// Tells a crawler (and an AI engine reading structured data, not just
+// prose) that Chakam is a real, installable app on both stores — the
+// same fact the apple-itunes-app / al:* meta tags in BaseLayout signal
+// to Safari and social crawlers, in the form search/answer engines
+// actually parse. price is genuinely "0" — free to download is real,
+// not a marketing rounding; premium is an in-app purchase, not a
+// download price, so it doesn't belong in this field.
+const appSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Chakam',
+  applicationCategory: 'LifestyleApplication',
+  operatingSystem: 'iOS, Android',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  downloadUrl: appStoreUrl,
+  sameAs: [appStoreUrl, playStoreUrl],
+};
 ---
 <BaseLayout
-  title="Chakam — Chat Wrapped, Red Flags Decoded"
+  title="Chakam — Chat Analyzer for WhatsApp, Instagram & Dating Apps"
   description="Chakam turns your WhatsApp, Instagram, and dating app chats into a private, on-device wrapped: who's more into who, red flags, reply speed, and more."
   active="home"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(appSchema)} />
   </Fragment>
 
   <section class="hero-band">

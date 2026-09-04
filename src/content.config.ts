@@ -9,6 +9,12 @@ const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
   schema: z.object({
     title: z.string(),
+    // Optional, shorter stand-in for the <title>/OG/Twitter tags when
+    // `title` itself (used as the on-page H1, where a longer, punchier
+    // headline reads better) would run past ~60 chars once " — Chakam"
+    // is appended and start getting truncated in search results. Falls
+    // back to `title` when omitted — most posts won't need this.
+    seoTitle: z.string().optional(),
     description: z.string(),
     date: z.coerce.date(),
     updated: z.coerce.date().optional(),

@@ -59,6 +59,20 @@ const ogImageURL = new URL(ogImage, Astro.site);
 <meta name="twitter:description" content={description}>
 <meta name="twitter:image" content={ogImageURL}>
 
+<!-- App-store presence signals — every page, since any page might be the
+     one someone lands on first. Deliberately NOT switching twitter:card to
+     "app" (the two are mutually exclusive): that would replace the rich
+     image preview above on every shared link with a bare install card,
+     which is a worse trade for a blog post or platform page than for the
+     homepage. App Links (al:*) coexist fine with a normal OG card instead
+     of replacing it, so that's the mechanism used here. -->
+<meta name="apple-itunes-app" content="app-id=6792742396">
+<meta property="al:ios:app_store_id" content="6792742396">
+<meta property="al:ios:app_name" content="Chakam">
+<meta property="al:android:package" content="com.chakam.chatanalyzer">
+<meta property="al:android:app_name" content="Chakam">
+<meta property="al:web:url" content={canonicalURL}>
+
 <!-- GA4, via the "Chakam Website" stream in the same Firebase project
      (chakam-bfb39) the app reports to — one property, app + web both in
      it. Plain gtag.js, not the firebase npm package: same data, no SDK
