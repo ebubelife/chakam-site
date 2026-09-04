@@ -1,0 +1,28 @@
+---
+// Renders the real image if it exists at build time; falls back to a
+// visible placeholder (not a broken-image icon) if it doesn't yet.
+// Drop a file in at the same path later and this starts showing it
+// automatically — no code change needed.
+interface Props {
+  src: string; // e.g. "/assets/img/platforms/platform-whatsapp-import.png"
+  alt: string;
+  label?: string; // shown on the placeholder; defaults to the filename
+}
+const { src, alt, label } = Astro.props;
+const filename = src.split('/').pop();
+---
+<div class="screenshot-slot">
+  <img
+    src={src}
+    alt={alt}
+    loading="lazy"
+    onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+  />
+  <div class="screenshot-placeholder">
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#74747C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="6" y="2" width="12" height="20" rx="2.5"></rect>
+      <line x1="10.5" y1="18.5" x2="13.5" y2="18.5"></line>
+    </svg>
+    <span class="screenshot-placeholder-text">Screenshot needed<br><code>{label ?? filename}</code></span>
+  </div>
+</div>

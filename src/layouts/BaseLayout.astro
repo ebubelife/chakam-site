@@ -7,6 +7,7 @@
 // cached it, CSS updates silently stopped applying for that visitor until
 // they manually hard-refreshed — which is exactly what broke the hero.
 import '../styles/global.css';
+import { platforms } from '../data/platforms';
 
 interface Props {
   title: string;
@@ -70,8 +71,42 @@ const ogImageURL = new URL(ogImage, Astro.site);
       <a href="/" class={active === 'home' ? 'active' : ''}>Home</a>
       <a href="/blog/" class={active === 'blog' ? 'active' : ''}>Blog</a>
       <a href="/about/" class={active === 'about' ? 'active' : ''}>About</a>
-      <a href="/privacy/" class={active === 'privacy' ? 'active' : ''}>Privacy</a>
-      <a href="/terms/" class={active === 'terms' ? 'active' : ''}>Terms</a>
+
+      <div class="nav-drop">
+        <button class="nav-drop-btn" type="button" aria-expanded="false" aria-haspopup="true">
+          Platform
+          <svg class="nav-drop-chevron" viewBox="0 0 12 8" width="10" height="7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1.5 6 6.5 11 1.5"></path></svg>
+        </button>
+        <div class="nav-drop-menu">
+          {platforms.map((p) => (
+            <a href={`/${p.slug}/`}>{p.navLabel}</a>
+          ))}
+        </div>
+      </div>
+
+      <div class="nav-drop">
+        <button class="nav-drop-btn" type="button" aria-expanded="false" aria-haspopup="true">
+          Features
+          <svg class="nav-drop-chevron" viewBox="0 0 12 8" width="10" height="7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1.5 6 6.5 11 1.5"></path></svg>
+        </button>
+        <div class="nav-drop-menu">
+          <a href="/#why">AI Chat Analysis &amp; Verdict</a>
+          <a href="/#analyze">Red Flags, Green Flags &amp; Ghost Risk</a>
+          <a href="/#insight">Relationship &amp; Dating Insights</a>
+        </div>
+      </div>
+
+      <div class="nav-drop">
+        <button class="nav-drop-btn" type="button" aria-expanded="false" aria-haspopup="true">
+          Resources
+          <svg class="nav-drop-chevron" viewBox="0 0 12 8" width="10" height="7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1.5 6 6.5 11 1.5"></path></svg>
+        </button>
+        <div class="nav-drop-menu">
+          <a href="/blog/">Blog</a>
+          <a href="/pricing/">Pricing</a>
+          <a href="/help/">Help &amp; Support</a>
+        </div>
+      </div>
     </nav>
   </div>
 </header>
@@ -95,6 +130,45 @@ const ogImageURL = new URL(ogImage, Astro.site);
     </div>
   </div>
 </footer>
+
+<script>
+  // Click-to-toggle nav dropdowns (Platform/Features/Resources) — not
+  // hover-based, since hover doesn't exist on touch devices and this way
+  // desktop and mobile share the exact same interaction.
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    const btn = target.closest('.nav-drop-btn');
+    if (btn) {
+      const drop = btn.closest('.nav-drop');
+      if (!drop) return;
+      const isOpen = drop.classList.contains('open');
+      document.querySelectorAll('.nav-drop.open').forEach((d) => {
+        d.classList.remove('open');
+        d.querySelector('.nav-drop-btn')?.setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        drop.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+      return;
+    }
+    if (!target.closest('.nav-drop')) {
+      document.querySelectorAll('.nav-drop.open').forEach((d) => {
+        d.classList.remove('open');
+        d.querySelector('.nav-drop-btn')?.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.nav-drop.open').forEach((d) => {
+        d.classList.remove('open');
+        d.querySelector('.nav-drop-btn')?.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+</script>
 
 </body>
 </html>
