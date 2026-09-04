@@ -18,13 +18,40 @@ One thing worth being upfront about: narcissistic personality disorder is a real
 
 Constant messages, grand declarations, "I've never felt this way about anyone" within days or weeks of meeting. It feels incredible in the moment — that's the point. Love-bombing works by creating a level of emotional investment and attachment before you've had time to actually evaluate the person, so that later behavior gets measured against the high of the beginning instead of judged on its own.
 
+<figure class="blog-fig">
+  <img src="/assets/img/blog/signs-youre-texting-a-narcissist/love-bombing-chat.jpg" alt="Illustration of a WhatsApp-style chat with an overwhelming burst of intense, affectionate messages sent in rapid succession" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+  <div class="blog-fig-placeholder">
+    <span>Image needed:</span>
+    <code>love-bombing-chat.jpg</code>
+  </div>
+  <figcaption>Love-bombing rarely looks alarming in the moment — that's exactly what makes it effective.</figcaption>
+</figure>
+
 ## 2. The Silent Treatment as Punishment
 
 Not a busy day — a deliberate, unexplained withdrawal that follows a disagreement or a moment where you asked for something reasonable. The message underneath the silence is unmistakable even though nothing is said: you're being punished, and the punishment ends when they decide it does, not when the actual issue gets resolved.
 
+<figure class="blog-fig">
+  <img src="/assets/img/blog/signs-youre-texting-a-narcissist/silent-treatment-chat.jpg" alt="Illustration of a WhatsApp-style chat with several outgoing messages left on read with no reply, showing a growing unanswered gap" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+  <div class="blog-fig-placeholder">
+    <span>Image needed:</span>
+    <code>silent-treatment-chat.jpg</code>
+  </div>
+  <figcaption>The gap itself is the message.</figcaption>
+</figure>
+
 ## 3. Gaslighting You Over Your Own Screenshots
 
 You can literally scroll up and show them what they wrote, and they'll still say "I never said that" or "you're twisting my words." This is one of the more disorienting patterns because it directly attacks your grip on reality using evidence that should settle the question instantly. When denial persists even against clear, visible proof, that's not a memory disagreement — that's a tactic.
+
+<figure class="blog-fig">
+  <img src="/assets/img/blog/signs-youre-texting-a-narcissist/gaslighting-chat.jpg" alt="Illustration of a WhatsApp-style chat where one person quotes an earlier message back, and the other flatly denies ever having said it" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+  <div class="blog-fig-placeholder">
+    <span>Image needed:</span>
+    <code>gaslighting-chat.jpg</code>
+  </div>
+  <figcaption>Denial, even against a visible screenshot, is the tell.</figcaption>
+</figure>
 
 ## 4. One-Word Replies Designed to Make You Chase
 
