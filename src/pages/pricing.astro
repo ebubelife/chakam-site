@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const appStoreUrl = 'https://apps.apple.com/ng/app/chakam-chat-wrapped-red-flag/id6792742396';
+const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.chakam.chatanalyzer';
+
+const comparison = [
+  { feature: 'AI Chat Analysis & Verdict', free: true, premium: true },
+  { feature: 'Vibe Check & relationship classification', free: true, premium: true },
+  { feature: 'Compatibility score', free: true, premium: true },
+  { feature: 'Message stats & activity trends', free: true, premium: true },
+  { feature: 'Ask Anything — chat Q&A', free: true, premium: true },
+  { feature: 'Multi-platform support (8+ sources)', free: true, premium: true },
+  { feature: 'Red Flag Report, in full detail', free: false, premium: true },
+  { feature: 'Green Flag Report', free: false, premium: true },
+  { feature: 'Ghost Risk Meter', free: false, premium: true },
+  { feature: 'Interest Over Time trend', free: false, premium: true },
+  { feature: 'Positivity vs Negativity / Vibe Over Time', free: false, premium: true },
+  { feature: "Who's More Into Who (effort breakdown)", free: false, premium: true },
+  { feature: 'Reply-speed & ghosting detail', free: false, premium: true },
+];
+---
+<BaseLayout
+  title="Pricing — Chakam"
+  description="Chakam is free to download, with affordable premium plans from $1.99 for the full AI chat analysis, red flags, ghost risk, and relationship insights."
+  active="pricing"
+>
+  <div class="wrap">
+    <div class="pricing-hero">
+      <span class="kicker">Pricing</span>
+      <h1>Simple pricing. Real clarity.</h1>
+      <p class="tagline">Chakam is a free chat analyzer at its core — premium unlocks the deeper dating advice, red flag detection, and ghost risk insight most people come back for.</p>
+      <div class="store-row">
+        <a class="store-badge" href={appStoreUrl}>
+          <img src="/assets/img/apple_icon.png" alt="App Store">
+          <span class="store-text">
+            <span class="store-eyebrow">Download on the</span>
+            <span class="store-name">App Store</span>
+          </span>
+        </a>
+        <a class="store-badge" href={playStoreUrl}>
+          <img src="/assets/img/png-clipart-goggle-playstore-icon-google-play-computer-icons-android-play-button-angle-rectangle.png" alt="Google Play">
+          <span class="store-text">
+            <span class="store-eyebrow">Get it on</span>
+            <span class="store-name">Google Play</span>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <div class="plans-grid">
+      <div class="plan-card">
+        <span class="plan-label">Free</span>
+        <div class="plan-price">$0</div>
+        <p class="plan-sub">Every chat you import gets a real AI verdict — no trial, no time limit.</p>
+        <div class="plan-checks">
+          <div class="privacy-item"><span class="tick">✓</span><p>A free AI verdict on every analysis, not just your first</p></div>
+          <div class="privacy-item"><span class="tick">✓</span><p>Vibe Check &amp; compatibility score</p></div>
+          <div class="privacy-item"><span class="tick">✓</span><p>Message stats &amp; activity trends</p></div>
+          <div class="privacy-item"><span class="tick">✓</span><p>Ask Anything — unlimited questions about your chat</p></div>
+          <div class="privacy-item"><span class="tick">✓</span><p>100% on-device by default, no account required</p></div>
+        </div>
+      </div>
+
+      <div class="plan-card plan-card--premium">
+        <span class="plan-label plan-label--premium">Premium</span>
+        <div class="plan-price">$1.99–$8.99</div>
+        <p class="plan-sub">Weekly and yearly plans, billed through the App Store or Google Play — see exact pricing for your region in the app.</p>
+        <div class="plan-checks">
+          <div class="privacy-item"><span class="tick">✓</span><p>Everything in Free, plus:</p></div>
+          <div class="privacy-item"><span class="tick">✓</span><p>Full Red Flag &amp; Green Flag Reports</p></div>
+          <div class="privacy-item"><span class="tick">✓</span><p>Ghost Risk Meter</p></div>
+          <div class="privacy-item"><span class="tick">✓</span><p>Interest Over Time trend</p></div>
+          <div class="privacy-item"><span class="tick">✓</span><p>Positivity vs Negativity &amp; Vibe Over Time</p></div>
+          <div class="privacy-item"><span class="tick">✓</span><p>Who's More Into Who — full effort breakdown</p></div>
+          <div class="privacy-item"><span class="tick">✓</span><p>Reply-speed &amp; ghosting detail</p></div>
+        </div>
+        <a class="btn primary plan-cta" href="#download">Go Premium</a>
+      </div>
+    </div>
+
+    <div class="section-head">
+      <span class="kicker">What premium unlocks</span>
+      <h2>The deeper read on your relationship</h2>
+      <p>Every feature below is grounded in your real chat history — not a horoscope, not generic dating advice.</p>
+    </div>
+
+    <div class="analyze-grid premium-grid">
+      <div class="analyze-card">
+        <h3>See red flags before they become a pattern</h3>
+        <p>One-sided effort, escalating arguments, money talk, ghosting — the full Red Flag and Green Flag Reports turn gut feelings into a real score, with receipts for exactly why each flag fired.</p>
+      </div>
+      <div class="analyze-card">
+        <h3>Spot ghosting risk before it happens</h3>
+        <p>The Ghost Risk Meter reads unanswered messages, fading engagement, and silence length to estimate the chance someone's about to pull away — before you're left wondering what happened.</p>
+      </div>
+      <div class="analyze-card">
+        <h3>Watch interest rise or fade, not just a snapshot</h3>
+        <p>Interest Over Time tracks who's been carrying the conversation, week by week, so you can see exactly when things started warming up — or when they began to cool off.</p>
+      </div>
+      <div class="analyze-card">
+        <h3>See the full emotional picture</h3>
+        <p>Positivity vs Negativity and Vibe Over Time score warmth against friction across every message, so tone shifts show up as a real trend line, not just a feeling you talk yourself out of.</p>
+      </div>
+      <div class="analyze-card">
+        <h3>Get the complete verdict, not a teaser</h3>
+        <p>The full AI verdict and effort breakdown — who's more into who, reply speed, double-texting — explain the "why" behind the numbers in plain language, the way a brutally honest friend would.</p>
+      </div>
+      <div class="analyze-card">
+        <h3>Track how a relationship changes, not just one moment</h3>
+        <p>Premium is built for coming back, not a one-time report — new insight keeps showing up as you check in, so your read on a relationship or dating pattern gets sharper over time, not staler.</p>
+      </div>
+    </div>
+
+    <div class="section-head">
+      <span class="kicker">Free vs Premium</span>
+      <h2>Compare every feature</h2>
+    </div>
+
+    <div class="pricing-table-wrap">
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Free</th>
+            <th>Premium</th>
+          </tr>
+        </thead>
+        <tbody>
+          {comparison.map((row) => (
+            <tr>
+              <td>{row.feature}</td>
+              <td class={row.free ? 'yes' : 'no'}>{row.free ? '✓' : '—'}</td>
+              <td class={row.premium ? 'yes' : 'no'}>{row.premium ? '✓' : '—'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-head">
+      <span class="kicker">FAQ</span>
+      <h2>Pricing questions</h2>
+    </div>
+    <div class="faq">
+      <div class="faq-item">
+        <h3>Is there really a free plan, or is it just a trial?</h3>
+        <p>It's a genuine free tier, not a time-limited trial — every chat you analyze gets a real AI verdict, Vibe Check, compatibility score, and unlimited Ask Anything questions for as long as you use Chakam, at no cost.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Why does the price show as a range?</h3>
+        <p>Chakam offers weekly and yearly premium plans, and exact pricing can vary slightly by region and by App Store vs. Google Play. $1.99–$8.99 covers the typical range — the app shows the exact price for your account before you ever pay anything.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I cancel anytime?</h3>
+        <p>Yes. Subscriptions are billed through the App Store or Google Play, so you manage or cancel them directly in your device's account settings — turn off auto-renew at least 24 hours before your renewal date to avoid the next charge.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is my payment information stored by Chakam?</h3>
+        <p>No — payments are processed entirely by Apple or Google, not by Chakam or Kodeblooded. We never see or store your card details; we only receive confirmation that a subscription is active.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Does premium work the same on iOS and Android?</h3>
+        <p>Yes — the same premium features (Red Flag and Green Flag Reports, Ghost Risk Meter, Interest Over Time, and the rest) are available on both platforms. Pricing may differ slightly between the App Store and Google Play.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="block" id="download">
+    <div class="wrap">
+      <div class="final-cta">
+        <h2>Ready for the full picture?</h2>
+        <p>Download Chakam free, and upgrade whenever you're ready for deeper dating advice, red flag detection, and relationship insights.</p>
+        <div class="store-row">
+          <a class="store-badge" href={appStoreUrl}>
+            <img src="/assets/img/apple_icon.png" alt="App Store">
+            <span class="store-text">
+              <span class="store-eyebrow">Download on the</span>
+              <span class="store-name">App Store</span>
+            </span>
+          </a>
+          <a class="store-badge" href={playStoreUrl}>
+            <img src="/assets/img/png-clipart-goggle-playstore-icon-google-play-computer-icons-android-play-button-angle-rectangle.png" alt="Google Play">
+            <span class="store-text">
+              <span class="store-eyebrow">Get it on</span>
+              <span class="store-name">Google Play</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
