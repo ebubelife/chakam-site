@@ -57,6 +57,31 @@ const ogImageURL = new URL(ogImage, Astro.site);
 <meta name="twitter:title" content={title}>
 <meta name="twitter:description" content={description}>
 <meta name="twitter:image" content={ogImageURL}>
+
+<!-- GA4, via the "Chakam Website" stream in the same Firebase project
+     (chakam-bfb39) the app reports to — one property, app + web both in
+     it. Plain gtag.js, not the firebase npm package: same data, no SDK
+     bundle needed for a static site. Production builds only, AND a
+     runtime hostname check — `astro build` bakes PROD=true into every
+     local `preview` run too (there's no separate staging mode), and a
+     local screenshot-QA pass (see this repo's history) would otherwise
+     fire real hits under a "localhost" hostname. The hostname check is
+     the one that actually matters; PROD skips even loading the script
+     during `astro dev`. -->
+{import.meta.env.PROD && (
+  <>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BM6FPQM9VK"></script>
+    <script define:vars={{ id: 'G-BM6FPQM9VK' }}>
+      if (/(^|\.)chakam\.site$/.test(location.hostname)) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', id);
+      }
+    </script>
+  </>
+)}
+
 <slot name="head" />
 </head>
 <body>
