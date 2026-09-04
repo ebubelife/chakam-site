@@ -451,12 +451,6 @@ h1 {
 .tag-red { background: #FBEAEA; color: #B23A3E; }
 .tag-green { background: #E0F1E9; color: #227A48; }
 
-.analyze-card .emoji {
-  font-size: 26px;
-  display: block;
-  margin-bottom: 10px;
-}
-
 .analyze-card h3 {
   font-size: 17px;
   font-weight: 800;
@@ -468,6 +462,97 @@ h1 {
   color: var(--muted);
   line-height: 1.55;
   margin: 0;
+}
+
+/* ---- "why choose Chakam": narrative + a checklist grid ---- */
+
+.choose-band {
+  padding: 64px 0;
+  border-top: 1px solid var(--line);
+}
+
+.choose-wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.choose-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.choose-copy h2 {
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  margin: 0 0 18px;
+}
+
+.choose-copy p {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0 0 14px;
+}
+
+.choose-checks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.check-item .tick {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+@media (max-width: 860px) {
+  .choose-grid { grid-template-columns: 1fr; }
+  .choose-copy { text-align: center; }
+  .choose-copy p { max-width: 480px; margin-left: auto; margin-right: auto; }
+  .choose-checks { grid-template-columns: 1fr; margin-top: 8px; }
+}
+
+/* ---- "why it matters": emotional-intelligence framing, 2x2 cards ---- */
+
+.insight-band {
+  padding: 64px 0;
+  border-top: 1px solid var(--line);
+}
+
+.insight-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+@media (max-width: 700px) {
+  .insight-grid { grid-template-columns: 1fr; }
 }
 
 section.block {
