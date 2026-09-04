@@ -148,6 +148,93 @@ nav.site-nav a.active {
   background: var(--bg);
 }
 
+/* ---- mobile nav: hamburger toggle + collapsible panel ---- */
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  padding: 6px;
+  margin: -6px;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.nav-toggle-icon path {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  transform-origin: 10px 10px;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-top { transform: translateY(4px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle-mid { opacity: 0; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bottom { transform: translateY(-4px) rotate(-45deg); }
+
+@media (max-width: 700px) {
+  header.site { position: relative; }
+
+  .nav-toggle { display: flex; align-items: center; justify-content: center; }
+
+  /* Full-width dropdown sheet instead of an inline row — positioned off
+     header.site (not .wrap), so it isn't clipped to the wrap's own
+     max-width/padding and can span edge to edge under the header. */
+  nav.site-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: var(--card);
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 20px 32px rgba(23, 23, 28, 0.12);
+    padding: 4px 24px 16px;
+    z-index: 50;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  nav.site-nav.open { display: flex; }
+
+  nav.site-nav > a {
+    padding: 14px 2px;
+    border-bottom: 1px solid var(--line);
+    font-size: 15px;
+  }
+
+  /* Platform/Features/Resources become full-width accordion sections —
+     a 320px floating panel (the desktop shape) makes no sense once the
+     whole nav is already a full-width sheet. */
+  .nav-drop {
+    width: 100%;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-drop-btn {
+    width: 100%;
+    justify-content: space-between;
+    padding: 14px 2px;
+    font-size: 15px;
+  }
+
+  .nav-drop-menu {
+    display: none;
+    position: static;
+    transform: none;
+    max-width: none;
+    min-width: 0;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    padding: 0 0 8px;
+  }
+
+  .nav-drop.open .nav-drop-menu { display: flex; }
+
+  .nav-drop-menu a { padding: 10px 8px; }
+}
+
 main {
   padding: 56px 0 80px;
 }
@@ -996,21 +1083,6 @@ footer.site .links a:hover { color: var(--ink); }
 
 @media (max-width: 560px) {
   h1 { font-size: 30px; }
-  nav.site-nav { gap: 14px; }
-  nav.site-nav a { font-size: 13px; }
-
-  /* 5 nav links + the brand no longer fit on one row at phone widths —
-     wrap onto a second, centered row instead of squeezing/overlapping. */
-  header.site .wrap {
-    flex-wrap: wrap;
-    justify-content: center;
-    row-gap: 10px;
-  }
-  nav.site-nav {
-    width: 100%;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
 
   /* Same overflow shape as the header nav above, now that the footer
      carries 8 links — wrap and center instead of trying to fit one row. */
