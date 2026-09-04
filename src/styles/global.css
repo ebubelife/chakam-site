@@ -1166,6 +1166,167 @@ footer.site .links a:hover { color: var(--ink); }
 
 .prose strong { font-weight: 800; }
 
+/* ---- in-article images — same "ship placeholder, upgrade later"
+   pattern as ScreenshotSlot.astro, but as raw HTML (these live inside
+   Markdown post bodies, which Astro passes raw HTML straight through,
+   so no component/plugin is needed) and landscape-shaped, not the
+   portrait phone-mockup shape ScreenshotSlot is built for. ---- */
+.blog-fig {
+  margin: 32px 0;
+}
+
+.blog-fig img {
+  width: 100%;
+  display: block;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+}
+
+.blog-fig-placeholder {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  aspect-ratio: 16 / 9;
+  background: var(--card);
+  border: 1.5px dashed var(--line);
+  border-radius: var(--radius);
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.blog-fig-placeholder code {
+  background: var(--bg);
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.blog-fig figcaption {
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.blog-fig-hero {
+  max-width: var(--maxw);
+  margin: 0 auto 40px;
+}
+
+.blog-fig-hero .blog-fig-placeholder { aspect-ratio: 16 / 8; }
+
+/* Mid-article download prompt — same store-badge markup as the sidebar
+   CTA, just framed as an inline card so it reads as part of the article
+   flow rather than a repeat of the sidebar. */
+.inline-cta {
+  margin: 40px 0;
+  padding: 24px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.inline-cta p {
+  margin: 0 0 16px;
+  font-weight: 700;
+}
+
+.inline-cta .store-row { justify-content: center; }
+
+/* ---- two-column post layout: article + sidebar (CTA, TOC, related) ---- */
+
+.post-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 40px;
+  align-items: start;
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.post-layout .prose { max-width: none; margin: 0; }
+
+.post-sidebar {
+  position: sticky;
+  top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.sidebar-card h3 {
+  font-size: 14px;
+  font-weight: 900;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+}
+
+.sidebar-cta p {
+  font-size: 13.5px;
+  color: var(--muted);
+  margin: 0 0 14px;
+}
+
+.sidebar-cta .store-row { flex-direction: column; }
+.sidebar-cta .store-badge { width: 100%; }
+
+.toc-list, .related-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toc-list a {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  line-height: 1.4;
+}
+
+.toc-list a:hover { color: var(--yellow-deep); }
+
+.related-list a {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+  line-height: 1.4;
+}
+
+.related-list a:hover { text-decoration: underline; }
+
+@media (max-width: 860px) {
+  .post-layout {
+    grid-template-columns: 1fr;
+  }
+  .post-sidebar {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .post-sidebar .sidebar-card {
+    flex: 1 1 240px;
+  }
+  .sidebar-cta .store-row { flex-direction: row; flex-wrap: wrap; }
+}
+
 .post-cta {
   margin-top: 48px;
   text-align: center;
