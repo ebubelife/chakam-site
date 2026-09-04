@@ -63,7 +63,7 @@ const faqSchema = {
 ---
 <BaseLayout
   title="Chakam — Chat Wrapped, Red Flags Decoded"
-  description="Chakam turns your WhatsApp, Telegram, and DM chats into a private, on-device wrapped: who's more into who, red flags, reply speed, and more."
+  description="Chakam turns your WhatsApp, Instagram, and dating app chats into a private, on-device wrapped: who's more into who, red flags, reply speed, and more."
   active="home"
 >
   <Fragment slot="head">
@@ -293,7 +293,7 @@ const faqSchema = {
         <div class="step">
           <div class="num">1</div>
           <h3>Import a chat</h3>
-          <p>Export straight from WhatsApp or Telegram, or drop in a few screenshots from Instagram, Snapchat, Messenger, or iMessage.</p>
+          <p>Export straight from WhatsApp, or drop in a few screenshots from Instagram, Snapchat, Messenger, iMessage, Tinder, Bumble, Hinge — or almost any other chat app.</p>
         </div>
         <div class="step">
           <div class="num">2</div>
@@ -317,16 +317,15 @@ const faqSchema = {
         <p>Export-based sources are read directly; the rest work from screenshots.</p>
       </div>
       <div class="sources-row">
-        <span class="source-pill"><img src="/assets/img/sources/whatsapp.png" alt="">WhatsApp</span>
-        <span class="source-pill"><img src="/assets/img/sources/telegram.png" alt="">Telegram</span>
-        <span class="source-pill"><img src="/assets/img/sources/instagram.jpg" alt="">Instagram</span>
-        <span class="source-pill"><img src="/assets/img/sources/snapchat.png" alt="">Snapchat</span>
-        <span class="source-pill"><img src="/assets/img/sources/messenger.jpg" alt="">Messenger</span>
-        <span class="source-pill"><img src="/assets/img/sources/imessage.jpg" alt="">iMessage</span>
-        <span class="source-pill"><span class="source-glyph" style="background:#FE3C72;">T</span>Tinder</span>
-        <span class="source-pill"><span class="source-glyph" style="background:#FFC629; color:#17171C;">B</span>Bumble</span>
-        <span class="source-pill"><span class="source-glyph" style="background:#17171C;">H</span>Hinge</span>
-        <span class="source-pill source-pill-more">More</span>
+        <a class="source-pill" href="/whatsapp-chat-analyzer/"><img src="/assets/img/sources/whatsapp.png" alt="">WhatsApp</a>
+        <a class="source-pill" href="/instagram-chat-analyzer/"><img src="/assets/img/sources/instagram.jpg" alt="">Instagram</a>
+        <a class="source-pill" href="/snapchat-chat-analyzer/"><img src="/assets/img/sources/snapchat.png" alt="">Snapchat</a>
+        <a class="source-pill" href="/messenger-chat-analyzer/"><img src="/assets/img/sources/messenger.jpg" alt="">Messenger</a>
+        <a class="source-pill" href="/imessage-chat-analyzer/"><img src="/assets/img/sources/imessage.jpg" alt="">iMessage</a>
+        <a class="source-pill" href="/tinder-chat-analyzer/"><span class="source-glyph" style="background:#FE3C72;">T</span>Tinder</a>
+        <a class="source-pill" href="/bumble-chat-analyzer/"><span class="source-glyph" style="background:#FFC629; color:#17171C;">B</span>Bumble</a>
+        <a class="source-pill" href="/hinge-chat-analyzer/"><span class="source-glyph" style="background:#17171C;">H</span>Hinge</a>
+        <span class="source-pill source-pill-more" title="Any other chat app — Telegram, Discord, WeChat, and more — works too, from screenshots">Other apps</span>
       </div>
     </div>
   </section>

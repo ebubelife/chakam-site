@@ -1,10 +1,16 @@
-// One entry per platform Chakam actually supports today (see the Flutter
+// One entry per NAMED platform Chakam supports today (see the Flutter
 // app's import_screen.dart _screenshotSources / WhatsApp export flow) —
-// deliberately NOT including Telegram, which the homepage's older
-// "Supported Chats" row still lists but which is hidden in the real app
-// (no iOS export path). Nav dropdown + [platform].astro pages are both
-// built from this single array, so a platform can never appear in one
-// place and not the other.
+// deliberately NOT including Telegram. Telegram has a real, working
+// parser (telegram_parser.dart), but its export is Telegram Desktop
+// JSON only, with no iOS path, so it's hidden as a dedicated source in
+// the app. Telegram (and any other app not listed here — Discord, WeChat,
+// LINE, Viber…) still works via the app's generic "Other" screenshot
+// source (see the homepage's "Other apps" pill) — it just doesn't get a
+// dedicated, platform-tuned page here, since a page makes an accuracy
+// promise ("built for this platform's UI") that a generic OCR bucket
+// can't back up. Nav dropdown + [platform].astro pages are both built
+// from this single array, so a platform can never appear in one place
+// and not the other.
 export interface PlatformStep {
   title: string;
   body: string;
