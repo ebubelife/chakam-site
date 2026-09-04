@@ -14,6 +14,11 @@ const blog = defineCollection({
     updated: z.coerce.date().optional(),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
+    // Both optional, same "ship now, upgrade later" pattern as the
+    // platform pages' ScreenshotSlot — reused directly for the hero
+    // image below. Omit both and the post just runs without a hero.
+    heroImage: z.string().optional(),
+    heroImageAlt: z.string().optional(),
   }),
 });
 

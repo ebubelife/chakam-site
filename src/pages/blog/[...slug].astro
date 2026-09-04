@@ -11,7 +11,30 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
+
+// H2s only for the "On this page" nav — a heading-dense long-form post
+// (this template is built for those) has plenty of H3s too, and listing
+// every one would turn the sidebar into a second article.
+const toc = headings.filter((h) => h.depth === 2);
+
+// Related reading: score every other post by shared tags, tie-break by
+// newest. With only a handful of posts today this mostly just surfaces
+// "the other posts," but the scoring means it keeps making sense as more
+// get added — no manual curation to maintain per post.
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const related = allPosts
+  .filter((p) => p.id !== post.id)
+  .map((p) => ({
+    post: p,
+    score: p.data.tags.filter((t) => post.data.tags.includes(t)).length,
+  }))
+  .sort((a, b) => b.score - a.score || b.post.data.date.valueOf() - a.post.data.date.valueOf())
+  .slice(0, 3)
+  .map((r) => r.post);
+
+const appStoreUrl = 'https://apps.apple.com/ng/app/chakam-chat-wrapped-red-flag/id6792742396';
+const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.chakam.chatanalyzer';
 
 const dateFmt = new Intl.DateTimeFormat('en-US', {
   month: 'long',
@@ -52,9 +75,71 @@ const articleSchema = {
       )}
     </div>
 
-    <article class="prose">
-      <Content />
-    </article>
+    {post.data.heroImage && (
+      <figure class="blog-fig blog-fig-hero">
+        <img
+          src={post.data.heroImage}
+          alt={post.data.heroImageAlt ?? post.data.title}
+          loading="eager"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+        />
+        <div class="blog-fig-placeholder">
+          <span>Image needed:</span>
+          <code>{post.data.heroImage.split('/').pop()}</code>
+        </div>
+      </figure>
+    )}
+
+    <div class="post-layout">
+      <article class="prose">
+        <Content />
+      </article>
+
+      <aside class="post-sidebar">
+        <div class="sidebar-card sidebar-cta">
+          <h3>Get Chakam</h3>
+          <p>Free to start, on-device by default — see what your own chats actually show.</p>
+          <div class="store-row">
+            <a class="store-badge" href={appStoreUrl}>
+              <img src="/assets/img/apple_icon.png" alt="App Store">
+              <span class="store-text">
+                <span class="store-eyebrow">Download on the</span>
+                <span class="store-name">App Store</span>
+              </span>
+            </a>
+            <a class="store-badge" href={playStoreUrl}>
+              <img src="/assets/img/png-clipart-goggle-playstore-icon-google-play-computer-icons-android-play-button-angle-rectangle.png" alt="Google Play">
+              <span class="store-text">
+                <span class="store-eyebrow">Get it on</span>
+                <span class="store-name">Google Play</span>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        {toc.length > 0 && (
+          <div class="sidebar-card">
+            <h3>On this page</h3>
+            <ul class="toc-list">
+              {toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}
+            </ul>
+          </div>
+        )}
+
+        {related.length > 0 && (
+          <div class="sidebar-card">
+            <h3>Related reading</h3>
+            <ul class="related-list">
+              {related.map((r) => (
+                <li>
+                  <a href={`/blog/${r.id}/`}>{r.data.title}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </aside>
+    </div>
 
     <div class="post-cta">
       <h2>Curious what your own chats say?</h2>
