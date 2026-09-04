@@ -3,12 +3,73 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const appStoreUrl = 'https://apps.apple.com/ng/app/chakam-chat-wrapped-red-flag/id6792742396';
 const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.chakam.chatanalyzer';
+
+// One source of truth for both the visible FAQ section and its FAQPage
+// JSON-LD below — schema and what a visitor actually sees can never drift
+// out of sync this way (a real risk if they were maintained separately).
+const faqs = [
+  {
+    q: 'Does my raw chat ever leave my phone?',
+    a: 'No — the metrics and cards you see are calculated on-device. The only things that can leave are a small, aliased sample used to write the AI verdict, and screenshot images for sources that require OCR (Instagram, Snapchat, Messenger, iMessage) — full details in the <a href="/privacy/">Privacy Policy</a>.',
+  },
+  {
+    q: 'Do I need to create an account?',
+    a: 'No. Open the app, import a chat, and you’re straight into your results.',
+  },
+  {
+    q: 'What does the subscription unlock?',
+    a: 'The free tier gives you a first set of cards on every analysis. Premium unlocks the rest of the deck — red flag detail, ghosting risk, reply-speed breakdowns, and the full AI verdict.',
+  },
+  {
+    q: 'Can I delete my data?',
+    a: 'Yes, anytime — "Clear all data" in Settings wipes everything stored on your device. We don’t have a server-side copy to delete, because we never keep one.',
+  },
+  {
+    q: 'Is Chakam free to download?',
+    a: 'Yes — Chakam is completely free to download on iOS and Android, with no signup required to start. Every chat analysis you run comes with a free AI verdict card and a first set of report cards at no cost, so you can try the chat analyzer for yourself before paying anything. For the full deck — detailed Red Flag and Green Flag Reports, the Ghost Risk Meter, Interest Over Time, and more — you can upgrade to one of our affordable premium plans whenever you’re ready for deeper relationship insights.',
+  },
+  {
+    q: 'Will my data be used to train AI models?',
+    a: 'No — never. Your chats, screenshots, and personal data are not used to train AI models, improve machine learning systems, or build any dataset, ours or a third party’s. We also don’t store your data on our servers at all: each request is processed in real time and discarded immediately afterward. Your conversations exist in exactly one place — your own device — which is also why privacy and data protection are built into Chakam from the ground up, not bolted on as an afterthought.',
+  },
+  {
+    q: 'How is Chakam better than a dating coach?',
+    a: 'Chakam is available 24/7 — no appointments, no hourly rate, no waiting days for a session. It’s a judgment-free dating companion you can turn to any time you need clarity: decoding mixed signals late at night, getting a second opinion before you hit send, or making sense of a pattern you can’t quite name on your own. Chakam isn’t a substitute for professional relationship therapy or serious mental health support, but for everyday dating advice, relationship tips, and a data-driven gut-check before a big decision, it’s there the moment you actually need it — grounded in your real conversation, not generic advice.',
+  },
+  {
+    q: 'What languages are supported?',
+    a: 'Chakam supports multiple languages, so the tips, insights, and dating advice you get stay accurate no matter what language you text in. It’s built to understand real, everyday texting — not just formal phrasing — including modern slang, abbreviations, and emoji, so the read on tone, red flags, and vibe holds up whether you’re chatting in English, Spanish, Portuguese, French, or beyond.',
+  },
+  {
+    q: 'How accurate are the insights?',
+    a: 'Chakam’s accuracy comes from what it actually measures: objective communication signals — response timing, message frequency, emotional tone, and engagement consistency — rather than assumptions or guesswork. Because every insight is grounded in your real chat history instead of generic relationship advice, the resulting red flags, compatibility scores, and interest trends reflect genuine patterns in your dynamic. That said, Chakam is a data-driven analysis tool, not a replacement for your own judgment — it works best as a second opinion alongside your own read of the situation and the real-world context only you have.',
+  },
+];
+
+// Schema.org wants plain text, not the markup — only one answer above
+// actually has a tag in it (the Privacy Policy link), but stripping is
+// cheap enough to just always do rather than special-case that one.
+const stripTags = (html: string) => html.replace(/<[^>]+>/g, '');
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: stripTags(f.a) },
+  })),
+};
 ---
 <BaseLayout
   title="Chakam — Chat Wrapped, Red Flags Decoded"
   description="Chakam turns your WhatsApp, Telegram, and DM chats into a private, on-device wrapped: who's more into who, red flags, reply speed, and more."
   active="home"
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
   <section class="hero-band">
     <div class="hero-wrap">
       <div class="hero-grid">
@@ -306,10 +367,13 @@ const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.chakam.c
         <div class="privacy-visual">
           <div class="privacy-ring privacy-ring--outer">
             <div class="privacy-ring privacy-ring--inner">
-              <svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="#17171C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="4" y="11" width="16" height="10" rx="2.5"></rect>
-                <path d="M7.5 11V7.5a4.5 4.5 0 0 1 9 0V11"></path>
-              </svg>
+              <img class="privacy-logo" src="/assets/img/logo.png" alt="Chakam">
+              <div class="privacy-lock-badge">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="4" y="11" width="16" height="10" rx="2.5"></rect>
+                  <path d="M7.5 11V7.5a4.5 4.5 0 0 1 9 0V11"></path>
+                </svg>
+              </div>
             </div>
           </div>
         </div>
@@ -324,22 +388,12 @@ const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.chakam.c
         <h2>Good questions</h2>
       </div>
       <div class="faq">
-        <div class="faq-item">
-          <h3>Does my raw chat ever leave my phone?</h3>
-          <p>No — the metrics and cards you see are calculated on-device. The only things that can leave are a small, aliased sample used to write the AI verdict, and screenshot images for sources that require OCR (Instagram, Snapchat, Messenger, iMessage) — full details in the <a href="/privacy/">Privacy Policy</a>.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Do I need to create an account?</h3>
-          <p>No. Open the app, import a chat, and you're straight into your results.</p>
-        </div>
-        <div class="faq-item">
-          <h3>What does the subscription unlock?</h3>
-          <p>The free tier gives you a first set of cards on every analysis. Premium unlocks the rest of the deck — red flag detail, ghosting risk, reply-speed breakdowns, and the full AI verdict.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Can I delete my data?</h3>
-          <p>Yes, anytime — "Clear all data" in Settings wipes everything stored on your device. We don't have a server-side copy to delete, because we never keep one.</p>
-        </div>
+        {faqs.map((f) => (
+          <div class="faq-item">
+            <h3>{f.q}</h3>
+            <p set:html={f.a} />
+          </div>
+        ))}
       </div>
     </div>
   </section>
