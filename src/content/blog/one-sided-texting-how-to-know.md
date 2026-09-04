@@ -1,6 +1,7 @@
 ---
 title: "One-Sided Texting: How to Actually Know (Not Guess) Who's Trying Harder"
-description: "\"It feels like I'm always the one texting first\" is a real thing to notice — and also exactly the kind of thing your memory is bad at measuring accurately. Here's how to actually check."
+seoTitle: "One-Sided Texting: How to Know Who's Trying Harder"
+description: "\"It feels like I'm always texting first\" is real to notice — and exactly what your memory is bad at measuring accurately. Here's how to actually check."
 date: 2026-09-01
 updated: 2026-09-04
 tags: ["effort", "reciprocity", "texting patterns", "one-sided texting"]

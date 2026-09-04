@@ -56,7 +56,7 @@ const articleSchema = {
   publisher: { '@type': 'Organization', name: 'Chakam' },
 };
 ---
-<BaseLayout title={`${post.data.title} — Chakam`} description={post.data.description} active="blog">
+<BaseLayout title={`${post.data.seoTitle ?? post.data.title} — Chakam`} description={post.data.description} active="blog">
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
   </Fragment>

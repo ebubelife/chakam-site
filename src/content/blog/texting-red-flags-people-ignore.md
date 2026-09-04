@@ -1,6 +1,6 @@
 ---
 title: "5 Texting Red Flags Everyone Notices Too Late"
-description: "Not the obvious ones. These are the red flags that show up early in a chat history but usually get explained away in the moment — until the pattern is undeniable. Here's how to actually catch them sooner."
+description: "Not the obvious ones. These are the red flags that show up early in a chat history but usually get explained away — until the pattern is undeniable."
 date: 2026-08-27
 updated: 2026-09-04
 tags: ["red flags", "texting patterns", "texting red flags"]
