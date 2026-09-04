@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import type { GetStaticPathsOptions } from 'astro';
+
+// [...page] (not index.astro) so Astro's paginate() can generate this
+// route for every page — /blog/ (page 1) and /blog/2/, /blog/3/, etc.,
+// all from one file. draft posts (draft: true) never appear here or on
+// their own page — see [...slug].astro's matching guard.
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+  );
+  // 6 cards a page — plenty of room before pagination kicks in with
+  // today's post count, but wired up correctly for whenever it does.
+  return paginate(posts, { pageSize: 6 });
+}
+
+const { page } = Astro.props;
+
+const dateFmt = new Intl.DateTimeFormat('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+});
+
+// Page 1 keeps the plain title/description (what's already indexed and
+// shared). Page 2+ gets "— Page N" appended — a distinct <title> per
+// page avoids every paginated page looking like duplicate content to
+// Google, and the canonical URL (computed from Astro.url.pathname in
+// BaseLayout) is already correct per page with no extra work.
+const pageSuffix = page.currentPage > 1 ? ` — Page ${page.currentPage}` : '';
+
+// Astro's page.url.prev/next don't reliably carry a trailing slash;
+// every other link on this site does, so normalize rather than have
+// pagination be the one inconsistent set of hrefs.
+const withSlash = (url: string | undefined) => (url && !url.endsWith('/') ? `${url}/` : url);
+const prevUrl = withSlash(page.url.prev);
+const nextUrl = withSlash(page.url.next);
+---
+<BaseLayout
+  title={`The Chakam Blog — Texting Patterns & Red Flags${pageSuffix}`}
+  description="Straight talk on texting patterns, red flags, and what your chat history actually says about a relationship — from the team building Chakam."
+  active="blog"
+>
+  <div class="wrap">
+    <div class="blog-hero">
+      <h1>The Chakam Blog</h1>
+      <p>What your texts actually say — red flags, effort, ghosting, and the patterns worth noticing.</p>
+      <div class="store-row">
+        <a class="store-badge" href="https://apps.apple.com/ng/app/chakam-chat-wrapped-red-flag/id6792742396">
+          <img src="/assets/img/apple_icon.png" alt="App Store">
+          <span class="store-text">
+            <span class="store-eyebrow">Download on the</span>
+            <span class="store-name">App Store</span>
+          </span>
+        </a>
+        <a class="store-badge" href="https://play.google.com/store/apps/details?id=com.chakam.chatanalyzer">
+          <img src="/assets/img/png-clipart-goggle-playstore-icon-google-play-computer-icons-android-play-button-angle-rectangle.png" alt="Google Play">
+          <span class="store-text">
+            <span class="store-eyebrow">Get it on</span>
+            <span class="store-name">Google Play</span>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <div class="post-list">
+      {page.data.map((post) => (
+        <a class="post-card" href={`/blog/${post.id}/`}>
+          <span class="post-date">{dateFmt.format(post.data.date)}</span>
+          <h2>{post.data.title}</h2>
+          <p>{post.data.description}</p>
+        </a>
+      ))}
+    </div>
+
+    {page.lastPage > 1 && (
+      <nav class="pagination" aria-label="Blog pagination">
+        {prevUrl ? (
+          <a class="pagination-link" href={prevUrl}>&larr; Newer posts</a>
+        ) : (
+          <span class="pagination-link pagination-disabled">&larr; Newer posts</span>
+        )}
+        <span class="pagination-status">Page {page.currentPage} of {page.lastPage}</span>
+        {nextUrl ? (
+          <a class="pagination-link" href={nextUrl}>Older posts &rarr;</a>
+        ) : (
+          <span class="pagination-link pagination-disabled">Older posts &rarr;</span>
+        )}
+      </nav>
+    )}
+  </div>
+</BaseLayout>
