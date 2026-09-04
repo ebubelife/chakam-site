@@ -1,0 +1,178 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ScreenshotSlot from '../components/ScreenshotSlot.astro';
+import { platforms } from '../data/platforms';
+
+export function getStaticPaths() {
+  return platforms.map((p) => ({
+    params: { platform: p.slug },
+    props: { platform: p },
+  }));
+}
+
+const { platform: p } = Astro.props;
+
+const appStoreUrl = 'https://apps.apple.com/ng/app/chakam-chat-wrapped-red-flag/id6792742396';
+const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.chakam.chatanalyzer';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: p.faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+const howToSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: `How to analyze a ${p.name} chat with Chakam`,
+  step: p.steps.map((s) => ({ '@type': 'HowToStep', name: s.title, text: s.body })),
+};
+---
+<BaseLayout
+  title={`${p.navLabel} — Chakam`}
+  description={p.metaDescription}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />
+  </Fragment>
+
+  <section class="hero-band">
+    <div class="hero-wrap">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <h1>{p.heroHeadline}</h1>
+          <p class="tagline">{p.heroSub}</p>
+
+          <div class="store-row">
+            <a class="store-badge" href={appStoreUrl}>
+              <img src="/assets/img/apple_icon.png" alt="App Store">
+              <span class="store-text">
+                <span class="store-eyebrow">Download on the</span>
+                <span class="store-name">App Store</span>
+              </span>
+            </a>
+            <a class="store-badge" href={playStoreUrl}>
+              <img src="/assets/img/png-clipart-goggle-playstore-icon-google-play-computer-icons-android-play-button-angle-rectangle.png" alt="Google Play">
+              <span class="store-text">
+                <span class="store-eyebrow">Get it on</span>
+                <span class="store-name">Google Play</span>
+              </span>
+            </a>
+          </div>
+
+          <div class="trust-row">
+            {p.heroTrustPills.map((t) => <span class="trust-pill">{t}</span>)}
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <ScreenshotSlot
+            src={`/assets/img/platforms/${p.screenshotFile}`}
+            alt={p.screenshotAlt}
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="analyze-band">
+    <div class="analyze-wrap">
+      <div class="section-head">
+        <span class="kicker">How it works</span>
+        <h2>How to analyze a {p.name} chat with Chakam</h2>
+        <p>{p.importMethod === 'export'
+          ? `${p.name} is the one source Chakam reads from a real export — no screenshots needed.`
+          : `${p.name} doesn't offer a chat export, so Chakam reads your conversation directly from screenshots — no login required.`}</p>
+      </div>
+
+      <div class="steps">
+        {p.steps.map((s, i) => (
+          <div class="step">
+            <div class="num">{i + 1}</div>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="why-band">
+    <div class="why-wrap">
+      <div class="section-head">
+        <span class="kicker">What Chakam reveals</span>
+        <h2>What your {p.name} chat analysis actually shows</h2>
+      </div>
+      <div class="analyze-grid">
+        {p.insights.map((ins) => (
+          <div class="analyze-card">
+            <h3>{ins.title}</h3>
+            <p>{ins.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="choose-band">
+    <div class="why-wrap">
+      <div class="section-head">
+        <span class="kicker">Who it's for</span>
+        <h2>Who uses Chakam's {p.name} chat analyzer</h2>
+      </div>
+      <div class="analyze-grid">
+        {p.personas.map((per) => (
+          <div class="analyze-card">
+            <h3>{per.title}</h3>
+            <p>{per.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">FAQ</span>
+      <h2>{p.name} chat analysis, answered</h2>
+    </div>
+    <div class="faq">
+      {p.faq.map((f) => (
+        <div class="faq-item">
+          <h3>{f.q}</h3>
+          <p>{f.a}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <section class="block" id="download">
+    <div class="wrap">
+      <div class="final-cta">
+        <h2>Ready to analyze your {p.name} chat?</h2>
+        <p>Free to start, on iOS and Android — your full {p.name} chat analysis in under a minute.</p>
+        <div class="store-row">
+          <a class="store-badge" href={appStoreUrl}>
+            <img src="/assets/img/apple_icon.png" alt="App Store">
+            <span class="store-text">
+              <span class="store-eyebrow">Download on the</span>
+              <span class="store-name">App Store</span>
+            </span>
+          </a>
+          <a class="store-badge" href={playStoreUrl}>
+            <img src="/assets/img/png-clipart-goggle-playstore-icon-google-play-computer-icons-android-play-button-angle-rectangle.png" alt="Google Play">
+            <span class="store-text">
+              <span class="store-eyebrow">Get it on</span>
+              <span class="store-name">Google Play</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
