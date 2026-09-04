@@ -107,7 +107,14 @@ const ogImageURL = new URL(ogImage, Astro.site);
       <img src="/assets/img/logo.png" alt="Chakam">
       Chakam
     </a>
-    <nav class="site-nav">
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
+      <svg class="nav-toggle-icon" viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <path class="nav-toggle-top" d="M3 6h14"></path>
+        <path class="nav-toggle-mid" d="M3 10h14"></path>
+        <path class="nav-toggle-bottom" d="M3 14h14"></path>
+      </svg>
+    </button>
+    <nav class="site-nav" id="site-nav">
       <a href="/" class={active === 'home' ? 'active' : ''}>Home</a>
       <a href="/blog/" class={active === 'blog' ? 'active' : ''}>Blog</a>
       <a href="/about/" class={active === 'about' ? 'active' : ''}>About</a>
@@ -172,6 +179,36 @@ const ogImageURL = new URL(ogImage, Astro.site);
 </footer>
 
 <script>
+  const navToggle = document.querySelector('.nav-toggle');
+  const siteNav = document.querySelector('.site-nav');
+
+  function closeDrops() {
+    document.querySelectorAll('.nav-drop.open').forEach((d) => {
+      d.classList.remove('open');
+      d.querySelector('.nav-drop-btn')?.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  // The mobile hamburger panel and the Platform/Features/Resources
+  // dropdowns inside it are two independent open/close states — closing
+  // the outer panel also resets any dropdown left open inside it, so it
+  // doesn't reappear pre-expanded next time it's opened.
+  function closeMobileNav() {
+    siteNav?.classList.remove('open');
+    navToggle?.setAttribute('aria-expanded', 'false');
+    closeDrops();
+  }
+
+  navToggle?.addEventListener('click', () => {
+    const isOpen = siteNav?.classList.contains('open');
+    if (isOpen) {
+      closeMobileNav();
+    } else {
+      siteNav?.classList.add('open');
+      navToggle.setAttribute('aria-expanded', 'true');
+    }
+  });
+
   // Click-to-toggle nav dropdowns (Platform/Features/Resources) — not
   // hover-based, since hover doesn't exist on touch devices and this way
   // desktop and mobile share the exact same interaction.
@@ -182,30 +219,32 @@ const ogImageURL = new URL(ogImage, Astro.site);
       const drop = btn.closest('.nav-drop');
       if (!drop) return;
       const isOpen = drop.classList.contains('open');
-      document.querySelectorAll('.nav-drop.open').forEach((d) => {
-        d.classList.remove('open');
-        d.querySelector('.nav-drop-btn')?.setAttribute('aria-expanded', 'false');
-      });
+      closeDrops();
       if (!isOpen) {
         drop.classList.add('open');
         btn.setAttribute('aria-expanded', 'true');
       }
       return;
     }
+    // A plain nav link (Home/Blog/About, or one inside an open dropdown)
+    // navigates the page away regardless, but closing first avoids a
+    // flash of the open panel on browsers that serve the next page from
+    // cache with the old DOM state (back/forward cache).
+    if (target.closest('.site-nav') && target.tagName === 'A') {
+      closeMobileNav();
+      return;
+    }
     if (!target.closest('.nav-drop')) {
-      document.querySelectorAll('.nav-drop.open').forEach((d) => {
-        d.classList.remove('open');
-        d.querySelector('.nav-drop-btn')?.setAttribute('aria-expanded', 'false');
-      });
+      closeDrops();
+    }
+    if (!target.closest('.site-nav') && !target.closest('.nav-toggle')) {
+      closeMobileNav();
     }
   });
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      document.querySelectorAll('.nav-drop.open').forEach((d) => {
-        d.classList.remove('open');
-        d.querySelector('.nav-drop-btn')?.setAttribute('aria-expanded', 'false');
-      });
+      closeMobileNav();
     }
   });
 </script>
