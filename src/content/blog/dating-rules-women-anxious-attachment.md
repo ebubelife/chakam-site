@@ -4,7 +4,7 @@ description: "Real dating guidelines for anxious attachment, plus the specific d
 date: 2026-09-15
 tags: ["anxious attachment", "attachment styles", "dating advice"]
 heroImage: "/assets/img/blog/dating-rules-women-anxious-attachment/hero.jpg"
-heroImageAlt: "Illustration of a woman holding a phone with a calm, steady posture, small anxious thought bubbles fading into the background"
+heroImageAlt: "A young woman taking a calm, nonchalant mirror selfie in her bedroom"
 ---
 
 Most generic dating advice for anxious attachment is written as if the psychology exists in a vacuum — as if the only thing standing between an anxiously attached person and a secure relationship is a checklist of better habits. For women specifically, there's an extra layer most of that advice skips entirely: a real, well-documented double standard where the exact same behavior that gets read as "healthy communication" from one person gets labeled clingy, needy, or "too much" from another. Any real set of dating rules for anxious attachment has to deal with both things at once — the underlying pattern, and the specific cultural pressure that makes it harder to just express it plainly.
@@ -30,7 +30,7 @@ There's a specific stigma that attaches to women expressing anxious attachment b
 Anxious attachment tends to load enormous meaning onto one text, one date, one slightly off interaction — which makes every single moment feel like it's deciding the whole relationship. Seeing someone else at the same time you're getting to know this person, at least early on, isn't about playing games — it's a genuinely useful way to lower the stakes on any one conversation while things are still actually being figured out.
 
 <figure class="blog-fig">
-  <img src="/assets/img/blog/dating-rules-women-anxious-attachment/pressure-valve.jpg" alt="Illustration of a single conversation bubble with reduced pressure lines around it, representing lower stakes on any one interaction" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+  <img src="/assets/img/blog/dating-rules-women-anxious-attachment/pressure-valve.jpg" alt="Two friends laughing together at a café table, phone face-down and forgotten beside them" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
   <div class="blog-fig-placeholder">
     <span>Image needed:</span>
     <code>pressure-valve.jpg</code>
