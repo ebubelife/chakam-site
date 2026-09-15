@@ -4,7 +4,7 @@ description: "What to actually say back to a flirty or suggestive text — wheth
 date: 2026-09-15
 tags: ["texting tips", "flirting", "dating advice"]
 heroImage: "/assets/img/blog/how-to-reply-to-a-dirty-text/hero.jpg"
-heroImageAlt: "Illustration of a phone with a flirty text message and a thought bubble showing someone deciding how to respond"
+heroImageAlt: "A young woman lying on her bed at night, smiling at her phone while deciding how to reply to a text"
 ---
 
 Getting a flirty or suggestive text and freezing up over the reply is more common than it looks like from the outside. The message itself usually isn't the hard part — it's the split-second pressure of a reply that needs to land right: not too eager, not too cold, not a line that reads like it was copied from somewhere. Most of that pressure disappears once the actual decision gets made explicit, which is the part almost every quick "here's what to text back" list skips.
@@ -52,10 +52,10 @@ A plain, friendly "that's not really my thing over text" is a complete, reasonab
 If a certain kind of text isn't something you're comfortable with, saying so plainly is a legitimate response on its own — not something that needs to be softened into a joke every time to be acceptable.
 
 <figure class="blog-fig">
-  <img src="/assets/img/blog/how-to-reply-to-a-dirty-text/three-paths.jpg" alt="Illustration of three diverging paths from a single text message, representing the three different ways to respond depending on interest level" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+  <img src="/assets/img/blog/how-to-reply-to-a-dirty-text/texting-reaction.jpg" alt="Close-up of hands typing a reply to a flirty text message on a phone" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
   <div class="blog-fig-placeholder">
     <span>Image needed:</span>
-    <code>three-paths.jpg</code>
+    <code>texting-reaction.jpg</code>
   </div>
   <figcaption>The right reply depends on the direction, not the wording.</figcaption>
 </figure>
