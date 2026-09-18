@@ -1,0 +1,800 @@
+---
+// Chat Report Generator — builds a "chat wrapped"-style stat card grid
+// (the genre this whole tool is modeled on: ChatRecap AI-style TikTok
+// slideshows) and exports it as a real PNG sized for TikTok, entirely
+// client-side. See src/data/tools.ts for how this plugs into the shared
+// /tools/ sidebar.
+//
+// Deliberately real HTML/CSS rendered to an image via html2canvas, not
+// an AI image-generation prompt — a dense multi-card dashboard with
+// exact numbers and bar/gauge charts is exactly what text-to-image
+// models reliably garble. This way every number, bar, and color is
+// exactly what was typed, because it IS what was typed.
+import ToolsLayout from '../../layouts/ToolsLayout.astro';
+---
+<ToolsLayout title="Chat Report Generator" activeSlug="chat-report">
+  <div class="page-head">
+    <h1>Chat Report Generator</h1>
+    <p>Build a stat-card report, pick a preset to start fast, tweak the numbers, download a TikTok-ready image.</p>
+  </div>
+
+  <div class="workspace">
+    <!-- ============ LEFT: EDITOR ============ -->
+    <div class="editor-col">
+      <div class="panel">
+        <div class="panel-title">Presets</div>
+        <div class="preset-row">
+          <button type="button" class="btn btn-preset" data-preset="fullBreakdown">Full Breakdown</button>
+          <button type="button" class="btn btn-preset" data-preset="theRoast">The Roast</button>
+          <button type="button" class="btn btn-preset" data-preset="gutPunch">Gut Punch</button>
+        </div>
+        <p class="hint">Loading a preset replaces the cards below — everything stays fully editable after.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Caption (the white bar above the card)</div>
+        <label class="field">
+          <span>Hook line</span>
+          <input type="text" id="captionLine1" maxlength="60">
+        </label>
+        <label class="field">
+          <span>Sub line</span>
+          <div class="field-row">
+            <input type="text" id="captionLine2" maxlength="50">
+            <input type="text" id="captionEmoji" maxlength="4" class="emoji-input" placeholder="😭">
+          </div>
+        </label>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Card header</div>
+        <label class="field">
+          <span>Title inside the card</span>
+          <input type="text" id="cardTitle" maxlength="40">
+        </label>
+        <label class="field">
+          <span>Background</span>
+          <select id="bgStyle">
+            <option value="pinkPurple">Pink → Purple</option>
+            <option value="chakamYellow">Chakam Yellow → Ink</option>
+            <option value="blueTeal">Blue → Teal</option>
+            <option value="plain">Plain white</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Cards</div>
+        <div id="cardsEditor"></div>
+        <div class="add-card-row">
+          <select id="newCardType">
+            <option value="dualStat">Dual Stat (You vs Them)</option>
+            <option value="gauge">Gauge (%)</option>
+            <option value="barChart">Bar Chart</option>
+            <option value="lineChart">Line Chart (trend)</option>
+            <option value="redFlags">Red Flags List</option>
+            <option value="bigNumber">Big Number Flex</option>
+            <option value="persona">Persona Card</option>
+            <option value="stoppers">Conversation Stoppers</option>
+          </select>
+          <button type="button" class="btn" id="addCardBtn">+ Add card</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ RIGHT: PREVIEW ============ -->
+    <div class="preview-col">
+      <div class="preview-sticky">
+        <div class="preview-frame" id="previewFrame">
+          <div class="preview-scaler" id="previewScaler">
+            <div id="slide" class="slide"></div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-download" id="downloadBtn">Download PNG (1080×1350)</button>
+        <p class="hint center">Not linked anywhere on chakam.site — bookmark this page to come back to it.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" is:inline></script>
+  <script is:inline>
+    // ---------------------------------------------------------------
+    // State
+    // ---------------------------------------------------------------
+    const PALETTE = ['#EAE7FB', '#DDEBFA', '#FCE4EC', '#E1F5EA', '#FFF3D6', '#FDE2E2', '#E0F7F5', '#F3E5F5'];
+    let paletteIdx = 0;
+    function nextColor() {
+      const c = PALETTE[paletteIdx % PALETTE.length];
+      paletteIdx++;
+      return c;
+    }
+    function uid() {
+      return Math.random().toString(36).slice(2, 9);
+    }
+
+    const state = {
+      captionLine1: "I ran my ex's texts through Chakam...",
+      captionLine2: '(be honest, am I cooked??)',
+      captionEmoji: '😭',
+      cardTitle: 'Chakam: Dating Text Analyzer',
+      bgStyle: 'pinkPurple',
+      cards: [],
+    };
+
+    // ---------------------------------------------------------------
+    // Card type definitions: default field values + editor field specs
+    // ---------------------------------------------------------------
+    const CARD_DEFAULTS = {
+      dualStat: () => ({ title: 'Messages count', leftLabel: 'you', leftValue: '5789', rightLabel: 'them', rightValue: '872' }),
+      gauge: () => ({ title: 'Interest level', leftLabel: 'you', leftValue: 87, rightLabel: 'them', rightValue: 6 }),
+      barChart: () => ({ title: 'Top used words (them)', bars: [{ label: 'busy', value: 41 }, { label: 'maybe', value: 33 }, { label: 'sorry', value: 22 }] }),
+      lineChart: () => ({ title: 'Messages per month', points: [40, 55, 60, 58, 62, 70, 65, 60, 50, 30, 15, 5] }),
+      redFlags: () => ({ name: 'Them', flags: ['Still watching your stories daily', 'Cancelled plans 4 times this month', 'Left you on read for 3 days straight'] }),
+      bigNumber: () => ({ title: 'Times left on read', number: '47', sub: "you're in the top 0.01% of ignored senders" }),
+      persona: () => ({ emoji: '🤡', title: 'TOTAL CLOWN', line: "Chakam is just AI, but even it thinks you should focus on yourself, king." }),
+      stoppers: () => ({ leftLabel: 'you', leftValue: 'hey, you up?', rightLabel: 'them', rightValue: 'lol', note: 'most common last messages before 24+ hours of silence' }),
+    };
+
+    const CARD_LABELS = {
+      dualStat: 'Dual Stat', gauge: 'Gauge', barChart: 'Bar Chart', lineChart: 'Line Chart',
+      redFlags: 'Red Flags', bigNumber: 'Big Number', persona: 'Persona', stoppers: 'Stoppers',
+    };
+
+    function addCard(type, overrides) {
+      const card = {
+        id: uid(),
+        type,
+        color: nextColor(),
+        wide: type === 'redFlags' || type === 'bigNumber' || type === 'persona' || type === 'stoppers',
+        fields: Object.assign(CARD_DEFAULTS[type](), overrides || {}),
+      };
+      state.cards.push(card);
+      return card;
+    }
+
+    // ---------------------------------------------------------------
+    // Presets
+    // ---------------------------------------------------------------
+    function loadPreset(name) {
+      if (state.cards.length && !confirm('This replaces all current cards. Continue?')) return;
+      state.cards = [];
+      paletteIdx = 0;
+      if (name === 'fullBreakdown') {
+        addCard('dualStat', { title: 'Messages count', leftLabel: 'you', leftValue: '5789', rightLabel: 'them', rightValue: '872' });
+        addCard('dualStat', { title: 'Average response time', leftLabel: 'you', leftValue: '34s', rightLabel: 'them', rightValue: '13 hours' });
+        addCard('gauge', { title: 'Interest level', leftLabel: 'you', leftValue: 91, rightLabel: 'them', rightValue: 6 });
+        addCard('dualStat', { title: 'Compliment count', leftLabel: 'you', leftValue: '212', rightLabel: 'them', rightValue: '3' });
+        addCard('redFlags', { name: 'Them', flags: ['Still hangs out with their ex weekly', 'Cancelled plans 6 times this month', 'Left you on read for 3 days straight'] });
+        addCard('barChart', { title: 'Top used words (them)', bars: [{ label: 'busy', value: 61 }, { label: 'maybe', value: 47 }, { label: 'sorry', value: 30 }] });
+        addCard('barChart', { title: 'Top used words (you)', bars: [{ label: 'their name', value: 88 }, { label: 'please', value: 52 }, { label: 'ok', value: 40 }] });
+        addCard('dualStat', { title: 'Attachment style', leftLabel: 'you', leftValue: 'anxious', rightLabel: 'them', rightValue: 'avoidant' });
+        addCard('lineChart', { title: 'Messages per month' });
+      } else if (name === 'theRoast') {
+        addCard('persona');
+        addCard('bigNumber', { title: 'Times left on read', number: '47', sub: "top 0.01% of ignored senders" });
+        addCard('stoppers');
+        addCard('dualStat', { title: 'Messages count', leftLabel: 'you', leftValue: '1089', rightLabel: 'them', rightValue: '52' });
+        addCard('dualStat', { title: 'Average response time', leftLabel: 'you', leftValue: '43s', rightLabel: 'them', rightValue: '17 hours' });
+      } else if (name === 'gutPunch') {
+        addCard('bigNumber', { title: 'You apologized', number: '978', sub: "you're in the top 0.01% (#231 / 194,100)" });
+      }
+      render();
+    }
+
+    // ---------------------------------------------------------------
+    // Card content renderers (what actually appears in the exported slide)
+    // ---------------------------------------------------------------
+    function esc(s) {
+      return String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    }
+
+    function renderCardBody(card) {
+      const f = card.fields;
+      switch (card.type) {
+        case 'dualStat':
+          return `
+            <div class="ct-title">${esc(f.title)}</div>
+            <div class="ct-dual">
+              <div><div class="ct-sub">${esc(f.leftLabel)}</div><div class="ct-big">${esc(f.leftValue)}</div></div>
+              <div class="ct-right"><div class="ct-sub">${esc(f.rightLabel)}</div><div class="ct-big">${esc(f.rightValue)}</div></div>
+            </div>`;
+        case 'gauge': {
+          const l = Math.max(0, Math.min(100, Number(f.leftValue) || 0));
+          const r = Math.max(0, Math.min(100, Number(f.rightValue) || 0));
+          // A vertical fill bar, not a circular ring. This card type went
+          // through 3 different ring techniques — CSS conic-gradient,
+          // then an SVG stroke-dasharray circle — and every one of them
+          // rendered fine in a real browser tab but came out as a
+          // clipped, broken shape with no visible percentage in the
+          // actual exported PNG specifically once embedded in this
+          // page's full layout (never reproduced in an isolated minimal
+          // test, despite matching the real markup as closely as could
+          // be managed — genuinely not resolved, not for lack of trying).
+          // This bar reuses the exact div+width% technique the bar-chart
+          // card type already uses below, which has rendered correctly
+          // in every export throughout all of this. Less visually
+          // distinctive than a ring, but it actually works.
+          const gaugeColor = card.color2 || '#E5484D';
+          const gauge = (pct) => `
+            <div class="ct-vbar-track">
+              <div class="ct-vbar-fill" style="height:${pct}%;background:${gaugeColor}"></div>
+            </div>
+            <div class="ct-vbar-pct">${pct}%</div>`;
+          return `
+            <div class="ct-title">${esc(f.title)}</div>
+            <div class="ct-dual ct-gauge-row">
+              <div class="ct-gauge-col"><div class="ct-sub">${esc(f.leftLabel)}</div>${gauge(l)}</div>
+              <div class="ct-gauge-col"><div class="ct-sub">${esc(f.rightLabel)}</div>${gauge(r)}</div>
+            </div>`;
+        }
+        case 'barChart': {
+          const max = Math.max(1, ...f.bars.map((b) => Number(b.value) || 0));
+          return `
+            <div class="ct-title">${esc(f.title)}</div>
+            <div class="ct-bars">
+              ${f.bars.map((b) => `
+                <div class="ct-bar-row">
+                  <span class="ct-bar-label">${esc(b.label)}</span>
+                  <span class="ct-bar-track"><span class="ct-bar-fill" style="width:${(Number(b.value) || 0) / max * 100}%;background:${card.color2 || '#8E7CEB'}"></span></span>
+                  <span class="ct-bar-value">${esc(b.value)}</span>
+                </div>`).join('')}
+            </div>`;
+        }
+        case 'lineChart': {
+          const pts = f.points.map(Number);
+          const max = Math.max(1, ...pts);
+          const min = Math.min(...pts, 0);
+          const range = max - min || 1;
+          const w = 220, h = 70, pad = 4;
+          const step = (w - pad * 2) / (pts.length - 1);
+          const path = pts.map((p, i) => `${pad + i * step},${h - pad - ((p - min) / range) * (h - pad * 2)}`).join(' ');
+          return `
+            <div class="ct-title">${esc(f.title)}</div>
+            <svg viewBox="0 0 ${w} ${h}" class="ct-line">
+              <polyline points="${path}" fill="none" stroke="${card.color2 || '#3AA8C1'}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>`;
+        }
+        case 'redFlags':
+          return `
+            <div class="ct-flags-title">Red Flags &#9656;</div>
+            <div class="ct-flags-name">${esc(f.name)}</div>
+            ${f.flags.map((t) => `<div class="ct-flag-row"><span class="ct-flag-dot">&#128681;</span>${esc(t)}</div>`).join('')}`;
+        case 'bigNumber':
+          return `
+            <div class="ct-title center">${esc(f.title)}</div>
+            <div class="ct-huge" style="color:${card.color2 || '#8E44AD'}">${esc(f.number)}</div>
+            <div class="ct-sub center">${esc(f.sub)}</div>`;
+        case 'persona':
+          return `
+            <div class="ct-persona-emoji">${esc(f.emoji)}</div>
+            <div class="ct-persona-title" style="color:${card.color2 || '#3AA8C1'}">${esc(f.title)}</div>
+            <div class="ct-persona-line">${esc(f.line)}</div>`;
+        case 'stoppers':
+          return `
+            <div class="ct-title">Conversation stoppers</div>
+            <div class="ct-dual">
+              <div><div class="ct-sub">${esc(f.leftLabel)}</div><div class="ct-stopper">${esc(f.leftValue)}</div></div>
+              <div class="ct-right"><div class="ct-sub">${esc(f.rightLabel)}</div><div class="ct-stopper">${esc(f.rightValue)}</div></div>
+            </div>
+            <div class="ct-note">${esc(f.note)}</div>`;
+        default:
+          return '';
+      }
+    }
+
+    const BACKGROUNDS = {
+      pinkPurple: 'linear-gradient(160deg,#FBD5E0,#F3C6E8 45%,#D9C8F0)',
+      chakamYellow: 'linear-gradient(160deg,#FCE7A8,#F8BC20 55%,#17171C)',
+      blueTeal: 'linear-gradient(160deg,#CFEFFA,#A7DEEF 45%,#8FD3D0)',
+      plain: '#FFFFFF',
+    };
+
+    function renderSlide() {
+      const slide = document.getElementById('slide');
+      slide.style.background = BACKGROUNDS[state.bgStyle];
+      slide.innerHTML = `
+        <div class="slide-caption">
+          <div class="slide-caption-h">${esc(state.captionLine1)}</div>
+          <div class="slide-caption-p">${esc(state.captionLine2)} ${esc(state.captionEmoji)}</div>
+        </div>
+        <div class="report-card">
+          <div class="report-header">${esc(state.cardTitle)}</div>
+          <div class="card-grid">
+            ${state.cards.map((c) => `
+              <div class="stat-card ${c.wide ? 'wide' : ''}" style="background:${c.color}">
+                ${renderCardBody(c)}
+              </div>`).join('')}
+          </div>
+          <div class="report-footer">
+            <img src="/assets/img/logo.png" alt="">
+            <span>Chakam</span>
+          </div>
+        </div>`;
+      // Card count/content just changed, which changes #slide's natural
+      // height — keep the on-screen preview frame in sync every time,
+      // not just on load/resize.
+      applyPreviewScale();
+    }
+
+    // ---------------------------------------------------------------
+    // Editor UI (left column — one block per card, type-specific fields)
+    // ---------------------------------------------------------------
+    function fieldRow(label, inputHtml) {
+      return `<label class="field"><span>${label}</span>${inputHtml}</label>`;
+    }
+
+    function renderCardEditorBody(card, i) {
+      const f = card.fields;
+      const upd = (key) => `data-card="${card.id}" data-key="${key}"`;
+      switch (card.type) {
+        case 'dualStat':
+        case 'stoppers':
+          return `
+            ${fieldRow('Title', `<input type="text" ${upd('title')} value="${esc(f.title || '')}">`)}
+            <div class="field-row">
+              ${fieldRow(card.type === 'stoppers' ? 'Left label' : 'Left label', `<input type="text" ${upd('leftLabel')} value="${esc(f.leftLabel)}">`)}
+              ${fieldRow('Left value', `<input type="text" ${upd('leftValue')} value="${esc(f.leftValue)}">`)}
+            </div>
+            <div class="field-row">
+              ${fieldRow('Right label', `<input type="text" ${upd('rightLabel')} value="${esc(f.rightLabel)}">`)}
+              ${fieldRow('Right value', `<input type="text" ${upd('rightValue')} value="${esc(f.rightValue)}">`)}
+            </div>
+            ${card.type === 'stoppers' ? fieldRow('Note', `<input type="text" ${upd('note')} value="${esc(f.note)}">`) : ''}`;
+        case 'gauge':
+          return `
+            ${fieldRow('Title', `<input type="text" ${upd('title')} value="${esc(f.title)}">`)}
+            <div class="field-row">
+              ${fieldRow('Left label', `<input type="text" ${upd('leftLabel')} value="${esc(f.leftLabel)}">`)}
+              ${fieldRow('Left %', `<input type="number" min="0" max="100" ${upd('leftValue')} value="${esc(f.leftValue)}">`)}
+            </div>
+            <div class="field-row">
+              ${fieldRow('Right label', `<input type="text" ${upd('rightLabel')} value="${esc(f.rightLabel)}">`)}
+              ${fieldRow('Right %', `<input type="number" min="0" max="100" ${upd('rightValue')} value="${esc(f.rightValue)}">`)}
+            </div>`;
+        case 'barChart':
+          return `
+            ${fieldRow('Title', `<input type="text" ${upd('title')} value="${esc(f.title)}">`)}
+            <div class="bar-rows" data-card="${card.id}">
+              ${f.bars.map((b, bi) => `
+                <div class="field-row bar-edit-row">
+                  <input type="text" placeholder="word" data-card="${card.id}" data-bar-index="${bi}" data-bar-key="label" value="${esc(b.label)}">
+                  <input type="number" placeholder="count" data-card="${card.id}" data-bar-index="${bi}" data-bar-key="value" value="${esc(b.value)}">
+                  <button type="button" class="btn-x" data-card="${card.id}" data-remove-bar="${bi}">&times;</button>
+                </div>`).join('')}
+            </div>
+            <button type="button" class="btn btn-small" data-add-bar="${card.id}">+ word</button>`;
+        case 'lineChart':
+          return `
+            ${fieldRow('Title', `<input type="text" ${upd('title')} value="${esc(f.title)}">`)}
+            ${fieldRow('12 points (comma separated)', `<input type="text" data-card="${card.id}" data-key="points" data-points="1" value="${esc(f.points.join(', '))}">`)}`;
+        case 'redFlags':
+          return `
+            ${fieldRow('Name', `<input type="text" ${upd('name')} value="${esc(f.name)}">`)}
+            <div class="flag-rows" data-card="${card.id}">
+              ${f.flags.map((t, fi) => `
+                <div class="field-row bar-edit-row">
+                  <input type="text" data-card="${card.id}" data-flag-index="${fi}" value="${esc(t)}">
+                  <button type="button" class="btn-x" data-card="${card.id}" data-remove-flag="${fi}">&times;</button>
+                </div>`).join('')}
+            </div>
+            <button type="button" class="btn btn-small" data-add-flag="${card.id}">+ flag</button>`;
+        case 'bigNumber':
+          return `
+            ${fieldRow('Title', `<input type="text" ${upd('title')} value="${esc(f.title)}">`)}
+            ${fieldRow('The number', `<input type="text" ${upd('number')} value="${esc(f.number)}">`)}
+            ${fieldRow('Sub line', `<input type="text" ${upd('sub')} value="${esc(f.sub)}">`)}`;
+        case 'persona':
+          return `
+            <div class="field-row">
+              ${fieldRow('Emoji', `<input type="text" maxlength="4" class="emoji-input" ${upd('emoji')} value="${esc(f.emoji)}">`)}
+              ${fieldRow('Title', `<input type="text" ${upd('title')} value="${esc(f.title)}">`)}
+            </div>
+            ${fieldRow('Roast line', `<input type="text" ${upd('line')} value="${esc(f.line)}">`)}`;
+        default:
+          return '';
+      }
+    }
+
+    function renderEditor() {
+      const wrap = document.getElementById('cardsEditor');
+      wrap.innerHTML = state.cards.map((c, i) => `
+        <div class="card-block">
+          <div class="card-block-head">
+            <span class="card-type-badge">${CARD_LABELS[c.type]}</span>
+            <div class="card-block-controls">
+              <input type="color" class="color-swatch" data-card-color="${c.id}" value="${c.color}" title="Card background">
+              <label class="wide-toggle"><input type="checkbox" data-card-wide="${c.id}" ${c.wide ? 'checked' : ''}> full width</label>
+              <button type="button" class="btn-x" data-move-up="${c.id}" ${i === 0 ? 'disabled' : ''}>&uarr;</button>
+              <button type="button" class="btn-x" data-move-down="${c.id}" ${i === state.cards.length - 1 ? 'disabled' : ''}>&darr;</button>
+              <button type="button" class="btn-x btn-remove" data-remove-card="${c.id}">&times;</button>
+            </div>
+          </div>
+          ${renderCardEditorBody(c, i)}
+        </div>`).join('') || '<p class="hint">No cards yet — load a preset or add one below.</p>';
+    }
+
+    function findCard(id) {
+      return state.cards.find((c) => c.id === id);
+    }
+
+    // ---------------------------------------------------------------
+    // Event delegation — one listener per event type, checked against
+    // data-* attributes, rather than re-binding per card on every render.
+    // ---------------------------------------------------------------
+    document.addEventListener('input', (e) => {
+      const t = e.target;
+      if (t.id === 'captionLine1') { state.captionLine1 = t.value; renderSlide(); return; }
+      if (t.id === 'captionLine2') { state.captionLine2 = t.value; renderSlide(); return; }
+      if (t.id === 'captionEmoji') { state.captionEmoji = t.value; renderSlide(); return; }
+      if (t.id === 'cardTitle') { state.cardTitle = t.value; renderSlide(); return; }
+
+      const cardId = t.dataset.card;
+      if (!cardId) return;
+      const card = findCard(cardId);
+      if (!card) return;
+
+      if (t.dataset.key) {
+        if (t.dataset.points) {
+          card.fields.points = t.value.split(',').map((s) => Number(s.trim()) || 0);
+        } else {
+          card.fields[t.dataset.key] = t.value;
+        }
+        renderSlide();
+      } else if (t.dataset.barIndex !== undefined) {
+        card.fields.bars[Number(t.dataset.barIndex)][t.dataset.barKey] = t.value;
+        renderSlide();
+      } else if (t.dataset.flagIndex !== undefined) {
+        card.fields.flags[Number(t.dataset.flagIndex)] = t.value;
+        renderSlide();
+      }
+    });
+
+    document.addEventListener('change', (e) => {
+      const t = e.target;
+      if (t.id === 'bgStyle') { state.bgStyle = t.value; renderSlide(); return; }
+      if (t.dataset.cardColor) { findCard(t.dataset.cardColor).color = t.value; renderSlide(); return; }
+      if (t.dataset.cardWide) { findCard(t.dataset.cardWide).wide = t.checked; renderSlide(); return; }
+    });
+
+    document.addEventListener('click', (e) => {
+      const t = e.target;
+      if (t.dataset.preset) { loadPreset(t.dataset.preset); return; }
+      if (t.id === 'addCardBtn') {
+        const type = document.getElementById('newCardType').value;
+        addCard(type);
+        renderEditor(); renderSlide();
+        return;
+      }
+      if (t.dataset.removeCard) {
+        state.cards = state.cards.filter((c) => c.id !== t.dataset.removeCard);
+        renderEditor(); renderSlide();
+        return;
+      }
+      if (t.dataset.moveUp || t.dataset.moveDown) {
+        const id = t.dataset.moveUp || t.dataset.moveDown;
+        const idx = state.cards.findIndex((c) => c.id === id);
+        const dir = t.dataset.moveUp ? -1 : 1;
+        const swapIdx = idx + dir;
+        if (swapIdx < 0 || swapIdx >= state.cards.length) return;
+        [state.cards[idx], state.cards[swapIdx]] = [state.cards[swapIdx], state.cards[idx]];
+        renderEditor(); renderSlide();
+        return;
+      }
+      if (t.dataset.addBar) {
+        findCard(t.dataset.addBar).fields.bars.push({ label: 'word', value: 10 });
+        renderEditor(); renderSlide();
+        return;
+      }
+      if (t.dataset.removeBar !== undefined && t.dataset.card) {
+        findCard(t.dataset.card).fields.bars.splice(Number(t.dataset.removeBar), 1);
+        renderEditor(); renderSlide();
+        return;
+      }
+      if (t.dataset.addFlag) {
+        findCard(t.dataset.addFlag).fields.flags.push('new red flag');
+        renderEditor(); renderSlide();
+        return;
+      }
+      if (t.dataset.removeFlag !== undefined && t.dataset.card) {
+        findCard(t.dataset.card).fields.flags.splice(Number(t.dataset.removeFlag), 1);
+        renderEditor(); renderSlide();
+        return;
+      }
+      if (t.id === 'downloadBtn') {
+        downloadSlide();
+        return;
+      }
+    });
+
+    function downloadSlide() {
+      const slide = document.getElementById('slide');
+      const scaler = document.getElementById('previewScaler');
+      const btn = document.getElementById('downloadBtn');
+      btn.disabled = true;
+      btn.textContent = 'Rendering…';
+      // html2canvas measures the element's RENDERED (post-transform) size,
+      // not its intrinsic CSS width — it does not ignore an ancestor's
+      // scale-down the way a plain layout measurement would. Left as-is,
+      // an on-screen preview scaled to fit a 380px-wide frame exports at
+      // 380px-wide-derived resolution instead of the real 540px design
+      // size (confirmed: produced 760px-wide PNGs instead of 1080).
+      // Neutralizing the transform right before capture, then restoring
+      // it after, is what makes the export resolution match the design
+      // size regardless of whatever the on-screen preview happens to be
+      // scaled to at that moment.
+      const prevTransform = scaler.style.transform;
+      scaler.style.transform = 'none';
+      // NOTE — a real, known limitation: this tiny 8-11px text wraps very
+      // slightly differently depending on how wide the actual browser
+      // window is when you hit download (a Chromium text-layout quirk,
+      // confirmed independent of this element's own fixed 540px CSS
+      // width). html2canvas's windowWidth/windowHeight options looked
+      // like the fix but broke worse things in testing (a rotated SVG
+      // gauge ring failing to render, flex rows collapsing) — reverted.
+      // A slightly-taller-than-expected export from a narrow window is a
+      // far smaller problem than either of those. Keep the browser
+      // reasonably wide (900px+) for the most predictable result. (The
+      // gauge card type no longer uses SVG at all as of this comment —
+      // see its case in the script above — but the windowWidth finding
+      // stands regardless of that.)
+      html2canvas(slide, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: null,
+      }).then((canvas) => {
+        scaler.style.transform = prevTransform;
+        const link = document.createElement('a');
+        link.download = 'chakam-chat-report.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        btn.disabled = false;
+        btn.textContent = 'Download PNG (1080×1350)';
+      }).catch((err) => {
+        scaler.style.transform = prevTransform;
+        console.error(err);
+        alert('Something went wrong rendering the image — check the console.');
+        btn.disabled = false;
+        btn.textContent = 'Download PNG (1080×1350)';
+      });
+    }
+
+    function render() {
+      document.getElementById('captionLine1').value = state.captionLine1;
+      document.getElementById('captionLine2').value = state.captionLine2;
+      document.getElementById('captionEmoji').value = state.captionEmoji;
+      document.getElementById('cardTitle').value = state.cardTitle;
+      document.getElementById('bgStyle').value = state.bgStyle;
+      renderEditor();
+      renderSlide();
+    }
+
+    // ---------------------------------------------------------------
+    // On-screen scale — #slide has a fixed WIDTH (540px) but intrinsic
+    // HEIGHT that grows with however many cards are on it (see its CSS).
+    // .preview-frame's width is fixed by CSS breakpoint (340/380px); its
+    // HEIGHT is set here to exactly match #slide's real height scaled
+    // down, so the visible preview frame is never taller or shorter than
+    // what it's actually showing — no cropping, no dead space. The scale
+    // transform lives on .preview-scaler, a wrapper AROUND #slide, never
+    // on #slide itself: html2canvas is pointed at #slide directly at
+    // export time, so it measures that element's own true layout size
+    // and ignores this ancestor's visual scale-down entirely — that
+    // split is what makes the download exact regardless of on-screen
+    // zoom or how tall the current card count happens to make it.
+    function applyPreviewScale() {
+      const frame = document.getElementById('previewFrame');
+      const scaler = document.getElementById('previewScaler');
+      const slide = document.getElementById('slide');
+      const scale = frame.clientWidth / 540;
+      scaler.style.transform = `scale(${scale})`;
+      frame.style.height = `${slide.scrollHeight * scale}px`;
+    }
+    window.addEventListener('resize', applyPreviewScale);
+
+    // Prefilled on load, per the brief — starts on the classic layout
+    // rather than an empty state. loadPreset() -> render() -> renderSlide()
+    // already calls applyPreviewScale() itself, so no separate call is
+    // needed here.
+    loadPreset('fullBreakdown');
+  </script>
+
+  <style>
+    .page-head { max-width: 720px; margin-bottom: 20px; }
+    .page-head h1 { font-size: 24px; margin: 0 0 6px; }
+    .page-head p { color: var(--muted); margin: 0; font-size: 14px; }
+
+    .workspace { display: flex; gap: 28px; align-items: flex-start; }
+    .editor-col { flex: 1; min-width: 0; max-width: 460px; }
+    .preview-col { flex-shrink: 0; }
+    .preview-sticky { position: sticky; top: 24px; }
+
+    .panel {
+      background: var(--card, #fff);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 16px;
+    }
+    .panel-title { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin-bottom: 10px; }
+
+    .preset-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--ink);
+    }
+    .btn:hover { border-color: var(--ink); }
+    .btn-preset { background: var(--bg); }
+    .btn-small { font-size: 12px; padding: 5px 10px; margin-top: 6px; }
+    .btn-download {
+      width: 100%;
+      background: var(--yellow);
+      border: none;
+      padding: 12px;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+    .btn-download:hover { background: var(--yellow-deep); }
+    .btn-download:disabled { opacity: 0.6; cursor: default; }
+
+    .hint { font-size: 12px; color: var(--muted); margin: 8px 0 0; }
+    .hint.center { text-align: center; }
+
+    .field { display: block; margin-bottom: 10px; }
+    .field span { display: block; font-size: 11.5px; font-weight: 700; color: var(--muted); margin-bottom: 3px; }
+    .field input, .field select, select#newCardType, select#bgStyle {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 7px 9px;
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--ink);
+      background: #fff;
+    }
+    .field-row { display: flex; gap: 8px; }
+    .field-row .field, .field-row input { flex: 1; min-width: 0; }
+    .emoji-input { text-align: center; }
+
+    .card-block {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+      background: var(--bg);
+    }
+    .card-block-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .card-type-badge { font-size: 11px; font-weight: 800; background: var(--ink); color: #fff; padding: 3px 8px; border-radius: 20px; }
+    .card-block-controls { display: flex; align-items: center; gap: 6px; }
+    .color-swatch { width: 26px; height: 26px; padding: 0; border: 1px solid var(--line); border-radius: 6px; cursor: pointer; }
+    .wide-toggle { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 4px; white-space: nowrap; }
+    .btn-x {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 6px;
+      width: 24px; height: 24px;
+      font-size: 13px;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .btn-remove { color: var(--red); }
+    .bar-edit-row { align-items: center; margin-bottom: 6px; }
+    .bar-edit-row .btn-x { flex: 0 0 auto; }
+
+    .add-card-row { display: flex; gap: 8px; margin-top: 4px; }
+    .add-card-row select { flex: 1; }
+
+    /* ---- Preview frame: #slide has a fixed WIDTH (540px) but intrinsic
+           HEIGHT (see the .slide rule in the generated-content styles
+           block) — it grows or shrinks with however many cards are on
+           it, rather than clipping whatever doesn't fit a rigid box.
+           .preview-frame's width is the on-screen box size; its HEIGHT
+           is set dynamically in JS (applyPreviewScale()) to always match
+           #slide's actual scaled height exactly, so the preview never
+           crops content the real export wouldn't. .preview-scaler holds
+           the scale-down transform, applied to a wrapper AROUND #slide
+           rather than to #slide itself — html2canvas is pointed at
+           #slide directly at export time, so it measures that element's
+           own true layout size and ignores this ancestor's visual
+           scale-down entirely. ---- */
+    .preview-frame {
+      width: 340px;
+      max-width: 90vw;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+    }
+    .preview-scaler {
+      transform-origin: top left;
+    }
+    @media (min-width: 900px) {
+      .preview-frame { width: 380px; }
+    }
+
+    @media (max-width: 980px) {
+      .workspace { flex-direction: column; }
+      .editor-col { max-width: none; width: 100%; }
+      .preview-col { width: 100%; }
+      .preview-sticky { position: static; }
+      .preview-frame { margin: 0 auto; }
+    }
+  </style>
+
+  <!-- ===================================================================
+       Generated-slide content styles — scoped to what renderSlide() emits.
+       Kept separate from the editor UI styles above on purpose: this is
+       the ONLY block whose visual output is what actually gets exported.
+       =================================================================== -->
+  <style is:global>
+    .slide {
+      /* Fixed WIDTH, intrinsic HEIGHT — a 9-card preset is naturally
+         taller than a 1-card one, and forcing a rigid height (an earlier
+         version of this used 675px flat) silently clips whatever doesn't
+         fit rather than growing to hold it. 540 wide lands close to the
+         1080x1350 target for a normal-sized report; taller ones export
+         taller instead of losing their bottom row. */
+      width: 540px;
+      padding: 22px 16px 16px;
+      font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+      /* Without this, mobile Chrome/Safari auto-boosts font size on a
+         narrow physical viewport regardless of this element's own fixed
+         540px CSS width (a "readability" heuristic meant for normal
+         page text) — confirmed: the identical preset measured 728px
+         tall from a 1280px-wide window and 848px tall from a 390px-wide
+         one, same computed 540px width both times. That's the text
+         wrapping differently under the hood, not a layout bug in this
+         file. Pinning this to 100% makes the export byte-for-byte
+         consistent regardless of what device someone's actually on when
+         they use this tool. */
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+    .slide-caption { background: #fff; border-radius: 14px; padding: 14px 14px 16px; text-align: center; }
+    .slide-caption-h { font-size: 15px; font-weight: 800; color: #17171C; line-height: 1.25; }
+    .slide-caption-p { font-size: 13px; font-weight: 700; color: #17171C; margin-top: 4px; }
+    .report-card { background: #fff; border-radius: 18px; padding: 16px 12px 14px; margin-top: 12px; box-shadow: 0 12px 30px rgba(0,0,0,0.10); }
+    .report-header { text-align: center; font-weight: 900; font-size: 14px; color: #17171C; margin-bottom: 12px; }
+    .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .stat-card { border-radius: 12px; padding: 9px 10px; }
+    .stat-card.wide { grid-column: 1 / -1; }
+    .ct-title { font-size: 9.5px; font-weight: 800; color: #17171C; opacity: 0.7; margin-bottom: 6px; }
+    .ct-title.center { text-align: center; }
+    .ct-sub { font-size: 8.5px; font-weight: 700; color: #6B6B72; text-transform: lowercase; }
+    .ct-sub.center { text-align: center; }
+    .ct-big { font-size: 17px; font-weight: 900; color: #17171C; line-height: 1.15; }
+    .ct-dual { display: flex; justify-content: space-between; }
+    .ct-right { text-align: right; }
+    .ct-gauge-row { display: grid; grid-template-columns: 1fr 1fr; }
+    .ct-gauge-col { text-align: center; }
+    /* Vertical fill bar — see the gauge case's own comment in the script
+       block above for why this isn't a ring. */
+    .ct-vbar-track { width: 14px; height: 44px; background: rgba(0,0,0,0.1); border-radius: 7px; margin: 4px auto 0; display: flex; align-items: flex-end; overflow: hidden; }
+    .ct-vbar-fill { width: 100%; border-radius: 7px; }
+    .ct-vbar-pct { font-size: 10px; font-weight: 800; color: #17171C; margin-top: 4px; }
+    .ct-bars { display: flex; flex-direction: column; gap: 4px; }
+    .ct-bar-row { display: flex; align-items: center; gap: 5px; font-size: 8.5px; }
+    .ct-bar-label { width: 44px; flex-shrink: 0; font-weight: 700; color: #17171C; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .ct-bar-track { flex: 1; height: 6px; background: rgba(0,0,0,0.08); border-radius: 4px; overflow: hidden; }
+    .ct-bar-fill { display: block; height: 100%; border-radius: 4px; }
+    .ct-bar-value { width: 22px; text-align: right; font-weight: 800; color: #17171C; flex-shrink: 0; }
+    .ct-line { width: 100%; height: 50px; }
+    .ct-flags-title { font-size: 11px; font-weight: 900; color: #C0392B; margin-bottom: 4px; }
+    .ct-flags-name { font-size: 11px; font-weight: 800; color: #17171C; margin-bottom: 6px; }
+    .ct-flag-row { display: flex; gap: 6px; font-size: 9.5px; color: #17171C; margin-bottom: 5px; line-height: 1.3; align-items: flex-start; }
+    .ct-flag-dot { flex-shrink: 0; }
+    .ct-huge { font-size: 46px; font-weight: 900; text-align: center; line-height: 1; margin: 4px 0; }
+    .ct-note { font-size: 8px; color: #6B6B72; text-align: center; margin-top: 6px; line-height: 1.3; }
+    .ct-stopper { font-size: 11px; font-weight: 700; color: #17171C; background: rgba(0,0,0,0.05); padding: 4px 7px; border-radius: 8px; margin-top: 2px; display: inline-block; }
+    .ct-persona-emoji { font-size: 40px; text-align: center; }
+    .ct-persona-title { font-size: 15px; font-weight: 900; text-align: center; margin-top: 4px; }
+    .ct-persona-line { font-size: 9.5px; color: #17171C; text-align: center; margin-top: 5px; line-height: 1.35; opacity: 0.85; }
+    .report-footer { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 12px; opacity: 0.7; }
+    .report-footer img { width: 16px; height: 16px; border-radius: 4px; }
+    .report-footer span { font-size: 11px; font-weight: 800; color: #17171C; }
+  </style>
+</ToolsLayout>
