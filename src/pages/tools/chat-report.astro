@@ -598,7 +598,25 @@ import ToolsLayout from '../../layouts/ToolsLayout.astro';
     loadPreset('fullBreakdown');
   </script>
 
-  <style>
+  <!-- is:global, not Astro's default scoped styles — .card-block, .field,
+       .btn-x, and everything else the CARDS panel renders live entirely
+       inside #cardsEditor via renderEditor()'s innerHTML assignment in
+       the script above, at RUNTIME in the browser. Astro's build-time
+       compiler has no visibility into markup a <script> block generates
+       later — it only adds the data-astro-cid-XXXXX attribute (and
+       rewrites selectors to require it) for elements present in this
+       file's own template. Scoped, the CSS below compiled to e.g.
+       `.card-block[data-astro-cid-xxxxx]{...}`, a selector those
+       JS-injected divs can never satisfy since they never receive that
+       attribute — which is exactly why every card's editor fields (and
+       nothing else on the page) rendered as bare, unstyled HTML in
+       production: confirmed by fetching the live page directly and
+       finding #cardsEditor empty server-side, with the scoped selector
+       present in the shipped CSS but never able to match. The exported-
+       slide styles further down this file hit this identical problem
+       for #slide's own JS-generated content and were already correctly
+       marked is:global for it — this block just needed the same fix. -->
+  <style is:global>
     .page-head { max-width: 720px; margin-bottom: 20px; }
     .page-head h1 { font-size: 24px; margin: 0 0 6px; }
     .page-head p { color: var(--muted); margin: 0; font-size: 14px; }
