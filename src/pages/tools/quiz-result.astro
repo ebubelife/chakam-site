@@ -1,0 +1,558 @@
+---
+// Quiz Result Generator — builds a single "reveal card" styled after the
+// real app's QuizShareCard (lib/features/quizzes/quiz_share_card.dart:
+// wordmark, quiz title, tinted card with emoji + big title + description,
+// CTA line) and exports it as a TikTok-ready PNG, entirely client-side.
+// See chat-report.astro for the sibling tool this one intentionally
+// mirrors — same export pipeline, same known html2canvas gotchas, same
+// "not linked anywhere but the /tools/ sidebar" scoping (src/data/tools.ts).
+//
+// Deliberately NOT wired to the app's real quizzes_data.dart — this is a
+// content tool for crafting whatever reveal card actually goes viral
+// (crazy, toxic, wholesome, whatever), not a renderer of real quiz
+// results. Every field is free text on purpose.
+import ToolsLayout from '../../layouts/ToolsLayout.astro';
+---
+<ToolsLayout title="Quiz Result Generator" activeSlug="quiz-result">
+  <div class="page-head">
+    <h1>Quiz Result Generator</h1>
+    <p>Craft a quiz-result reveal card — pick a preset to start fast, push it as toxic or as wholesome as you want, download a TikTok-ready image.</p>
+  </div>
+
+  <div class="workspace">
+    <!-- ============ LEFT: EDITOR ============ -->
+    <div class="editor-col">
+      <div class="panel">
+        <div class="panel-title">Presets</div>
+        <div class="preset-row">
+          <button type="button" class="btn btn-preset" data-preset="toxicBestie">Toxic Bestie</button>
+          <button type="button" class="btn btn-preset" data-preset="unhinged">Unhinged</button>
+          <button type="button" class="btn btn-preset" data-preset="redFlagRoyalty">Red Flag Royalty</button>
+          <button type="button" class="btn btn-preset" data-preset="wholesomeTwist">Wholesome Twist</button>
+        </div>
+        <p class="hint">Loading a preset replaces everything below — still fully editable after.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Caption (the white bar above the card)</div>
+        <label class="field">
+          <span>Hook line</span>
+          <input type="text" id="captionLine1" maxlength="70">
+        </label>
+        <label class="field">
+          <span>Sub line</span>
+          <div class="field-row">
+            <input type="text" id="captionLine2" maxlength="55">
+            <input type="text" id="captionEmoji" maxlength="4" class="emoji-input" placeholder="💀">
+          </div>
+        </label>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Card theme</div>
+        <label class="field">
+          <span>Page background</span>
+          <select id="bgStyle">
+            <option value="pinkPurple">Pink → Purple</option>
+            <option value="chakamYellow">Chakam Yellow → Ink</option>
+            <option value="blueTeal">Blue → Teal</option>
+            <option value="dangerRed">Danger Red → Black</option>
+            <option value="toxicGreen">Toxic Green → Black</option>
+            <option value="plain">Plain white</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Result card tint</span>
+          <select id="cardTint">
+            <option value="lavender">Lavender</option>
+            <option value="sky">Sky</option>
+            <option value="rose">Rose</option>
+            <option value="peach">Peach</option>
+            <option value="mint">Mint</option>
+            <option value="yellow">Yellow</option>
+            <option value="ink">Ink (dark)</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Quiz</div>
+        <label class="field">
+          <span>Quiz title (small label above the card)</span>
+          <input type="text" id="quizTitle" maxlength="60">
+        </label>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Result reveal</div>
+        <div class="field-row">
+          <label class="field" style="flex: 0 0 70px;">
+            <span>Emoji</span>
+            <input type="text" id="resultEmoji" maxlength="4" class="emoji-input">
+          </label>
+          <label class="field">
+            <span>Result title</span>
+            <input type="text" id="resultTitle" maxlength="40">
+          </label>
+        </div>
+        <label class="field">
+          <span>Result description</span>
+          <textarea id="resultDescription" maxlength="220" rows="4"></textarea>
+        </label>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Stat badge (optional)</div>
+        <label class="checkbox-field">
+          <input type="checkbox" id="showStat">
+          <span>Show a stat badge under the description</span>
+        </label>
+        <label class="field">
+          <span>Badge text</span>
+          <input type="text" id="statText" maxlength="40" placeholder="🔥 97% Toxic Energy">
+        </label>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Footer CTA</div>
+        <label class="field">
+          <span>Line under the card</span>
+          <input type="text" id="ctaText" maxlength="50">
+        </label>
+      </div>
+    </div>
+
+    <!-- ============ RIGHT: PREVIEW ============ -->
+    <div class="preview-col">
+      <div class="preview-sticky">
+        <div class="preview-frame" id="previewFrame">
+          <div class="preview-scaler" id="previewScaler">
+            <div id="slide" class="slide"></div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-download" id="downloadBtn">Download PNG (1080×1350)</button>
+        <p class="hint center">Not linked anywhere on chakam.site — bookmark this page to come back to it.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" is:inline></script>
+  <script is:inline>
+    // ---------------------------------------------------------------
+    // State — one flat object, no card list to manage (this tool builds
+    // ONE reveal card, not a stat grid — see chat-report.astro for that
+    // shape). Every field mirrors an input by id 1:1, see render()/the
+    // input listener below.
+    // ---------------------------------------------------------------
+    const state = {
+      captionLine1: "i took chakam's Toxic Bestie test...",
+      captionLine2: 'the results are NOT giving well-adjusted',
+      captionEmoji: '💀',
+      bgStyle: 'toxicGreen',
+      cardTint: 'ink',
+      quizTitle: "WHAT'S YOUR TOXIC TRAIT?",
+      resultEmoji: '🧨',
+      resultTitle: 'CERTIFIED RED FLAG',
+      resultDescription: 'You give "u up?" at 2am energy. You know exactly what you\'re doing and you\'re doing it anyway.',
+      showStat: true,
+      statText: '🔥 97% Toxic Energy',
+      ctaText: 'Take the quiz yourself →',
+    };
+
+    // ---------------------------------------------------------------
+    // Presets — deliberately a spread from "unhinged" to "wholesome",
+    // not four flavors of the same joke. The brief was "flexible enough
+    // to generate crazy test results that can go viral," which cuts
+    // both ways: a pattern-interrupt wholesome one is part of that same
+    // flexibility, not off-brief.
+    // ---------------------------------------------------------------
+    const PRESETS = {
+      toxicBestie: {
+        captionLine1: "i took chakam's Toxic Bestie test...",
+        captionLine2: 'the results are NOT giving well-adjusted',
+        captionEmoji: '💀',
+        bgStyle: 'toxicGreen',
+        cardTint: 'ink',
+        quizTitle: "WHAT'S YOUR TOXIC TRAIT?",
+        resultEmoji: '🧨',
+        resultTitle: 'CERTIFIED RED FLAG',
+        resultDescription: 'You give "u up?" at 2am energy. You know exactly what you\'re doing and you\'re doing it anyway.',
+        showStat: true,
+        statText: '🔥 97% Toxic Energy',
+        ctaText: 'Take the quiz yourself →',
+      },
+      unhinged: {
+        captionLine1: 'chakam really said...',
+        captionLine2: 'and i cannot recover from this 😭',
+        captionEmoji: '🎢',
+        bgStyle: 'dangerRed',
+        cardTint: 'rose',
+        quizTitle: 'PUSH-PULL OR REAL CHEMISTRY?',
+        resultEmoji: '🎭',
+        resultTitle: 'CHAOS GREMLIN ENERGY',
+        resultDescription: "You're not hot and cold, you ARE the weather. One text from you and they need a whole meteorologist.",
+        showStat: true,
+        statText: '📈 Unhinged Level: MAX',
+        ctaText: 'Take the quiz yourself →',
+      },
+      redFlagRoyalty: {
+        captionLine1: 'the app really read me for filth',
+        captionLine2: "and honestly... fair 🚩",
+        captionEmoji: '🚩',
+        bgStyle: 'pinkPurple',
+        cardTint: 'peach',
+        quizTitle: 'RED FLAG RADAR',
+        resultEmoji: '👑',
+        resultTitle: 'RED FLAG ROYALTY',
+        resultDescription: "Every ex is a cautionary tale and you're the main character in all of them. Coincidence? The app doesn't think so.",
+        showStat: true,
+        statText: '🚩 Full Red Flag Energy',
+        ctaText: 'Take the quiz yourself →',
+      },
+      wholesomeTwist: {
+        captionLine1: "ran my texts through chakam expecting the worst...",
+        captionLine2: 'did NOT expect this 🥹',
+        captionEmoji: '🥹',
+        bgStyle: 'blueTeal',
+        cardTint: 'mint',
+        quizTitle: "WHAT'S YOUR ATTACHMENT STYLE?",
+        resultEmoji: '🧭',
+        resultTitle: 'ACTUALLY SECURE???',
+        resultDescription: "No spiraling over a slow reply. No disappearing when things get real. Turns out you've been the healthy one this whole time.",
+        showStat: true,
+        statText: '🧭 Secure Attachment',
+        ctaText: 'Take the quiz yourself →',
+      },
+    };
+
+    function loadPreset(name) {
+      Object.assign(state, PRESETS[name]);
+      render();
+    }
+
+    // ---------------------------------------------------------------
+    // Themes
+    // ---------------------------------------------------------------
+    const BACKGROUNDS = {
+      pinkPurple: 'linear-gradient(160deg,#FBD5E0,#F3C6E8 45%,#D9C8F0)',
+      chakamYellow: 'linear-gradient(160deg,#FCE7A8,#F8BC20 55%,#17171C)',
+      blueTeal: 'linear-gradient(160deg,#CFEFFA,#A7DEEF 45%,#8FD3D0)',
+      dangerRed: 'linear-gradient(160deg,#2B0A0A,#7A1E1E 45%,#E5484D)',
+      toxicGreen: 'linear-gradient(160deg,#0F2E1D,#1C4D2E 45%,#39A35A)',
+      plain: '#FFFFFF',
+    };
+    // Same tint family the real app's quizTint()/categoryTint() use
+    // (lavender/sky/rose/peach/mint/yellow) — see
+    // lib/features/quizzes/quizzes_library_screen.dart — plus a dark
+    // "ink" option this tool adds for the toxic/danger presets, since
+    // none of the app's own pastel tints read as toxic on their own.
+    const CARD_TINTS = {
+      lavender: { bg: '#E9E6FB', ink: '#17171C', sub: 'rgba(23,23,28,0.6)', body: 'rgba(23,23,28,0.8)' },
+      sky: { bg: '#E4EDFB', ink: '#17171C', sub: 'rgba(23,23,28,0.6)', body: 'rgba(23,23,28,0.8)' },
+      rose: { bg: '#F7E6EF', ink: '#17171C', sub: 'rgba(23,23,28,0.6)', body: 'rgba(23,23,28,0.8)' },
+      peach: { bg: '#FBE7DD', ink: '#17171C', sub: 'rgba(23,23,28,0.6)', body: 'rgba(23,23,28,0.8)' },
+      mint: { bg: '#E0F1E9', ink: '#17171C', sub: 'rgba(23,23,28,0.6)', body: 'rgba(23,23,28,0.8)' },
+      yellow: { bg: '#FFF1CC', ink: '#17171C', sub: 'rgba(23,23,28,0.6)', body: 'rgba(23,23,28,0.8)' },
+      ink: { bg: '#17171C', ink: '#FFFFFF', sub: 'rgba(255,255,255,0.55)', body: 'rgba(255,255,255,0.82)' },
+    };
+
+    // ---------------------------------------------------------------
+    // Render
+    // ---------------------------------------------------------------
+    function esc(s) {
+      return String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    }
+
+    function renderSlide() {
+      const slide = document.getElementById('slide');
+      const tint = CARD_TINTS[state.cardTint];
+      slide.style.background = BACKGROUNDS[state.bgStyle];
+      slide.innerHTML = `
+        <div class="slide-caption">
+          <div class="slide-caption-h">${esc(state.captionLine1)}</div>
+          <div class="slide-caption-p">${esc(state.captionLine2)} ${esc(state.captionEmoji)}</div>
+        </div>
+        <div class="reveal-wrap">
+          <div class="reveal-brand">chakam</div>
+          <div class="reveal-quiz-title">${esc(state.quizTitle)}</div>
+          <div class="reveal-card" style="background:${tint.bg}">
+            <div class="reveal-emoji">${esc(state.resultEmoji)}</div>
+            <div class="reveal-title" style="color:${tint.ink}">${esc(state.resultTitle)}</div>
+            <div class="reveal-desc" style="color:${tint.body}">${esc(state.resultDescription)}</div>
+            ${state.showStat && state.statText ? `<div class="reveal-badge" style="background:rgba(255,255,255,0.35);color:${tint.ink}">${esc(state.statText)}</div>` : ''}
+          </div>
+          <div class="reveal-cta">${esc(state.ctaText)}</div>
+        </div>`;
+      // Content just changed, which changes #slide's natural height —
+      // keep the on-screen preview frame in sync every time, not just
+      // on load/resize. Same reasoning as chat-report.astro's own
+      // applyPreviewScale() call here.
+      applyPreviewScale();
+    }
+
+    function render() {
+      document.getElementById('captionLine1').value = state.captionLine1;
+      document.getElementById('captionLine2').value = state.captionLine2;
+      document.getElementById('captionEmoji').value = state.captionEmoji;
+      document.getElementById('bgStyle').value = state.bgStyle;
+      document.getElementById('cardTint').value = state.cardTint;
+      document.getElementById('quizTitle').value = state.quizTitle;
+      document.getElementById('resultEmoji').value = state.resultEmoji;
+      document.getElementById('resultTitle').value = state.resultTitle;
+      document.getElementById('resultDescription').value = state.resultDescription;
+      document.getElementById('showStat').checked = state.showStat;
+      document.getElementById('statText').value = state.statText;
+      document.getElementById('ctaText').value = state.ctaText;
+      renderSlide();
+    }
+
+    // ---------------------------------------------------------------
+    // Event wiring — direct id-to-state, no per-card delegation needed
+    // (see chat-report.astro for that pattern; not needed here since
+    // there's no dynamic list of anything).
+    // ---------------------------------------------------------------
+    const FIELD_IDS = [
+      'captionLine1', 'captionLine2', 'captionEmoji', 'quizTitle',
+      'resultEmoji', 'resultTitle', 'resultDescription', 'statText',
+    ];
+    document.addEventListener('input', (e) => {
+      if (FIELD_IDS.includes(e.target.id)) {
+        state[e.target.id] = e.target.value;
+        renderSlide();
+      }
+    });
+    document.addEventListener('change', (e) => {
+      const id = e.target.id;
+      if (id === 'bgStyle' || id === 'cardTint') {
+        state[id] = e.target.value;
+        renderSlide();
+      } else if (id === 'showStat') {
+        state.showStat = e.target.checked;
+        renderSlide();
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (e.target.dataset.preset) {
+        loadPreset(e.target.dataset.preset);
+      } else if (e.target.id === 'downloadBtn') {
+        downloadSlide();
+      }
+    });
+
+    // ---------------------------------------------------------------
+    // Export — identical technique and identical gotchas to
+    // chat-report.astro's downloadSlide(): the transform on
+    // .preview-scaler must be neutralized before html2canvas measures
+    // #slide, or the export resolution follows whatever the on-screen
+    // preview happens to be scaled to instead of the real 540px design
+    // size. See that file's own comment for the full history of why.
+    // ---------------------------------------------------------------
+    function downloadSlide() {
+      const slide = document.getElementById('slide');
+      const scaler = document.getElementById('previewScaler');
+      const btn = document.getElementById('downloadBtn');
+      btn.disabled = true;
+      btn.textContent = 'Rendering…';
+      const prevTransform = scaler.style.transform;
+      scaler.style.transform = 'none';
+      html2canvas(slide, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: null,
+      }).then((canvas) => {
+        scaler.style.transform = prevTransform;
+        const link = document.createElement('a');
+        link.download = 'chakam-quiz-result.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        btn.disabled = false;
+        btn.textContent = 'Download PNG (1080×1350)';
+      }).catch((err) => {
+        scaler.style.transform = prevTransform;
+        console.error(err);
+        alert('Something went wrong rendering the image — check the console.');
+        btn.disabled = false;
+        btn.textContent = 'Download PNG (1080×1350)';
+      });
+    }
+
+    function applyPreviewScale() {
+      const frame = document.getElementById('previewFrame');
+      const scaler = document.getElementById('previewScaler');
+      const slide = document.getElementById('slide');
+      const scale = frame.clientWidth / 540;
+      scaler.style.transform = `scale(${scale})`;
+      frame.style.height = `${slide.scrollHeight * scale}px`;
+    }
+    window.addEventListener('resize', applyPreviewScale);
+
+    loadPreset('toxicBestie');
+  </script>
+
+  <style>
+    .page-head { max-width: 720px; margin-bottom: 20px; }
+    .page-head h1 { font-size: 24px; margin: 0 0 6px; }
+    .page-head p { color: var(--muted); margin: 0; font-size: 14px; }
+
+    .workspace { display: flex; gap: 28px; align-items: flex-start; }
+    .editor-col { flex: 1; min-width: 0; max-width: 460px; }
+    .preview-col { flex-shrink: 0; }
+    .preview-sticky { position: sticky; top: 24px; }
+
+    .panel {
+      background: var(--card, #fff);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 16px;
+    }
+    .panel-title { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin-bottom: 10px; }
+
+    .preset-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--ink);
+    }
+    .btn:hover { border-color: var(--ink); }
+    .btn-preset { background: var(--bg); }
+    .btn-download {
+      width: 100%;
+      background: var(--yellow);
+      border: none;
+      padding: 12px;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+    .btn-download:hover { background: var(--yellow-deep); }
+    .btn-download:disabled { opacity: 0.6; cursor: default; }
+
+    .hint { font-size: 12px; color: var(--muted); margin: 8px 0 0; }
+    .hint.center { text-align: center; }
+
+    .field { display: block; margin-bottom: 10px; }
+    .field span { display: block; font-size: 11.5px; font-weight: 700; color: var(--muted); margin-bottom: 3px; }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 7px 9px;
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--ink);
+      background: #fff;
+      resize: vertical;
+    }
+    .field-row { display: flex; gap: 8px; }
+    .field-row .field, .field-row input { flex: 1; min-width: 0; }
+    .emoji-input { text-align: center; }
+
+    .checkbox-field {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .checkbox-field input { width: auto; }
+
+    /* ---- Preview frame: see chat-report.astro's own copy of this
+           comment block — same technique, same reasoning, unchanged
+           here. #slide has a fixed WIDTH (540px) but intrinsic HEIGHT;
+           .preview-scaler holds the on-screen scale-down transform,
+           applied to a wrapper AROUND #slide so html2canvas (pointed at
+           #slide directly at export time) measures its true layout size
+           regardless of on-screen zoom. ---- */
+    .preview-frame {
+      width: 340px;
+      max-width: 90vw;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+    }
+    .preview-scaler {
+      transform-origin: top left;
+    }
+    @media (min-width: 900px) {
+      .preview-frame { width: 380px; }
+    }
+
+    @media (max-width: 980px) {
+      .workspace { flex-direction: column; }
+      .editor-col { max-width: none; width: 100%; }
+      .preview-col { width: 100%; }
+      .preview-sticky { position: static; }
+      .preview-frame { margin: 0 auto; }
+    }
+  </style>
+
+  <!-- ===================================================================
+       Generated-slide content styles — scoped to what renderSlide()
+       emits. Kept separate from the editor UI styles above, same as
+       chat-report.astro: this is the ONLY block whose visual output is
+       what actually gets exported.
+       =================================================================== -->
+  <style is:global>
+    .slide {
+      /* Fixed WIDTH, intrinsic HEIGHT — see chat-report.astro's identical
+         comment for why (a longer description naturally makes this
+         taller; forcing a rigid height would silently clip it instead).
+         540 wide lands close to the 1080×1350 export target. */
+      width: 540px;
+      padding: 22px 16px 20px;
+      font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+      /* Same mobile-Chrome/Safari font-boosting fix as chat-report.astro
+         — without this, the identical content measures a different
+         height depending on how wide the browser window happens to be
+         when Download is pressed, purely from text re-wrapping under
+         the hood at an unpinned text-size-adjust. */
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+    .slide-caption { background: #fff; border-radius: 14px; padding: 14px 14px 16px; text-align: center; }
+    .slide-caption-h { font-size: 15px; font-weight: 800; color: #17171C; line-height: 1.25; }
+    .slide-caption-p { font-size: 13px; font-weight: 700; color: #17171C; margin-top: 4px; }
+
+    .reveal-wrap { margin-top: 14px; text-align: center; }
+    .reveal-brand { font-size: 18px; font-weight: 900; color: #fff; letter-spacing: 0.5px; text-shadow: 0 1px 6px rgba(0,0,0,0.25); }
+    .reveal-quiz-title {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.85);
+      text-shadow: 0 1px 6px rgba(0,0,0,0.25);
+      margin-top: 6px;
+      margin-bottom: 18px;
+    }
+    .reveal-card {
+      border-radius: 22px;
+      padding: 30px 22px 26px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.22);
+    }
+    .reveal-emoji { font-size: 56px; line-height: 1; }
+    .reveal-title { font-size: 30px; font-weight: 900; line-height: 1.1; margin-top: 12px; }
+    .reveal-desc { font-size: 15px; line-height: 1.4; font-weight: 500; margin-top: 12px; }
+    .reveal-badge {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 7px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .reveal-cta {
+      margin-top: 16px;
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      text-shadow: 0 1px 6px rgba(0,0,0,0.25);
+    }
+  </style>
+</ToolsLayout>

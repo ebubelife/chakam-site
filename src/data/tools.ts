@@ -15,4 +15,9 @@ export const tools: Tool[] = [
     label: 'Chat Report Generator',
     description: 'Build a "chat wrapped"-style stat card grid, export as a TikTok-ready image.',
   },
+  {
+    slug: 'quiz-result',
+    label: 'Quiz Result Generator',
+    description: 'Craft a quiz-result reveal card — crazy, toxic, or wholesome — export as a TikTok-ready image.',
+  },
 ];
