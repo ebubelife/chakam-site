@@ -781,7 +781,14 @@ import ToolsLayout from '../../layouts/ToolsLayout.astro';
       text-size-adjust: 100%;
     }
     .slide-caption { background: #fff; border-radius: 14px; padding: 14px 14px 16px; text-align: center; }
-    .slide-caption-h { font-size: 15px; font-weight: 800; color: #17171C; line-height: 1.25; }
+    /* 700, not 800 — the system font stack below has no native 800 weight
+       (jumps 700 Bold -> 900 Black), so 800 forced the browser to
+       synthesize/interpolate it. That synthetic weight is exactly the
+       kind of non-native glyph metric that trips up html2canvas's
+       space-width calculation on export (see downloadSlide's
+       letterRendering comment) — a real, native weight avoids the bug
+       at the source instead of routing around it. */
+    .slide-caption-h { font-size: 15px; font-weight: 700; color: #17171C; line-height: 1.25; }
     .slide-caption-p { font-size: 13px; font-weight: 700; color: #17171C; margin-top: 4px; }
     .report-card { background: #fff; border-radius: 18px; padding: 16px 12px 14px; margin-top: 12px; box-shadow: 0 12px 30px rgba(0,0,0,0.10); }
     .report-header { text-align: center; font-weight: 900; font-size: 14px; color: #17171C; margin-bottom: 12px; }

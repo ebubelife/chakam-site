@@ -520,7 +520,11 @@ import ToolsLayout from '../../layouts/ToolsLayout.astro';
       text-size-adjust: 100%;
     }
     .slide-caption { background: #fff; border-radius: 14px; padding: 14px 14px 16px; text-align: center; }
-    .slide-caption-h { font-size: 15px; font-weight: 800; color: #17171C; line-height: 1.25; }
+    /* 700, not 800 — see chat-report.astro's slide-caption-h comment: the
+       system font stack has no native 800 weight, so 800 forced a
+       synthesized weight that trips up html2canvas's space-width
+       calculation on export. */
+    .slide-caption-h { font-size: 15px; font-weight: 700; color: #17171C; line-height: 1.25; }
     .slide-caption-p { font-size: 13px; font-weight: 700; color: #17171C; margin-top: 4px; }
 
     .reveal-wrap { margin-top: 14px; text-align: center; }
