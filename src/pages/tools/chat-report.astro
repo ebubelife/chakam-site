@@ -541,6 +541,14 @@ import ToolsLayout from '../../layouts/ToolsLayout.astro';
         scale: 2,
         useCORS: true,
         backgroundColor: null,
+        // Without this, html2canvas's default per-line text renderer can
+        // miscalculate space-glyph width on bold/black weights (the
+        // caption's font-weight: 800 heading in particular) — the live
+        // DOM/preview renders spacing correctly since only html2canvas's
+        // own rasterizer has the bug, so it only ever shows up in the
+        // downloaded PNG, never on-screen. Rendering letter-by-letter
+        // instead of per-line avoids the miscalculation.
+        letterRendering: true,
       }).then((canvas) => {
         scaler.style.transform = prevTransform;
         const link = document.createElement('a');
