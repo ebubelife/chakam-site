@@ -359,6 +359,9 @@ import ToolsLayout from '../../layouts/ToolsLayout.astro';
         scale: 2,
         useCORS: true,
         backgroundColor: null,
+        // See chat-report.astro's downloadSlide for why this is needed —
+        // same html2canvas bold-text space-collapse bug, same fix.
+        letterRendering: true,
       }).then((canvas) => {
         scaler.style.transform = prevTransform;
         const link = document.createElement('a');
