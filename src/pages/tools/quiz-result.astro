@@ -14,6 +14,17 @@
 import ToolsLayout from '../../layouts/ToolsLayout.astro';
 ---
 <ToolsLayout title="Quiz Result Generator" activeSlug="quiz-result">
+  <Fragment slot="head">
+    <!-- See chat-report.astro's matching comment: a real loaded font, never
+         `-apple-system`, so the DOM and html2canvas's canvas can't resolve
+         the family to two different fonts and glue words together. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    />
+  </Fragment>
   <div class="page-head">
     <h1>Quiz Result Generator</h1>
     <p>Craft a quiz-result reveal card — pick a preset to start fast, push it as toxic or as wholesome as you want, download a TikTok-ready image.</p>
@@ -347,21 +358,35 @@ import ToolsLayout from '../../layouts/ToolsLayout.astro';
     // preview happens to be scaled to instead of the real 540px design
     // size. See that file's own comment for the full history of why.
     // ---------------------------------------------------------------
-    function downloadSlide() {
+    // See chat-report.astro's slideFontsReady — capturing before Inter has
+    // loaded reintroduces the same DOM/canvas font mismatch via a timing
+    // route instead of a naming one.
+    async function slideFontsReady() {
+      try {
+        await Promise.all(
+          ['400', '500', '600', '700', '800', '900'].map((w) =>
+            document.fonts.load(`${w} 15px "Inter"`)
+          )
+        );
+        await document.fonts.ready;
+      } catch (_) {
+        /* Non-fatal — a fallback-font export beats no export at all. */
+      }
+    }
+
+    async function downloadSlide() {
       const slide = document.getElementById('slide');
       const scaler = document.getElementById('previewScaler');
       const btn = document.getElementById('downloadBtn');
       btn.disabled = true;
       btn.textContent = 'Rendering…';
+      await slideFontsReady();
       const prevTransform = scaler.style.transform;
       scaler.style.transform = 'none';
       html2canvas(slide, {
         scale: 2,
         useCORS: true,
         backgroundColor: null,
-        // See chat-report.astro's downloadSlide for why this is needed —
-        // same html2canvas bold-text space-collapse bug, same fix.
-        letterRendering: true,
       }).then((canvas) => {
         scaler.style.transform = prevTransform;
         const link = document.createElement('a');
@@ -510,7 +535,9 @@ import ToolsLayout from '../../layouts/ToolsLayout.astro';
          540 wide lands close to the 1080×1350 export target. */
       width: 540px;
       padding: 22px 16px 20px;
-      font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+      /* Real loaded family, never `-apple-system` — see this page's head
+         slot and chat-report.astro for the full reasoning. */
+      font-family: "Inter", Helvetica, Arial, sans-serif;
       /* Same mobile-Chrome/Safari font-boosting fix as chat-report.astro
          — without this, the identical content measures a different
          height depending on how wide the browser window happens to be
