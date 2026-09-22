@@ -13,6 +13,26 @@
 import ToolsLayout from '../../layouts/ToolsLayout.astro';
 ---
 <ToolsLayout title="Chat Report Generator" activeSlug="chat-report">
+  <Fragment slot="head">
+    <!-- A REAL webfont, deliberately, instead of a system-font stack.
+         html2canvas positions each word from DOM measurements but draws it
+         with ctx.fillText using the computed font-family string — so if the
+         DOM and the canvas resolve that string to different fonts, every
+         word is drawn at the right spot in the wrong width, and long words
+         overflow far enough to swallow the space after them ("Messages
+         count" -> "Messagescount", while short words like "Top used words"
+         stay fine). `-apple-system` is exactly that kind of ambiguous
+         value: a CSS keyword, not a real family name, resolved differently
+         by different browsers' canvas font parsers. Pinning to a genuine
+         loaded font removes the ambiguity everywhere rather than hoping
+         each browser agrees with itself. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    />
+  </Fragment>
   <div class="page-head">
     <h1>Chat Report Generator</h1>
     <p>Build a stat-card report, pick a preset to start fast, tweak the numbers, download a TikTok-ready image.</p>
@@ -506,12 +526,32 @@ import ToolsLayout from '../../layouts/ToolsLayout.astro';
       }
     });
 
-    function downloadSlide() {
+    // Every weight the slide actually uses. If capture starts before these
+    // have loaded, the DOM lays out in the fallback font while the canvas
+    // may already have Inter (or vice versa) — the exact DOM/canvas font
+    // mismatch this whole setup exists to prevent, just with a timing
+    // cause rather than a naming one. Cheap to await; resolves instantly
+    // once cached, and still resolves if Google Fonts is unreachable.
+    async function slideFontsReady() {
+      try {
+        await Promise.all(
+          ['400', '500', '600', '700', '800', '900'].map((w) =>
+            document.fonts.load(`${w} 15px "Inter"`)
+          )
+        );
+        await document.fonts.ready;
+      } catch (_) {
+        /* Non-fatal — a fallback-font export beats no export at all. */
+      }
+    }
+
+    async function downloadSlide() {
       const slide = document.getElementById('slide');
       const scaler = document.getElementById('previewScaler');
       const btn = document.getElementById('downloadBtn');
       btn.disabled = true;
       btn.textContent = 'Rendering…';
+      await slideFontsReady();
       // html2canvas measures the element's RENDERED (post-transform) size,
       // not its intrinsic CSS width — it does not ignore an ancestor's
       // scale-down the way a plain layout measurement would. Left as-is,
@@ -541,14 +581,6 @@ import ToolsLayout from '../../layouts/ToolsLayout.astro';
         scale: 2,
         useCORS: true,
         backgroundColor: null,
-        // Without this, html2canvas's default per-line text renderer can
-        // miscalculate space-glyph width on bold/black weights (the
-        // caption's font-weight: 800 heading in particular) — the live
-        // DOM/preview renders spacing correctly since only html2canvas's
-        // own rasterizer has the bug, so it only ever shows up in the
-        // downloaded PNG, never on-screen. Rendering letter-by-letter
-        // instead of per-line avoids the miscalculation.
-        letterRendering: true,
       }).then((canvas) => {
         scaler.style.transform = prevTransform;
         const link = document.createElement('a');
@@ -766,7 +798,9 @@ import ToolsLayout from '../../layouts/ToolsLayout.astro';
          taller instead of losing their bottom row. */
       width: 540px;
       padding: 22px 16px 16px;
-      font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+      /* See the Inter <link> in this page's head slot for why this must be
+         a real, loaded family and never `-apple-system`/`system-ui`. */
+      font-family: "Inter", Helvetica, Arial, sans-serif;
       /* Without this, mobile Chrome/Safari auto-boosts font size on a
          narrow physical viewport regardless of this element's own fixed
          540px CSS width (a "readability" heuristic meant for normal
@@ -781,14 +815,7 @@ import ToolsLayout from '../../layouts/ToolsLayout.astro';
       text-size-adjust: 100%;
     }
     .slide-caption { background: #fff; border-radius: 14px; padding: 14px 14px 16px; text-align: center; }
-    /* 700, not 800 — the system font stack below has no native 800 weight
-       (jumps 700 Bold -> 900 Black), so 800 forced the browser to
-       synthesize/interpolate it. That synthetic weight is exactly the
-       kind of non-native glyph metric that trips up html2canvas's
-       space-width calculation on export (see downloadSlide's
-       letterRendering comment) — a real, native weight avoids the bug
-       at the source instead of routing around it. */
-    .slide-caption-h { font-size: 15px; font-weight: 700; color: #17171C; line-height: 1.25; }
+    .slide-caption-h { font-size: 15px; font-weight: 800; color: #17171C; line-height: 1.25; }
     .slide-caption-p { font-size: 13px; font-weight: 700; color: #17171C; margin-top: 4px; }
     .report-card { background: #fff; border-radius: 18px; padding: 16px 12px 14px; margin-top: 12px; box-shadow: 0 12px 30px rgba(0,0,0,0.10); }
     .report-header { text-align: center; font-weight: 900; font-size: 14px; color: #17171C; margin-bottom: 12px; }
