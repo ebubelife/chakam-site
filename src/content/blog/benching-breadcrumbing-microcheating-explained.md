@@ -5,7 +5,7 @@ answer: "Benching keeps you as a backup with contact that never goes anywhere. B
 date: 2026-09-07
 tags: ["dating terms", "breadcrumbing", "dating advice"]
 heroImage: "/assets/img/blog/benching-breadcrumbing-microcheating-explained/hero.jpg"
-heroImageAlt: "Illustration of three separate phone screens showing three different vague, low-effort text patterns, representing benching, breadcrumbing, and microcheating"
+heroImageAlt: "A phone left alone on an empty park bench in evening light, the feeling behind benching, breadcrumbing and microcheating"
 ---
 
 Modern dating has produced a whole vocabulary for a very old feeling: being kept around without actually being chosen. Benching, breadcrumbing, and microcheating all describe versions of that same core experience, but they're not interchangeable — each one has a distinct shape, and knowing which one you're actually looking at makes it a lot easier to name what's happening instead of just feeling generally unsettled by it.

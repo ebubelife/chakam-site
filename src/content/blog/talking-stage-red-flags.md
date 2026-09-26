@@ -6,7 +6,7 @@ answer: "The talking stage runs on almost no history, which makes real warning s
 date: 2026-09-19
 tags: ["talking stage", "red flags", "dating advice"]
 heroImage: "/assets/img/blog/talking-stage-red-flags/hero.jpg"
-heroImageAlt: "Illustration of two phone screens side by side in the talking stage, one showing an enthusiastic back-and-forth and the other showing a long unanswered gap"
+heroImageAlt: "Two phones face down on a cafe table beside melting iced drinks, the setting where talking stage red flags usually show up"
 ---
 
 The talking stage is a strange place to try to read someone accurately. You don't have months of history to check a weird moment against, you're both still on some version of best behavior, and every text can feel like it's deciding something bigger than it actually is. That combination makes it easy to miss a real pattern hiding behind "it's still early" — and just as easy to spiral over something that's genuinely nothing. Here are 10 things worth actually paying attention to, not to be paranoid, but because the talking stage is exactly when these patterns are cheapest to notice and hardest to catch.

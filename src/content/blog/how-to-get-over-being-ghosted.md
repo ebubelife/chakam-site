@@ -5,7 +5,7 @@ answer: "Ghosting hurts more than a normal ending because it removes closure, no
 date: 2026-09-07
 tags: ["ghosting", "ghost risk", "dating advice"]
 heroImage: "/assets/img/blog/how-to-get-over-being-ghosted/hero.jpg"
-heroImageAlt: "Illustration of a text conversation trailing off into faded, disappearing message bubbles, representing being ghosted"
+heroImageAlt: "A cafe table set for two with one coffee and the opposite chair empty and pushed back, the quiet of being ghosted"
 ---
 
 Being ghosted tends to hurt in a specific, disproportionate way — not just because the relationship ended, but because it ended without an ending. No explanation, no closure, no chance to actually process what happened, just silence that keeps stretching until you're forced to conclude it on your own. That absence of closure isn't a minor detail. It's a big part of why ghosting recovery feels different from getting over a normal breakup.

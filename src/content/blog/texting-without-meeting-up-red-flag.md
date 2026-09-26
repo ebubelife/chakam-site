@@ -5,7 +5,7 @@ answer: "Weeks of good texting with no movement toward meeting is a real warning
 date: 2026-09-07
 tags: ["texting patterns", "red flags", "dating advice"]
 heroImage: "/assets/img/blog/texting-without-meeting-up-red-flag/hero.jpg"
-heroImageAlt: "Illustration of a long, endless text conversation trailing off into the distance with no date or meeting ever appearing at the end"
+heroImageAlt: "A restaurant table for two set by a window with both chairs empty, where endless texting without meeting up leads"
 ---
 
 Being a great texter used to be a genuinely good sign. Now it's treated with more suspicion than that — and for a real reason. A lot of people have been burned by someone who was engaging, funny, and consistent over text for weeks, only to be a completely different, disappointing experience in person, or to never actually show up to meet at all. Endless texting with no real plan to meet has become its own specific red flag, separate from how good the conversation itself feels.

@@ -5,7 +5,7 @@ answer: "Love bombing is not just intense early interest. It is a two-phase patt
 date: 2026-09-07
 tags: ["red flags", "love bombing", "dating advice"]
 heroImage: "/assets/img/blog/how-to-tell-if-youre-being-love-bombed/hero.jpg"
-heroImageAlt: "Illustration of a person surrounded by an overwhelming shower of hearts and gifts, with a small shadow of doubt in the corner, representing love bombing"
+heroImageAlt: "An oversized bouquet of red roses left on a plain doorstep, far too large for the step, the excess behind love bombing"
 ---
 
 Not every intense, fast-moving start is love bombing — plenty of relationships genuinely do start with a rush of real chemistry and mutual excitement, and that's not a red flag on its own. What actually separates the two is what happens *after* you let your guard down. Love bombing isn't defined by how much affection shows up early. It's defined by what that affection turns into once it's worked.

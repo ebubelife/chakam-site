@@ -5,7 +5,7 @@ answer: "AI helps a relationship when you use it to understand your own feelings
 date: 2026-09-06
 tags: ["AI relationships", "dating advice", "communication"]
 heroImage: "/assets/img/blog/how-to-use-ai-in-your-relationship/hero.jpg"
-heroImageAlt: "Illustration of two people at a table with a glowing AI chat window floating between them, representing AI's place in a relationship"
+heroImageAlt: "A phone resting on an open notebook beside a pen under a warm desk lamp, thinking before using AI in your relationship"
 ---
 
 A real and growing number of people are already asking AI for relationship advice — pasting in a text that stung, asking whether a pattern sounds normal, drafting a hard message before sending it. This isn't really a debate to have anymore; it's already happening. The actual question is whether it's helping or quietly making things worse, and the honest answer is: it depends entirely on how you use it.

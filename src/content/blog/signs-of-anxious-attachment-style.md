@@ -5,7 +5,7 @@ answer: "Anxious attachment is a fear of abandonment and heightened sensitivity 
 date: 2026-09-07
 tags: ["attachment styles", "anxious attachment", "dating advice"]
 heroImage: "/assets/img/blog/signs-of-anxious-attachment-style/hero.jpg"
-heroImageAlt: "Illustration of a person holding a phone tightly while looking at it anxiously, with a faint outline of a partner walking away in the distance, representing anxious attachment"
+heroImageAlt: "A phone lying face up on rumpled bedsheets under a dim bedside lamp at night, the late hours anxious attachment keeps"
 ---
 
 Everyone gets a little anxious about a new relationship sometimes — that's not the same thing as having an anxious attachment style. The difference isn't whether you ever worry. It's whether the worry follows a consistent, specific pattern: a heightened fear of rejection, a near-constant need for reassurance, and a nervous system that reads distance — even completely ordinary distance — as a real threat.

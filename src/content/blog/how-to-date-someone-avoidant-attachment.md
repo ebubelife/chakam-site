@@ -5,7 +5,7 @@ answer: "Dating someone avoidant works when you stop treating withdrawal as reje
 date: 2026-09-07
 tags: ["attachment styles", "dating advice", "communication"]
 heroImage: "/assets/img/blog/how-to-date-someone-avoidant-attachment/hero.jpg"
-heroImageAlt: "Illustration of two people, one reaching forward and one stepping back, connected by a single thread, representing the pursue-withdraw dynamic in avoidant attachment"
+heroImageAlt: "A door left slightly ajar with warm light spilling into a dim hallway, the push and pull of avoidant attachment"
 ---
 
 The confusing part about dating someone with an avoidant attachment style is that it rarely looks avoidant at the start. Early on, they can be affectionate, attentive, genuinely present — which is exactly what makes the shift so disorienting later. The pull-back usually shows up right when things would normally deepen: after a vulnerable conversation, after saying "I love you," after a plan that sounds like commitment. It's not that the interest was fake. It's that closeness itself starts to feel like a threat.
