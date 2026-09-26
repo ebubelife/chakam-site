@@ -2,6 +2,7 @@
 title: "15 Signs You're Texting a Narcissist (And What Their Messages Actually Reveal)"
 seoTitle: "15 Signs You're Texting a Narcissist"
 description: "Love-bombing, silent treatment, gaslighting, and more — the texting patterns behind narcissistic behavior, what they mean, and how to tell the difference."
+answer: "Texting cannot diagnose narcissism, which is a clinical assessment. What messages can show is a pattern: love-bombing, silent treatment used as punishment, gaslighting you over your own screenshots, one-word replies designed to make you chase, and denying, attacking, then playing the victim. The pattern matters more than any single message."
 date: 2026-09-05
 tags: ["narcissism", "red flags", "manipulation", "texting patterns"]
 heroImage: "/assets/img/blog/signs-youre-texting-a-narcissist/hero.jpg"
@@ -10,7 +11,7 @@ heroImageAlt: "Illustration of a phone screen split between an intensely warm, a
 
 Some texting patterns are hard to name in the moment because they're not one bad message — they're a whole cycle: intense and overwhelming one week, cold and punishing the next, always somehow ending with you apologizing for something that started with them. If you've been trying to figure out whether what you're seeing in a chat history is just a difficult communicator or something more deliberate, here are 15 patterns worth actually looking for — and what they tend to mean when they show up together.
 
-## What "Narcissistic Texting" Actually Means
+## What Does Narcissistic Texting Actually Mean?
 
 One thing worth being upfront about: narcissistic personality disorder is a real clinical diagnosis, and it can't be made from a chat history — not by an app, not by a blog post, not by anyone without a license and a full clinical picture. What *can* be identified from texting patterns is a cluster of manipulation tactics that show up disproportionately often in relationships with narcissistic dynamics: love-bombing, gaslighting, the silent treatment, DARVO. These are behaviors, not diagnoses. Someone can show one or two of them without being a narcissist in any clinical sense — everyone has a bad week. What's worth paying attention to is the pattern, repeated and combined, not any single tactic in isolation.
 
@@ -125,11 +126,11 @@ Frequent "where are you," "who are you with," "send me a photo so I know" messag
 
 Not every short reply is a power move, and not every miscommunication is manipulation — plenty of people are simply bad at texting, conflict-avoidant, or going through something that's making them a worse communicator than usual, without any of it being deliberate. The real distinction isn't any single behavior on this list, it's the combination and the intent underneath it: does the pattern consistently benefit them at your expense, does it repeat in essentially the same shape every time, and does raising it ever actually lead to a change — or just another round of denial and blame. A bad communicator who's genuinely willing to hear "that hurt" and adjust is a very different situation from someone running the same DARVO script every single time, regardless of how many of these individual behaviors technically show up.
 
-## What These Patterns Have in Common
+## What Do These Texting Patterns Have in Common?
 
 Nearly every item on this list does the same underlying thing: it shifts who's responsible. The silent treatment makes you respons­ible for fixing an unnamed problem. Gaslighting makes you responsible for doubting your own memory instead of them being responsible for what they said. DARVO makes you responsible for the conflict you didn't start. Guilt-tripping makes you responsible for their feelings instead of them being responsible for their own request. Once you see that thread, individual moments stop looking like isolated incidents and start looking like one consistent strategy, repeated in different outfits.
 
-## What to Do If You Recognize These Patterns
+## What Should You Do If You Recognize These Patterns?
 
 ### Stop Trying to Get Them to Understand
 
@@ -156,7 +157,7 @@ A lot of what's on this list is genuinely hard to hold in memory — not because
   <figcaption>Patterns read from the actual chat history, not from memory alone.</figcaption>
 </figure>
 
-## When to Seek Professional Support
+## When Should You Seek Professional Support?
 
 If what you're reading here feels less like an occasional bad moment and more like an accurate description of your day-to-day relationship, that's worth taking seriously — and it's worth doing with real support, not just a checklist. A therapist experienced in emotional abuse or coercive control can help you make sense of what you're actually dealing with and what your options are, in a way no article, however detailed, can fully substitute for. If you're in immediate danger, local domestic violence resources and hotlines are built for exactly this and are available regardless of whether the relationship has ever been physically violent — emotional and psychological abuse are real, and they're taken seriously.
 

@@ -1,6 +1,7 @@
 ---
 title: "How to Flirt Over Text: Conversation Analyzer Guide"
 description: "The real techniques that make texting flirty instead of just friendly — better openers, keeping the tension going, and reading whether it's landing."
+answer: "Flirting over text works through playful tension rather than compliments: tease, leave something implied, and give them an easy way to respond. Openers built on something specific to them outperform generic lines. If replies get shorter and they stop asking questions back, it is not landing, and a real plan beats more texting."
 date: 2026-09-14
 tags: ["flirting", "texting tips", "dating advice"]
 heroImage: "/assets/img/blog/how-to-flirt-over-text/hero.jpg"
@@ -9,7 +10,7 @@ heroImageAlt: "Illustration of a playful, flirty text conversation with warm mes
 
 Flirting over text is a genuinely different skill from flirting in person, and most advice about it doesn't say so directly. In person, tone of voice, timing, a raised eyebrow, and a smile do half the work for you. Over text, none of that exists — every bit of flirtation has to be built into word choice, pacing, and the small structural decisions of how a message is put together. That's why a message that would read as charming out loud can land completely flat as a text, and why a text that reads clearly flirty on the page might sound strange said out loud. Texting isn't a lesser version of flirting. It's its own format, with its own rules.
 
-## What Actually Makes Texting Flirty, Not Just Friendly
+## What Makes Texting Flirty Instead of Just Friendly?
 
 The line between "friendly" and "flirty" over text is thinner than most people think, and it's rarely about *what* you say — it's about a few specific ingredients layered on top of ordinary conversation.
 
@@ -62,7 +63,7 @@ If they're sending short, playful one-liners and you respond with a long paragra
 
 A follow-up question that builds on something they just said reads as genuine interest in a way a new, unrelated question never does. It's a small thing, but it's the difference between a conversation that feels like it's building toward something and one that's just a series of disconnected exchanges.
 
-## How to Tell If It's Actually Landing
+## How Do You Tell If It's Actually Landing?
 
 This is the part most flirting advice skips entirely, and it's arguably the more useful half of the whole topic: knowing whether what you're doing is working. A few real signals worth paying attention to, on their side of the conversation:
 
@@ -92,7 +93,7 @@ None of these are proof on their own — a single slow reply can mean someone wa
   </div>
 </div>
 
-## Common Texting Mistakes That Kill the Vibe
+## What Texting Mistakes Kill the Vibe?
 
 ### Overexplaining a Joke
 
@@ -110,7 +111,7 @@ Sexual or overly intense messages before real rapport is built tend to collapse 
 
 A string of one-word replies — "lol," "yeah," "same" — reads as disengagement even when that's not the intent. If the energy isn't there for a longer reply in the moment, it's usually better to say so plainly than to let flat one-word answers accumulate and quietly kill the conversation.
 
-## When You're Not Sure What to Say Back
+## What Do You Say When You're Not Sure What to Say Back?
 
 Every piece of flirting advice eventually runs into the same wall: it's easy to understand the *principles* and still freeze up staring at an actual message, unsure what the right reply, opener, or tease actually looks like for *this specific conversation*.
 

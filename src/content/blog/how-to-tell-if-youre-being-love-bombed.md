@@ -1,6 +1,7 @@
 ---
 title: "How to Tell If You're Being Love Bombed"
 description: "The difference between a genuinely great start and love bombing, the two-phase pattern behind it, and how to tell which one you're actually in."
+answer: "Love bombing is not just intense early interest. It is a two-phase pattern where overwhelming attention is followed by withdrawal once you are invested. The test is not the intensity but what happens when you ask for space or set a boundary. Real interest tolerates that. Love bombing does not."
 date: 2026-09-07
 tags: ["red flags", "love bombing", "dating advice"]
 heroImage: "/assets/img/blog/how-to-tell-if-youre-being-love-bombed/hero.jpg"
@@ -9,11 +10,11 @@ heroImageAlt: "Illustration of a person surrounded by an overwhelming shower of 
 
 Not every intense, fast-moving start is love bombing — plenty of relationships genuinely do start with a rush of real chemistry and mutual excitement, and that's not a red flag on its own. What actually separates the two is what happens *after* you let your guard down. Love bombing isn't defined by how much affection shows up early. It's defined by what that affection turns into once it's worked.
 
-## What Love Bombing Actually Is
+## What Is Love Bombing?
 
 Love bombing is a pattern of excessive attention, affection, and generosity used early in a relationship to create fast intimacy and dependency — before there's been time to actually build trust the normal way. It's not always conscious manipulation; sometimes it's someone's own anxious or unstable relationship pattern playing out. But whether it's deliberate or not, the effect on the other person is the same: it makes it much harder to see clearly once real problems show up later, because so much goodwill has already been banked.
 
-## The Two-Phase Pattern
+## What Are the Two Phases of Love Bombing?
 
 ### Phase One: Idealization
 
@@ -23,7 +24,7 @@ This is the part that feels incredible — constant contact, over-the-top compli
 
 Once you're invested — comfortable, attached, your guard down — this is where the actual pattern reveals itself. Increased control, jealousy about time spent with other people, upset over independent plans, subtle guilt-tripping, and sometimes gaslighting about whether any of this is really happening. The idealization phase wasn't the relationship. It was the setup for this phase.
 
-## Signs Worth Watching For
+## What Are the Signs of Love Bombing?
 
 - Declarations of love, "soulmate," or "meant to be" language within the first few weeks
 - Gifts or gestures that feel disproportionate to how long you've actually known each other
@@ -40,7 +41,7 @@ Once you're invested — comfortable, attached, your guard down — this is wher
   <figcaption>The intensity isn't the tell. What it turns into once you're invested is.</figcaption>
 </figure>
 
-## What Doesn't Automatically Mean You're Being Love Bombed
+## What Doesn't Automatically Mean You're Being Love Bombed?
 
 An intense, exciting start on its own isn't proof of anything — genuine chemistry can feel just as overwhelming as manipulation does, at least at first. The distinguishing factor isn't the size of the gesture or the speed of the feelings. It's whether the person behind it responds normally to a boundary, or reacts to it like a threat. Someone with real, good-faith interest can handle "let's slow down a little" without it turning into pressure, guilt, or withdrawal. That response — not the initial intensity — is the actual signal.
 

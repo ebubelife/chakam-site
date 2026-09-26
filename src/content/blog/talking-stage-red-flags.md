@@ -2,6 +2,7 @@
 title: "10 Things to Watch Out for During the Talking Stage"
 seoTitle: "10 Talking Stage Red Flags to Watch For"
 description: "The talking stage runs on almost no history, which makes real red flags easy to miss and normal nerves easy to over-read. Here are 10 worth actually watching for."
+answer: "The talking stage runs on almost no history, which makes real warning signs easy to miss and ordinary nerves easy to over-read. Watch for someone who never asks anything back, effort that arrives only in bursts, vagueness about what this is, plans that never become plans, and speed that outpaces what you have built."
 date: 2026-09-19
 tags: ["talking stage", "red flags", "dating advice"]
 heroImage: "/assets/img/blog/talking-stage-red-flags/hero.jpg"
@@ -10,7 +11,7 @@ heroImageAlt: "Illustration of two phone screens side by side in the talking sta
 
 The talking stage is a strange place to try to read someone accurately. You don't have months of history to check a weird moment against, you're both still on some version of best behavior, and every text can feel like it's deciding something bigger than it actually is. That combination makes it easy to miss a real pattern hiding behind "it's still early" — and just as easy to spiral over something that's genuinely nothing. Here are 10 things worth actually paying attention to, not to be paranoid, but because the talking stage is exactly when these patterns are cheapest to notice and hardest to catch.
 
-## Why the Talking Stage Is the Easiest Place to Miss a Pattern
+## Why Is the Talking Stage the Easiest Place to Miss a Pattern?
 
 Every one of the items below has the same shape: they're nearly invisible in a single conversation and much more obvious across several. You don't yet know if a slow reply is just how this person texts or the start of something. You don't have a baseline for how much effort is "normal" for them. That's not a flaw in your judgment — it's the actual information environment of the talking stage, and it's exactly why a pattern that would be obvious three months in can hide in plain sight during week two.
 
@@ -96,7 +97,7 @@ Almost nothing on this list means much as a single occurrence. Everyone has a sl
   </div>
 </div>
 
-## What to Do If You're Noticing Several of These
+## What Should You Do If You're Noticing Several of These?
 
 ### Name What You're Actually Seeing, Not Just How You Feel
 

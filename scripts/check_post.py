@@ -5,7 +5,13 @@
 
 Mechanical checks only. It cannot judge whether the post matches search
 intent, whether a claim is true, or whether the writing is good; those
-still need a human. Exits 1 if anything FAILS, so it can gate a commit or
+still need a human.
+
+Some rules here are about answer engines (ChatGPT, Perplexity, AI
+Overviews) rather than classic ranking: the 40-60 word `answer` block and
+question-shaped H2s exist because an engine citing a page lifts a short,
+self-contained passage out of it, and a heading phrased as a question is
+what it matches a conversational query against. See docs/GEO.md. Exits 1 if anything FAILS, so it can gate a commit or
 a CI step. WARN means worth a look but not blocking.
 
 Standard library only.
@@ -69,6 +75,30 @@ def main():
     n_h2 = sum(kw in h.lower() for h in h2)
     check('FAIL', 'keyword in 1+ H2', n_h2 >= 1, f'{n_h2} H2s')
     check('WARN', 'keyword in 2+ H2s', n_h2 >= 2, f'{n_h2} H2s')
+
+    # --- answer engine rules -------------------------------------------
+    answer = field('answer')
+    a_words = len(answer.split())
+    check('FAIL', 'answer block present', bool(answer))
+    check('FAIL', 'answer block 40-60 words', 40 <= a_words <= 60,
+          f'{a_words} words')
+    # An engine lifts this passage on its own, so it has to read as a
+    # complete answer with no page around it — a leading "This", "That" or
+    # "It" almost always means the sentence is leaning on the title.
+    check('WARN', 'answer block opens self-contained',
+          not re.match(r'^(this|that|it|they|these|those|here)\b', answer,
+                       re.I),
+          answer[:40])
+    check('WARN', 'keyword in answer block', kw in answer.lower())
+    # Not a duplicate of the meta description, which serves a different job.
+    check('WARN', 'answer block differs from description',
+          answer.strip().lower() != desc.strip().lower())
+
+    q_h2 = sum(h.rstrip().endswith('?') for h in h2)
+    check('FAIL', 'at least 2 question-shaped H2s', q_h2 >= 2, f'{q_h2} of {len(h2)}')
+    check('WARN', 'a third of H2s are questions',
+          len(h2) == 0 or q_h2 / len(h2) >= 0.33,
+          f'{q_h2} of {len(h2)}')
 
     check('FAIL', 'hero image declared', bool(hero))
     if hero:

@@ -1,6 +1,7 @@
 ---
 title: "Benching, Breadcrumbing & Microcheating, Explained"
 description: "Three modern dating patterns that all keep you hanging on without real commitment — what each one actually looks like, and how they differ."
+answer: "Benching keeps you as a backup with contact that never goes anywhere. Breadcrumbing feeds you just enough attention to stop you leaving. Microcheating is small behavior that crosses a line without being an affair. All three keep you hanging on without real commitment, which is what makes them hard to name."
 date: 2026-09-07
 tags: ["dating terms", "breadcrumbing", "dating advice"]
 heroImage: "/assets/img/blog/benching-breadcrumbing-microcheating-explained/hero.jpg"
@@ -9,15 +10,15 @@ heroImageAlt: "Illustration of three separate phone screens showing three differ
 
 Modern dating has produced a whole vocabulary for a very old feeling: being kept around without actually being chosen. Benching, breadcrumbing, and microcheating all describe versions of that same core experience, but they're not interchangeable — each one has a distinct shape, and knowing which one you're actually looking at makes it a lot easier to name what's happening instead of just feeling generally unsettled by it.
 
-## Benching
+## What Is Benching?
 
 Benching is keeping someone as a backup option — enough contact to keep them interested, without ever making them the priority. It looks like occasional dates, warm-enough messages, and just enough consistency to keep you from walking away, while the other person's actual attention and effort is going somewhere else, or being kept deliberately open in case something better comes along. You're not being actively pursued. You're being kept on the roster, just in case.
 
-## Breadcrumbing
+## What Is Breadcrumbing?
 
 Breadcrumbing is smaller and more sporadic than benching — a stray "hey, thinking of you," a like on a photo, a vague "we should hang out sometime" that never turns into an actual plan. It's just enough attention to keep you interested and available, without any real investment behind it. The tell isn't any single message — a genuinely busy person sends vague texts sometimes too. It's the pattern: consistent small gestures, with a consistent absence of anything that actually moves forward.
 
-## Microcheating
+## What Is Microcheating?
 
 Microcheating covers behavior that hints at emotional or physical betrayal without crossing an obvious, undeniable line — flirting with someone else, an emotionally intimate conversation kept hidden, liking an ex's photos, texting late at night with someone they wouldn't want you reading over their shoulder. It's harder to point to than outright infidelity, which is part of what makes it so unsettling — it often gets dismissed or explained away precisely because no single instance looks damning on its own.
 
@@ -30,7 +31,7 @@ Microcheating covers behavior that hints at emotional or physical betrayal witho
   <figcaption>Different shapes, same underlying theme — kept around, not chosen.</figcaption>
 </figure>
 
-## What All Three Actually Have in Common
+## What Do All Three Have in Common?
 
 Underneath the different shapes, all three patterns share the same core structure: just enough investment to keep you engaged, without the actual commitment that would make the relationship real. None of them are accidents in the way a single missed text or an awkward joke can be — they're patterns, which means the same principle applies to spotting all three: one instance rarely proves anything, but a repeated shape across weeks is the real signal.
 
@@ -54,7 +55,7 @@ Underneath the different shapes, all three patterns share the same core structur
   </div>
 </div>
 
-## How to Tell Which One You're Actually Dealing With
+## How Do You Tell Which One You're Dealing With?
 
 Ask what's actually missing. If it's real plans and follow-through despite steady contact, that reads as benching. If it's the contact itself that's sparse and vague, with occasional warm moments that never build into anything, that's breadcrumbing. If the concern is specifically about attention or intimacy going somewhere else while you're technically still together, that's microcheating territory. The overlap is real — someone can do more than one of these at once — but naming the actual pattern makes it much easier to decide what you're willing to accept.
 

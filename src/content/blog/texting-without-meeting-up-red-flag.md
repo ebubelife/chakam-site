@@ -1,6 +1,7 @@
 ---
 title: "Endless Texting Without Meeting Up Is a Red Flag"
 description: "Why a great texter can still be a real red flag, what weeks of texting with no plans to meet actually signals, and when to just ask directly."
+answer: "Weeks of good texting with no movement toward meeting is a real warning sign, not impatience on your part. Some easing in is normal; the concern is an extended stretch where no plan ever forms. After a few weeks, ask directly. The answer, or the deflection, tells you what the texting could not."
 date: 2026-09-07
 tags: ["texting patterns", "red flags", "dating advice"]
 heroImage: "/assets/img/blog/texting-without-meeting-up-red-flag/hero.jpg"
@@ -9,11 +10,11 @@ heroImageAlt: "Illustration of a long, endless text conversation trailing off in
 
 Being a great texter used to be a genuinely good sign. Now it's treated with more suspicion than that — and for a real reason. A lot of people have been burned by someone who was engaging, funny, and consistent over text for weeks, only to be a completely different, disappointing experience in person, or to never actually show up to meet at all. Endless texting with no real plan to meet has become its own specific red flag, separate from how good the conversation itself feels.
 
-## Why "Great Texter, Disappointing in Person" Became a Real Pattern
+## Why Did "Great Texter, Disappointing in Person" Become a Pattern?
 
 Texting rewards a specific, narrow skill set: timing, wit, the ability to craft a good message. None of that reliably predicts chemistry, follow-through, or character in person — it's just a different skill, sometimes possessed by people who are genuinely great to talk to and genuinely avoidant about actually meeting. The gap between "great over text" and "actually shows up" is exactly where this pattern lives.
 
-## What Weeks of Texting With No Plan to Meet Actually Signals
+## What Does Weeks of Texting With No Plan to Meet Signal?
 
 ### It Might Just Be Nerves
 
@@ -60,7 +61,7 @@ There's no universal number, but a useful marker: if two weeks of regular, engag
   </div>
 </div>
 
-## What to Do Instead of Waiting It Out
+## What Should You Do Instead of Waiting It Out?
 
 ### Suggest Something Specific, Not Vague
 

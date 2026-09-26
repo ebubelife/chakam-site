@@ -2,6 +2,7 @@
 title: "One-Sided Texting: How to Actually Know (Not Guess) Who's Trying Harder"
 seoTitle: "One-Sided Texting: How to Know Who's Trying Harder"
 description: "\"It feels like I'm always texting first\" is real to notice — and exactly what your memory is bad at measuring accurately. Here's how to actually check."
+answer: "Texting feels one-sided long before it is, because memory over-weights the times you reached out and forgets the times they did. The reliable check is counting who initiates over several weeks, not who sent the last message. Some imbalance is normal; a gap that keeps widening, with plans never reciprocated, is not."
 date: 2026-09-01
 updated: 2026-09-04
 tags: ["effort", "reciprocity", "texting patterns", "one-sided texting"]
