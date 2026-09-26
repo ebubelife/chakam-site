@@ -31,6 +31,10 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
 // BaseLayout) is already correct per page with no extra work.
 const pageSuffix = page.currentPage > 1 ? ` — Page ${page.currentPage}` : '';
 
+// Only page 1 gets a lead card. On page 2+ every post is equally old, so
+// promoting one would be arbitrary and would break the even grid.
+const isFeatured = (i: number) => page.currentPage === 1 && i === 0;
+
 // Astro's page.url.prev/next don't reliably carry a trailing slash;
 // every other link on this site does, so normalize rather than have
 // pagination be the one inconsistent set of hrefs.
@@ -65,12 +69,33 @@ const nextUrl = withSlash(page.url.next);
       </div>
     </div>
 
-    <div class="post-list">
-      {page.data.map((post) => (
-        <a class="post-card" href={`/blog/${post.id}/`}>
-          <span class="post-date">{dateFmt.format(post.data.date)}</span>
-          <h2>{post.data.title}</h2>
-          <p>{post.data.description}</p>
+    <div class="post-grid">
+      {page.data.map((post, i) => (
+        <a
+          class:list={['post-card', { 'is-featured': isFeatured(i) }]}
+          href={`/blog/${post.id}/`}
+        >
+          {post.data.heroImage && (
+            <div class="post-thumb">
+              <img
+                src={post.data.heroImage}
+                alt={post.data.heroImageAlt ?? post.data.title}
+                loading={isFeatured(i) ? 'eager' : 'lazy'}
+                decoding="async"
+                width="1344"
+                height="750"
+              />
+            </div>
+          )}
+          <div class="post-card-body">
+            <div class="post-card-meta">
+              {post.data.tags[0] && <span class="post-card-tag">{post.data.tags[0]}</span>}
+              {post.data.tags[0] && <span class="dot">&bull;</span>}
+              <span class="post-date">{dateFmt.format(post.data.date)}</span>
+            </div>
+            <h2>{post.data.title}</h2>
+            <p>{post.data.description}</p>
+          </div>
         </a>
       ))}
     </div>

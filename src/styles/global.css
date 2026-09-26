@@ -1116,44 +1116,150 @@ footer.site .links a:hover { color: var(--ink); }
   margin-top: 20px;
 }
 
-.post-list {
+/* Blog index cards. A grid of boxes rather than a stack of text rows:
+   every post carries a hero image, so leading with it makes the index
+   scannable instead of a wall of similar-looking headlines. The newest
+   post gets a wider treatment (image beside the text) so page one has a
+   clear entry point rather than eight equal cards. */
+.post-grid {
   display: grid;
-  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px;
   margin-top: 44px;
-  max-width: 720px;
+  max-width: var(--maxw);
   margin-left: auto;
   margin-right: auto;
 }
 
 .post-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 24px 26px;
+  overflow: hidden;
   text-decoration: none;
   color: inherit;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
 }
 
-.post-card .post-date {
-  font-size: 12.5px;
-  font-weight: 800;
-  color: var(--yellow-deep);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+.post-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--ink);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.09);
 }
+
+/* The image lives inside a wrapper rather than being sized directly. An
+   <img> stretched by flex/grid falls back to its own intrinsic height
+   (these are 1344x750), which made the lead card absurdly tall. A plain
+   div has no intrinsic height, so it can be stretched or given an aspect
+   ratio freely, and the image just fills it. */
+.post-thumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+
+.post-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.post-card-body {
+  padding: 20px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.post-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.post-card-tag { color: var(--yellow-deep); }
+.post-card-meta .post-date { color: var(--muted); font-weight: 700; }
+.post-card-meta .dot { color: var(--line); }
 
 .post-card h2 {
-  font-size: 19px;
+  font-size: 20px;
   font-weight: 900;
-  margin: 8px 0 6px;
-  letter-spacing: -0.01em;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
 }
 
 .post-card p {
   font-size: 14.5px;
+  line-height: 1.5;
   color: var(--muted);
   margin: 0;
+}
+
+/* The lead card: spans the grid and turns side-by-side, so the newest
+   post reads as the headline rather than as one tile among many. */
+.post-card.is-featured {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.post-card.is-featured .post-thumb {
+  width: 46%;
+  flex: 0 0 46%;
+  aspect-ratio: auto;
+  align-self: stretch;
+  min-height: 260px;
+  border-bottom: none;
+  border-right: 1px solid var(--line);
+}
+
+.post-card.is-featured .post-card-body {
+  justify-content: center;
+  padding: 32px 34px;
+  gap: 10px;
+}
+
+.post-card.is-featured h2 { font-size: 30px; line-height: 1.12; }
+.post-card.is-featured p { font-size: 16px; }
+
+@media (max-width: 760px) {
+  .post-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .post-card.is-featured { flex-direction: column; }
+  .post-card.is-featured .post-thumb {
+    width: 100%;
+    flex: none;
+    aspect-ratio: 16 / 9;
+    min-height: 0;
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+  }
+  .post-card.is-featured .post-card-body { padding: 20px 22px 24px; }
+  .post-card.is-featured h2 { font-size: 22px; }
+  .post-card.is-featured p { font-size: 15px; }
+}
+
+/* On a narrow card the tag and date wrap, which left the separator dot
+   dangling at the end of the first line. Tighten the line so it fits, and
+   drop the dot entirely if it still has to wrap. */
+@media (max-width: 480px) {
+  .post-card-meta { font-size: 11px; letter-spacing: 0.03em; gap: 6px; }
+}
+
+@media (max-width: 400px) {
+  .post-card-meta .dot { display: none; }
 }
 
 .pagination {
@@ -1161,8 +1267,8 @@ footer.site .links a:hover { color: var(--ink); }
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  max-width: 720px;
-  margin: 32px auto 0;
+  max-width: var(--maxw);
+  margin: 40px auto 0;
   padding-top: 24px;
   border-top: 1px solid var(--line);
 }
