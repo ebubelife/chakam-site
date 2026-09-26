@@ -1223,6 +1223,34 @@ footer.site .links a:hover { color: var(--ink); }
   margin: 0;
 }
 
+/* The quick-answer block under the H1. Deliberately plain, un-nested
+   markup (a div wrapping one <p>) rather than a <details>, an accordion or
+   anything JS-driven: answer engines read the raw HTML, and content they
+   have to expand or execute to reach is content they skip. The left rule
+   and tint mark it as the summary for a human skimming, without hiding it
+   from anything. */
+.post-answer {
+  max-width: 680px;
+  margin: -16px auto 40px;
+  padding: 20px 24px;
+  background: var(--card);
+  border-left: 4px solid var(--yellow);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.post-answer p {
+  margin: 0;
+  font-size: 17.5px;
+  line-height: 1.55;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+@media (max-width: 640px) {
+  .post-answer { padding: 16px 18px; margin-top: -8px; }
+  .post-answer p { font-size: 16.5px; }
+}
+
 .post-tags {
   display: flex;
   gap: 8px;

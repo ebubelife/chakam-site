@@ -2,6 +2,7 @@
 title: "How to Tell If Someone's Losing Interest, Based on How They Text"
 seoTitle: "Signs Someone's Losing Interest Over Text"
 description: "Vibes are unreliable. Here's what actually changes in someone's texting when interest fades — and what doesn't mean anything at all."
+answer: "Fading interest shows up as change, not as any single behavior: reply times drifting longer, initiation quietly flipping to you, messages getting shorter, double-texts going unacknowledged, and plans getting vaguer. A genuinely busy stretch looks similar but returns to normal afterward. A real fade keeps moving in one direction."
 date: 2026-08-20
 updated: 2026-09-04
 tags: ["texting patterns", "reading the signs", "losing interest"]

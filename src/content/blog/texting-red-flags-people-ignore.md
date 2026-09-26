@@ -1,6 +1,7 @@
 ---
 title: "5 Texting Red Flags Everyone Notices Too Late"
 description: "Not the obvious ones. These are the red flags that show up early in a chat history but usually get explained away — until the pattern is undeniable."
+answer: "The red flags people miss are not the obvious ones. They are the apology that is not an apology, grudges raised as just saying, arguments escalating in the same shape every time, effort that only appears after you pull back, and real questions going unanswered. One instance is normal; repetition is the signal."
 date: 2026-08-27
 updated: 2026-09-04
 tags: ["red flags", "texting patterns", "texting red flags"]

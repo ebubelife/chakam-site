@@ -16,6 +16,13 @@ const blog = defineCollection({
     // back to `title` when omitted — most posts won't need this.
     seoTitle: z.string().optional(),
     description: z.string(),
+    // The 40-60 word direct answer to the post's main question, rendered
+    // immediately under the H1. Answer engines (ChatGPT, Perplexity, AI
+    // Overviews) lift a block like this close to verbatim when they cite a
+    // page, so it is written as a standalone answer that makes sense with
+    // no surrounding context. Optional in the schema only so an older post
+    // can't break the build; scripts/check_post.py FAILS without it.
+    answer: z.string().optional(),
     date: z.coerce.date(),
     updated: z.coerce.date().optional(),
     tags: z.array(z.string()).default([]),

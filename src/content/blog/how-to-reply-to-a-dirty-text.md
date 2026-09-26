@@ -1,6 +1,7 @@
 ---
 title: "How to Reply to a Dirty Text"
 description: "What to actually say back to a flirty or suggestive text — whether you're into it, still deciding, or not interested — without it feeling awkward."
+answer: "Decide what you actually want before you reply. If you are into it, match the energy and keep it playful. If you are unsure, a light, noncommittal reply is a complete answer on its own. If you are not interested, a short, friendly redirect keeps the rest of the conversation intact."
 date: 2026-09-15
 tags: ["texting tips", "flirting", "dating advice"]
 heroImage: "/assets/img/blog/how-to-reply-to-a-dirty-text/hero.jpg"
@@ -9,7 +10,7 @@ heroImageAlt: "A young woman lying on her bed at night, smiling at her phone whi
 
 Getting a flirty or suggestive text and freezing up over the reply is more common than it looks like from the outside. The message itself usually isn't the hard part — it's the split-second pressure of a reply that needs to land right: not too eager, not too cold, not a line that reads like it was copied from somewhere. Most of that pressure disappears once the actual decision gets made explicit, which is the part almost every quick "here's what to text back" list skips.
 
-## Figure Out What You Actually Want First
+## What Do You Actually Want to Happen Next?
 
 Before any specific wording, there's one real question underneath all of it: are you into this, genuinely unsure, or not interested? The right reply depends entirely on the honest answer, and most awkward replies come from skipping straight to "what should I say" without settling that first. A great line in the wrong direction still reads as off — it's the direction, not the wording, that does most of the work.
 
@@ -60,7 +61,7 @@ If a certain kind of text isn't something you're comfortable with, saying so pla
   <figcaption>The right reply depends on the direction, not the wording.</figcaption>
 </figure>
 
-## Why This Kind of Text Feels Higher-Stakes Than It Actually Is
+## Why Does a Text Like This Feel Higher-Stakes Than It Is?
 
 A single suggestive text can feel like it's testing something — your interest, your values, how "cool" you are — which is exactly what makes the reply feel so loaded. In reality, it's one message, and there's no single correct response that works for everyone in every situation. The pressure comes from treating it like a test with a right answer, rather than what it actually is: one moment in an ongoing back-and-forth that can shift in either direction from here.
 
@@ -84,7 +85,7 @@ A single suggestive text can feel like it's testing something — your interest,
   </div>
 </div>
 
-## What Actually Kills the Moment
+## What Actually Kills the Moment?
 
 ### Overexplaining Your Reaction
 
