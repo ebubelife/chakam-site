@@ -59,13 +59,22 @@ def main():
     kw = a.keyword.lower()
     title, desc, alt, hero = (field('title'), field('description'),
                               field('heroImageAlt'), field('heroImage'))
+    # What actually lands in <title>: the template renders
+    # `seoTitle ?? title`, so the length limit belongs to the effective one.
+    # Measuring `title` here used to fail a post that was using seoTitle
+    # exactly as intended — a longer, punchier H1 with a short SEO title.
+    seo_title = field('seoTitle') or title
     words = re.findall(r"[A-Za-z0-9']+", body)
     low = body.lower()
 
     check('FAIL', 'keyword in slug', kw.replace(' ', '-') in a.slug, a.slug)
     check('FAIL', 'keyword in title', kw in title.lower(), title)
-    check('FAIL', f'title fits with " — Chakam" (<=60)', len(title) + 9 <= 60,
-          f'{len(title) + 9} chars')
+    check('FAIL', f'<title> fits with " — Chakam" (<=60)',
+          len(seo_title) + 9 <= 60, f'{len(seo_title) + 9} chars')
+    # An H1 can run longer than the SERP limit, but past this it stops
+    # reading as a headline and starts reading as a sentence.
+    check('WARN', 'H1 under 70 chars', len(title) <= 70, f'{len(title)} chars')
+    check('WARN', 'keyword in <title>', kw in seo_title.lower(), seo_title)
     check('FAIL', 'keyword in description', kw in desc.lower())
     check('FAIL', 'description length 100-155', 100 <= len(desc) <= 155,
           f'{len(desc)} chars')
