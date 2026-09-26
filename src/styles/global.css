@@ -1412,6 +1412,28 @@ footer.site .links a:hover { color: var(--ink); }
 
 .post-layout .prose { max-width: none; margin: 0; }
 
+/* Images written inline in a post's Markdown, which arrive as a bare <img>
+   rather than in a .blog-fig wrapper. Without a width cap they render at
+   their natural size — the blog's own heroes are 1344px wide — and since
+   .post-layout's first column is a grid track, an oversized child overflows
+   it and runs under the sidebar instead of making the column scroll. Matches
+   .blog-fig's treatment so an inline image and a hero look like the same
+   site. `height: auto` keeps the aspect ratio once the width is capped. */
+.prose img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 32px 0;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+}
+
+/* Markdown wraps a lone image in a <p>, which would otherwise add its own
+   paragraph spacing on top of the image's margin. */
+.prose p:has(> img:only-child) {
+  margin: 0;
+}
+
 .post-sidebar {
   position: sticky;
   top: 24px;
