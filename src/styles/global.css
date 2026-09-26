@@ -1211,6 +1211,21 @@ footer.site .links a:hover { color: var(--ink); }
   letter-spacing: 0.04em;
 }
 
+.post-header .post-byline {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 6px 0 0;
+}
+
+.post-header .post-byline a {
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+}
+
+.post-header .post-byline a:hover { border-bottom-color: var(--yellow); }
+
 .post-header h1 {
   font-size: 34px;
   text-align: left;

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
+import { AUTHOR } from '../../data/author';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -54,7 +55,13 @@ const articleSchema = {
   description: post.data.description,
   datePublished: post.data.date.toISOString(),
   dateModified: (post.data.updated ?? post.data.date).toISOString(),
-  author: { '@type': 'Organization', name: 'Chakam' },
+  // One author entity, identical on every post, pointing at a page that
+  // actually describes them. A byline that varies between posts, or that
+  // resolves to nothing, is worth less than no byline at all — which is
+  // why this is a shared constant rather than a per-post frontmatter field.
+  // It is also rendered visibly under the title: structured data is meant
+  // to describe what a reader sees, not add claims they can't verify.
+  author: AUTHOR,
   publisher: { '@type': 'Organization', name: 'Chakam' },
   // Gives the crawler the same standalone answer a reader sees at the top
   // of the page, so the extractable passage and the structured data agree.
@@ -141,6 +148,9 @@ const faqSchema =
 
     <div class="post-header">
       <span class="post-date">{dateFmt.format(post.data.date)}</span>
+      <p class="post-byline">
+        By <a href="/about/" rel="author">{AUTHOR.name}</a>
+      </p>
       <h1>{post.data.title}</h1>
       <p class="post-desc">{post.data.description}</p>
       {post.data.tags.length > 0 && (

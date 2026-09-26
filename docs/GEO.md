@@ -51,11 +51,19 @@ Google has said it does not use it, and there is no public evidence any
 major engine reads it today. It costs one generated file and is correct if
 adoption comes. It is not a substitute for anything above.
 
-**No author `Person` entity.** Posts credit the Chakam organization. A named
-human byline is a genuine E-E-A-T signal, and the case study that prompted
-this work normalized one across every post — but it permanently attaches a
-real person to relationship advice, which is a business decision, not a
-technical one. Open question, not an oversight.
+**Nothing about the author is left vague.** Every post carries one author
+entity, `src/data/author.ts`, rendered both as JSON-LD and as a visible
+byline under the title. Two rules keep it worth having: it is identical on
+every post, and its `url` points at a page that genuinely describes whoever
+it names. If /about/ ever stops describing Kodeblooded, that link has to
+move rather than quietly resolve to nothing.
+
+A note on honesty here, since it is the part that matters: these guides are
+drafted with AI assistance and edited and published by Kodeblooded, who
+stands behind them. That is authorship in the sense search guidance cares
+about — a real, accountable identity — and it is why the byline is a person
+rather than a bare brand name. It would stop being honest the moment posts
+went out unread.
 
 ## Measuring it
 
