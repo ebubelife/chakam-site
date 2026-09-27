@@ -2,6 +2,7 @@
 title: "What Left on Read Means, and What to Do About It"
 description: "What being left on read actually means, why it hurts more than it seems like it should, the real reasons behind it, and what to do next."
 answer: "Being left on read means someone opened your message and did not reply, and their read receipt showed you. It is not the same as ghosting, which is sustained silence. It usually says more about their capacity at that moment than about you. One instance is normal; a repeated pattern is different."
+quizCta: "anxious-attachment-test"
 date: 2026-09-15
 tags: ["left on read", "texting anxiety", "dating advice"]
 heroImage: "/assets/img/blog/what-does-left-on-read-mean/hero.jpg"

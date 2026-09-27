@@ -2,6 +2,7 @@
 title: "Dating Rules for Women with Anxious Attachment"
 description: "Real dating guidelines for anxious attachment, plus the specific double standard women get stuck with on top of it."
 answer: "Dating with anxious attachment works better when you name what you need plainly, rather than managing how interested you appear. The common advice to seem less invested usually blocks the communication that would actually settle things. Let reassurance land when it is offered, and build a pause between the feeling and the reaction."
+quizCta: "anxious-attachment-test"
 date: 2026-09-15
 tags: ["anxious attachment", "attachment styles", "dating advice"]
 heroImage: "/assets/img/blog/dating-rules-women-anxious-attachment/hero.jpg"

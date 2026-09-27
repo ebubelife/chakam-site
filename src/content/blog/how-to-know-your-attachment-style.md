@@ -2,6 +2,7 @@
 title: "How to Know Your Attachment Style (5 Real Clues)"
 description: "How to know your attachment style by what you actually do: five real clues on silence, dates, conflict, \"I love you\" and getting close too fast."
 answer: "You learn your attachment style from what you actually do, not from how you describe yourself: how you handle silence, plans, conflict, saying \"I love you\", and closeness arriving fast. One strong reaction proves little; a pattern across several situations proves a lot. Attachment style is not fixed and can change."
+quizCta: "anxious-attachment-test"
 date: 2026-09-23
 tags: ["attachment styles", "anxious attachment", "avoidant attachment", "dating advice"]
 heroImage: "/assets/img/blog/how-to-know-your-attachment-style/hero.jpg"

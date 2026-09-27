@@ -2,6 +2,7 @@
 title: "How to Date Someone With Avoidant Attachment"
 description: "Why avoidant attachment rarely looks avoidant at first, what actually triggers the pull-back, and how to date someone avoidant without losing yourself."
 answer: "Dating someone avoidant works when you stop treating withdrawal as rejection and stop chasing it, because chasing intensifies the pull-back. Avoidant attachment rarely looks avoidant early on; it shows up once closeness builds. The pattern can change, but only if both people name it rather than pretending it is not there."
+quizCta: "anxious-attachment-test"
 date: 2026-09-07
 tags: ["attachment styles", "dating advice", "communication"]
 heroImage: "/assets/img/blog/how-to-date-someone-avoidant-attachment/hero.jpg"

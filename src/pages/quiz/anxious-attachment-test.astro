@@ -1,0 +1,854 @@
+---
+// The anxious attachment test.
+//
+// Deliberately NOT under /tools/ — that path is noindex,nofollow and
+// excluded from the sitemap, because those pages are the private
+// workspace used to build TikTok slideshows. This one is the opposite: a
+// public page that is meant to rank, so it uses BaseLayout and sits at
+// /quiz/ where later tests can join it.
+//
+// Everything runs in the browser. No answer is sent anywhere, which is
+// both true and the same promise the app makes, so the page says so.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { QUESTIONS, BANDS, MAX_SCORE } from '../../data/anxious-attachment-test';
+
+const title = 'Anxious Attachment Test: Free 2-Minute Quiz';
+const description =
+  'A free anxious attachment test. 12 questions on how you handle distance, silence and reassurance, with what your result means and what helps.';
+
+const faqs = [
+  {
+    q: 'Is this anxious attachment test accurate?',
+    a: 'It is a structured way to notice a pattern, not a clinical measure. It is not a validated instrument and it cannot diagnose anything. What it is good for is putting words to something you may already half-know, and it is most useful when you answer about how you usually are rather than how you were last week.',
+  },
+  {
+    q: 'What counts as a high anxious attachment score?',
+    a: 'Scores run from 0 to 36. Under 9 suggests distance rarely registers as threat. Between 9 and 17 is a pattern that shows up under stress. Between 18 and 26 is a consistent one. Above 27 means these reactions are showing up strongly and across relationships.',
+  },
+  {
+    q: 'Can anxious attachment change?',
+    a: 'Yes. Attachment patterns are learned expectations rather than fixed traits, and they shift through repeated experience of closeness that does not disappear the moment there is distance. That can come from a steady relationship, from therapy, or from deliberately practising a different response. It is slow, and it is real.',
+  },
+  {
+    q: 'Is anxious attachment the same as being clingy?',
+    a: 'No. Clinginess is one behaviour it can produce. The pattern underneath is that uncertainty registers as danger faster than it does for other people, so the behaviour is an attempt to make the uncertainty stop. Two people with the same underlying anxiety can look completely different from the outside.',
+  },
+  {
+    q: 'Do my answers get saved or sent anywhere?',
+    a: 'No. The whole test runs in your browser. Nothing is uploaded, nothing is stored, and closing the tab ends it. That is the same principle the Chakam app works on, where your chat is analysed on your device.',
+  },
+  {
+    q: 'What should I do if I score high?',
+    a: 'Take it as information rather than a verdict. Reading about the pattern helps, naming the feeling before acting on it helps more, and talking to a therapist who works with attachment helps most. If it is affecting your sleep or how you feel about yourself day to day, that is worth taking to a professional rather than a quiz.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', Astro.site).href },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Anxious Attachment Test',
+      item: new URL('/quiz/anxious-attachment-test/', Astro.site).href,
+    },
+  ],
+};
+---
+<BaseLayout title={`${title} — Chakam`} description={description}>
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <div class="quiz-wrap">
+    <header class="quiz-head">
+      <span class="quiz-kicker">Free test</span>
+      <h1>Anxious Attachment Test</h1>
+      <p class="quiz-sub">
+        Twelve questions about how you handle silence, distance and reassurance.
+        Takes about two minutes. Nothing you answer leaves your browser.
+      </p>
+      <p class="quiz-note">
+        This is not a diagnosis and not a clinical instrument. It is a structured
+        way to see a pattern you may already suspect.
+      </p>
+    </header>
+
+    <!-- The test. One question at a time: a 12-question wall gets abandoned. -->
+    <section class="quiz-card" id="quizCard" aria-live="polite">
+      <div class="quiz-progress" aria-hidden="true">
+        <div class="quiz-progress-fill" id="progressFill"></div>
+      </div>
+      <p class="quiz-counter"><span id="qNum">1</span> of {QUESTIONS.length}</p>
+      <h2 class="quiz-question" id="questionText">{QUESTIONS[0].text}</h2>
+      <div class="quiz-options" id="options"></div>
+      <button type="button" class="quiz-back" id="backBtn" hidden>&larr; Back</button>
+    </section>
+
+    <!-- Result. Hidden until the last answer lands. -->
+    <section class="quiz-result" id="result" hidden>
+      <div class="result-band">
+        <span class="result-kicker">Your result</span>
+        <h2 id="bandLabel"></h2>
+        <div class="result-meter" aria-hidden="true">
+          <div class="result-meter-fill" id="meterFill"></div>
+        </div>
+        <p class="result-score"><span id="scoreNum">0</span> out of {MAX_SCORE}</p>
+        <p class="result-summary" id="bandSummary"></p>
+      </div>
+
+      <div class="result-detail" id="bandDetail"></div>
+
+      <div class="result-actions">
+        <button type="button" class="btn primary" id="downloadBtn">Download your result</button>
+        <button type="button" class="btn ghost" id="retakeBtn">Take it again</button>
+      </div>
+
+      <div class="result-reads">
+        <h3>Read next</h3>
+        <ul id="bandReads"></ul>
+      </div>
+
+      <div class="result-app">
+        <h3>That is what you say about yourself</h3>
+        <p>
+          Every test like this one is self-report. It asks how you think you behave
+          and trusts the answer. Chakam does the other half: import a real
+          conversation and it shows what actually happened in it, including who
+          reaches out first, how reply times have drifted, and whether the distance
+          you are feeling shows up in the messages.
+        </p>
+        <p>
+          The app also carries the other twelve tests, none of which are on this
+          site:
+        </p>
+        <ul class="app-quiz-list">
+          <li>What&rsquo;s Your Attachment Style? <span>all four patterns, not just this one</span></li>
+          <li>What&rsquo;s Your Texting Persona?</li>
+          <li>Red Flag Radar</li>
+          <li>How Do You Handle Conflict?</li>
+          <li>How Do You Make Up After a Fight?</li>
+          <li>Who Carries the Relationship?</li>
+          <li>What&rsquo;s Your Love Language?</li>
+          <li>What&rsquo;s Your Attraction Style?</li>
+          <li>Push-Pull or Real Chemistry?</li>
+          <li>How Do You Handle Endings?</li>
+          <li>When You&rsquo;re Called Out, What Do You Actually Do?</li>
+          <li>Do You Show Narcissistic Traits?</li>
+        </ul>
+        <div class="store-row">
+          <a class="store-badge" href="https://apps.apple.com/ng/app/chakam-chat-wrapped-red-flag/id6792742396">
+            <img src="/assets/img/apple_icon.png" alt="App Store" />
+            <span class="store-text">
+              <span class="store-eyebrow">Download on the</span>
+              <span class="store-name">App Store</span>
+            </span>
+          </a>
+          <a class="store-badge" href="https://play.google.com/store/apps/details?id=com.chakam.chatanalyzer">
+            <img src="/assets/img/png-clipart-goggle-playstore-icon-google-play-computer-icons-android-play-button-angle-rectangle.png" alt="Google Play" />
+            <span class="store-text">
+              <span class="store-eyebrow">Get it on</span>
+              <span class="store-name">Google Play</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- The shareable card, rendered off-screen and captured on demand.
+         Fixed 1080x1350 so the export is the same on every device. -->
+    <div class="card-stage" aria-hidden="true">
+      <div class="share-card" id="shareCard">
+        <div class="share-inner">
+          <span class="share-wordmark">chakam</span>
+          <span class="share-kicker">Anxious attachment test</span>
+          <h2 class="share-band" id="shareBand"></h2>
+          <p class="share-line" id="shareLine"></p>
+          <div class="share-meter"><div class="share-meter-fill" id="shareMeter"></div></div>
+          <p class="share-score" id="shareScore"></p>
+          <span class="share-cta">chakam.site/quiz</span>
+        </div>
+      </div>
+    </div>
+
+    <article class="quiz-prose">
+      <h2>What Is Anxious Attachment?</h2>
+      <p>
+        Anxious attachment describes a pattern where closeness matters a great
+        deal and distance registers as threat. It is not the same as being
+        clingy, needy or dramatic. The behaviours people notice from the outside,
+        the double texts and the checking and the reassurance-seeking, are the
+        visible end of something simpler: uncertainty feels dangerous, and those
+        actions are an attempt to make it stop.
+      </p>
+      <p>
+        It usually forms early, in a context where needing someone did not
+        reliably work out. A child whose bids for comfort were sometimes met and
+        sometimes not learns that connection is unpredictable and has to be
+        monitored. That is a sensible adaptation to a real environment, and it
+        travels into adult relationships as a heightened sensitivity to distance.
+      </p>
+
+      <h2>How This Anxious Attachment Test Works</h2>
+      <p>
+        The twelve questions all point at one thing: what happens in you when
+        there is a gap. A slow reply, a weekend apart, an unresolved
+        disagreement, a message left on read. Each answer scores from 0 to 3, so
+        results run from 0 to {MAX_SCORE}, and the bands describe how much of
+        your attention this pattern is taking rather than putting you in a box.
+      </p>
+      <p>
+        Two things make the result more useful. Answer about how you usually are
+        rather than how you have been this week, since a single difficult stretch
+        pulls the same reactions out of almost anyone. And answer about the
+        relationships you have actually had, not the person you would like to be.
+      </p>
+
+      <h2>What This Test Cannot Do</h2>
+      <p>
+        It cannot diagnose you. It is not a validated psychological instrument,
+        it was not developed through clinical trials, and a score here is not a
+        finding about your mental health. Attachment researchers use measures
+        built and tested over decades for exactly that reason.
+      </p>
+      <p>
+        What it can do is give shape to something vague. Most people arriving at
+        a page like this already suspect the answer and want to know whether the
+        thing they keep doing has a name. It does, it is common, and it can
+        change.
+      </p>
+
+      <h2>Can Anxious Attachment Be Changed?</h2>
+      <p>
+        Yes, and the mechanism is unglamorous. Attachment patterns are learned
+        expectations about what closeness will cost you, and expectations update
+        through repeated evidence. Closeness that does not turn into control.
+        Distance that does not turn into abandonment. Conflict that ends in
+        repair rather than in someone leaving.
+      </p>
+      <p>
+        That evidence can come from a steady relationship, from therapy, or from
+        deliberately practising a different response to the same trigger. What
+        does not work is trying to need less. The aim is not to stop wanting
+        reassurance, it is to stop needing it urgently enough that it drives what
+        you do next.
+      </p>
+
+      <h2>Frequently Asked Questions</h2>
+      {faqs.map((f) => (
+        <div class="quiz-faq">
+          <h3>{f.q}</h3>
+          <p>{f.a}</p>
+        </div>
+      ))}
+    </article>
+  </div>
+
+  <!-- is:global on purpose. The answer buttons are created in JS, so they
+       never receive Astro's generated scope attribute and scoped rules
+       would not match them. Every selector below is namespaced (.quiz-,
+       .result-, .share-, .card-stage) so nothing leaks into other pages. -->
+  <style is:global>
+    .quiz-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+    }
+
+    /* ---- header ---- */
+    .quiz-head { text-align: center; padding: 48px 0 32px; }
+
+    .quiz-kicker {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--yellow);
+      padding: 6px 14px;
+      border-radius: 100px;
+    }
+
+    .quiz-head h1 {
+      font-size: 44px;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      margin: 18px 0 14px;
+    }
+
+    .quiz-sub {
+      font-size: 17.5px;
+      line-height: 1.5;
+      color: var(--muted);
+      margin: 0 auto;
+      max-width: 34em;
+    }
+
+    .quiz-note {
+      font-size: 13.5px;
+      line-height: 1.45;
+      color: var(--muted);
+      max-width: 34em;
+      margin: 18px auto 0;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    /* ---- the test ---- */
+    .quiz-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 30px 30px 26px;
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.07);
+    }
+
+    .quiz-progress {
+      height: 5px;
+      background: rgba(0, 0, 0, 0.07);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .quiz-progress-fill {
+      height: 100%;
+      width: 0;
+      background: var(--yellow);
+      border-radius: 100px;
+      transition: width 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .quiz-counter {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 18px 0 0;
+    }
+
+    .quiz-question {
+      font-size: 25px;
+      line-height: 1.24;
+      letter-spacing: -0.015em;
+      margin: 10px 0 24px;
+    }
+
+    .quiz-options { display: grid; gap: 10px; }
+
+    .quiz-option {
+      width: 100%;
+      text-align: left;
+      font: inherit;
+      font-size: 16px;
+      line-height: 1.4;
+      font-weight: 600;
+      color: var(--ink);
+      background: var(--bg);
+      border: 1.5px solid transparent;
+      border-radius: 14px;
+      padding: 16px 18px;
+      cursor: pointer;
+      transition: border-color 0.14s ease, background 0.14s ease, transform 0.14s ease;
+    }
+
+    .quiz-option:hover {
+      border-color: var(--yellow);
+      transform: translateX(3px);
+    }
+
+    .quiz-option.is-chosen {
+      border-color: var(--yellow);
+      background: rgba(248, 188, 32, 0.16);
+    }
+
+    .quiz-back {
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--muted);
+      background: none;
+      border: 0;
+      padding: 18px 0 0;
+      cursor: pointer;
+    }
+
+    .quiz-back:hover { color: var(--ink); }
+
+    /* ---- result ---- */
+    .quiz-result { margin-top: 8px; }
+
+    .result-band {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 32px 30px;
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.07);
+    }
+
+    .result-kicker {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--yellow-deep);
+    }
+
+    .result-band h2 {
+      font-size: 32px;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin: 10px 0 20px;
+    }
+
+    .result-meter {
+      height: 10px;
+      background: rgba(0, 0, 0, 0.07);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .result-meter-fill {
+      height: 100%;
+      width: 0;
+      border-radius: 100px;
+      background: linear-gradient(90deg, var(--yellow), var(--yellow-deep));
+      transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .result-score {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 10px 0 18px;
+    }
+
+    .result-summary {
+      font-size: 17.5px;
+      line-height: 1.5;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .result-detail { padding: 26px 4px 4px; }
+    .result-detail p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin: 0 0 14px;
+    }
+
+    .result-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 12px 0 34px;
+    }
+
+    .result-actions .btn {
+      flex: 1 1 auto;
+      text-align: center;
+      font-size: 15.5px;
+      font-weight: 800;
+      padding: 15px 22px;
+      border-radius: 100px;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .result-actions .btn.primary { background: var(--ink); color: #fff; }
+    .result-actions .btn.primary:hover { background: #000; }
+    .result-actions .btn.primary:disabled { opacity: 0.55; cursor: default; }
+    .result-actions .btn.ghost {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--line);
+    }
+    .result-actions .btn.ghost:hover { border-color: var(--ink); }
+
+    .result-reads, .result-app {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 26px 28px;
+      margin-bottom: 18px;
+    }
+
+    .result-reads h3, .result-app h3 {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 14px;
+    }
+
+    .result-reads ul { margin: 0; padding: 0; list-style: none; }
+    .result-reads li + li { margin-top: 2px; }
+
+    .result-reads a {
+      display: block;
+      font-size: 16.5px;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .result-reads li:last-child a { border-bottom: 0; }
+    .result-reads a:hover { color: var(--yellow-deep); }
+
+    .result-app p {
+      font-size: 15.5px;
+      line-height: 1.55;
+      color: var(--muted);
+      margin: 0 0 12px;
+    }
+    .result-app .store-row { margin-top: 18px; }
+
+    .app-quiz-list {
+      list-style: none;
+      margin: 0 0 4px;
+      padding: 0;
+      display: grid;
+      gap: 1px;
+    }
+
+    .app-quiz-list li {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--ink);
+      padding: 11px 0 11px 26px;
+      border-bottom: 1px solid var(--line);
+      position: relative;
+    }
+
+    .app-quiz-list li:last-child { border-bottom: 0; }
+
+    .app-quiz-list li::before {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 18px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--yellow);
+    }
+
+    .app-quiz-list span {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    /* ---- the exported card ----
+       Parked off-screen at full size rather than hidden, because
+       html2canvas cannot measure a display:none subtree. */
+    .card-stage {
+      position: absolute;
+      left: -10000px;
+      top: 0;
+      width: 1080px;
+      height: 1350px;
+      overflow: hidden;
+    }
+
+    .share-card {
+      width: 1080px;
+      height: 1350px;
+      background: var(--bg);
+      font-family: "Inter", Helvetica, Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 90px;
+      box-sizing: border-box;
+    }
+
+    .share-inner {
+      background: var(--card);
+      border-radius: 56px;
+      padding: 88px 76px;
+      width: 100%;
+      text-align: center;
+      border: 3px solid var(--ink);
+    }
+
+    .share-wordmark {
+      display: block;
+      font-size: 40px;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+    }
+
+    .share-kicker {
+      display: block;
+      margin-top: 44px;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--yellow-deep);
+    }
+
+    .share-band {
+      font-size: 82px;
+      line-height: 1.04;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin: 26px 0 0;
+    }
+
+    .share-line {
+      font-size: 34px;
+      line-height: 1.35;
+      font-weight: 500;
+      color: var(--muted);
+      margin: 30px 0 52px;
+    }
+
+    .share-meter {
+      height: 22px;
+      background: rgba(0, 0, 0, 0.08);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .share-meter-fill {
+      height: 100%;
+      background: var(--yellow);
+      border-radius: 100px;
+    }
+
+    .share-score {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin: 22px 0 56px;
+    }
+
+    .share-cta {
+      display: inline-block;
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--ink);
+      background: var(--yellow);
+      padding: 20px 44px;
+      border-radius: 100px;
+    }
+
+    /* ---- the explainer below ---- */
+    .quiz-prose { margin-top: 64px; }
+    .quiz-prose h2 {
+      font-size: 27px;
+      letter-spacing: -0.018em;
+      margin: 44px 0 14px;
+    }
+    .quiz-prose h3 { font-size: 18.5px; margin: 26px 0 8px; }
+    .quiz-prose p {
+      font-size: 17px;
+      line-height: 1.62;
+      color: var(--ink);
+      margin: 0 0 16px;
+    }
+    .quiz-faq p { color: var(--muted); font-size: 16px; }
+
+    @media (max-width: 640px) {
+      .quiz-head { padding: 34px 0 26px; }
+      .quiz-head h1 { font-size: 33px; }
+      .quiz-sub { font-size: 16px; }
+      .quiz-card, .result-band { padding: 24px 20px; border-radius: 20px; }
+      .quiz-question { font-size: 21px; }
+      .quiz-option { font-size: 15.5px; padding: 15px 16px; }
+      .result-band h2 { font-size: 26px; }
+      .result-reads, .result-app { padding: 22px 20px; }
+      .quiz-prose h2 { font-size: 23px; }
+      .quiz-prose p { font-size: 16px; }
+      .result-actions .btn { flex: 1 1 100%; }
+    }
+  </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" is:inline></script>
+  <script define:vars={{ QUESTIONS, BANDS, MAX_SCORE }}>
+    const answers = new Array(QUESTIONS.length).fill(null);
+    let current = 0;
+
+    const el = (id) => document.getElementById(id);
+    const optionsBox = el('options');
+
+    function bandFor(score) {
+      // BANDS is ordered low to high; the last one whose floor we clear wins.
+      return BANDS.reduce((acc, b) => (score >= b.min ? b : acc), BANDS[0]);
+    }
+
+    function render() {
+      const q = QUESTIONS[current];
+      el('questionText').textContent = q.text;
+      el('qNum').textContent = String(current + 1);
+      el('progressFill').style.width = `${(current / QUESTIONS.length) * 100}%`;
+      el('backBtn').hidden = current === 0;
+      optionsBox.innerHTML = '';
+      q.options.forEach((opt, i) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'quiz-option';
+        if (answers[current] === i) b.classList.add('is-chosen');
+        b.textContent = opt.text;
+        b.addEventListener('click', () => choose(i));
+        optionsBox.appendChild(b);
+      });
+    }
+
+    function choose(i) {
+      answers[current] = i;
+      if (current < QUESTIONS.length - 1) {
+        current += 1;
+        render();
+      } else {
+        finish();
+      }
+    }
+
+    function finish() {
+      const score = answers.reduce(
+        (sum, choice, qi) => sum + (choice === null ? 0 : QUESTIONS[qi].options[choice].score),
+        0
+      );
+      const band = bandFor(score);
+      const pct = Math.round((score / MAX_SCORE) * 100);
+
+      el('bandLabel').textContent = band.label;
+      el('bandSummary').textContent = band.summary;
+      el('scoreNum').textContent = String(score);
+      el('meterFill').style.width = `${pct}%`;
+
+      el('bandDetail').innerHTML = '';
+      band.detail.forEach((p) => {
+        const para = document.createElement('p');
+        para.textContent = p;
+        el('bandDetail').appendChild(para);
+      });
+
+      const reads = el('bandReads');
+      reads.innerHTML = '';
+      band.reads.forEach((r) => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = r.href;
+        a.textContent = r.label;
+        li.appendChild(a);
+        reads.appendChild(li);
+      });
+
+      el('shareBand').textContent = band.label;
+      el('shareLine').textContent = band.cardLine;
+      el('shareScore').textContent = `${score} / ${MAX_SCORE}`;
+      el('shareMeter').style.width = `${pct}%`;
+
+      el('quizCard').hidden = true;
+      el('result').hidden = false;
+      el('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      if (window.gtag) {
+        window.gtag('event', 'quiz_completed', {
+          quiz_id: 'anxious_attachment_test',
+          result_band: band.id,
+          score,
+        });
+      }
+    }
+
+    el('backBtn').addEventListener('click', () => {
+      if (current > 0) {
+        current -= 1;
+        render();
+      }
+    });
+
+    el('retakeBtn').addEventListener('click', () => {
+      answers.fill(null);
+      current = 0;
+      el('result').hidden = true;
+      el('quizCard').hidden = false;
+      render();
+      el('quizCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+
+    // Capturing before Inter has loaded reproduces the DOM/canvas font
+    // mismatch that used to glue words together in exported cards.
+    async function cardFontsReady() {
+      try {
+        await Promise.all(
+          ['400', '500', '600', '700', '800', '900'].map((w) =>
+            document.fonts.load(`${w} 15px "Inter"`)
+          )
+        );
+        await document.fonts.ready;
+      } catch (_) {
+        /* A fallback-font export beats no export. */
+      }
+    }
+
+    el('downloadBtn').addEventListener('click', async () => {
+      const btn = el('downloadBtn');
+      const card = el('shareCard');
+      btn.disabled = true;
+      const label = btn.textContent;
+      btn.textContent = 'Building image…';
+      try {
+        await cardFontsReady();
+        const canvas = await html2canvas(card, {
+          backgroundColor: null,
+          scale: 1,
+          width: 1080,
+          height: 1350,
+          useCORS: true,
+          logging: false,
+        });
+        const link = document.createElement('a');
+        link.download = 'chakam-anxious-attachment-result.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        if (window.gtag) {
+          window.gtag('event', 'quiz_shared', { quiz_id: 'anxious_attachment_test' });
+        }
+      } finally {
+        btn.disabled = false;
+        btn.textContent = label;
+      }
+    });
+
+    render();
+    if (window.gtag) {
+      window.gtag('event', 'quiz_started', { quiz_id: 'anxious_attachment_test' });
+    }
+  </script>
+</BaseLayout>

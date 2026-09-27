@@ -166,6 +166,18 @@ const faqSchema =
       </div>
     )}
 
+    {post.data.quizCta === 'anxious-attachment-test' && (
+      <a class="post-quiz-cta" href="/quiz/anxious-attachment-test/">
+        <span class="post-quiz-kicker">Free 2-minute test</span>
+        <strong>Do you have anxious attachment?</strong>
+        <span class="post-quiz-sub">
+          Twelve questions on how you handle silence, distance and reassurance.
+          Nothing you answer leaves your browser.
+        </span>
+        <span class="post-quiz-go">Take the test &rarr;</span>
+      </a>
+    )}
+
     {post.data.heroImage && (
       <figure class="blog-fig blog-fig-hero">
         <img

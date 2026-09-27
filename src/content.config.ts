@@ -23,6 +23,10 @@ const blog = defineCollection({
     // no surrounding context. Optional in the schema only so an older post
     // can't break the build; scripts/check_post.py FAILS without it.
     answer: z.string().optional(),
+    // Slug of a /quiz/ test to promote inside this post. Rendered by
+     // [...slug].astro as a card right under the answer block, which is
+     // high on the page on every device rather than buried at the end.
+    quizCta: z.enum(['anxious-attachment-test']).optional(),
     date: z.coerce.date(),
     updated: z.coerce.date().optional(),
     tags: z.array(z.string()).default([]),

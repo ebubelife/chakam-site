@@ -3,6 +3,7 @@ title: "Avoidant Attachment Partner: How to Tell, and What Actually Helps"
 seoTitle: "Avoidant Attachment Partner: Signs and What Helps"
 description: "How to tell if you have an avoidant attachment partner, the signs people misread, whether it can change, and what helps without pushing them away."
 answer: "An avoidant attachment partner pulls away as closeness grows, not because interest is fading but because closeness itself registers as pressure. The clearest tell is timing: warmth, then distance right after a good moment. You cannot diagnose anyone from the outside, and the pattern can change, but only when they decide to work on it."
+quizCta: "anxious-attachment-test"
 date: 2026-09-26
 tags: ["attachment styles", "avoidant attachment", "relationship advice", "dating advice"]
 heroImage: "/assets/img/blog/avoidant-attachment-partner/hero.jpg"

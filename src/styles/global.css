@@ -1420,6 +1420,65 @@ footer.site .links a:hover { color: var(--ink); }
   .post-answer p { font-size: 16.5px; }
 }
 
+/* In-post promo for a /quiz/ test. Sits directly under the answer block
+   rather than at the end of the article: the reader has just been told
+   what the post concludes, which is the moment they most want to check
+   it against themselves, and it is visible on mobile without scrolling
+   to the bottom. */
+.post-quiz-cta {
+  display: block;
+  max-width: 680px;
+  margin: 0 auto 40px;
+  padding: 22px 26px;
+  background: var(--ink);
+  color: #fff;
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.post-quiz-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+}
+
+.post-quiz-kicker {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
+
+.post-quiz-cta strong {
+  display: block;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.015em;
+  margin: 8px 0 6px;
+}
+
+.post-quiz-sub {
+  display: block;
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.post-quiz-go {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--yellow);
+}
+
+@media (max-width: 640px) {
+  .post-quiz-cta { padding: 18px 20px; }
+  .post-quiz-cta strong { font-size: 19px; }
+}
+
 .post-tags {
   display: flex;
   gap: 8px;

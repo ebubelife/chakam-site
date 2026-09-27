@@ -2,6 +2,7 @@
 title: "Signs You Have Anxious Attachment, Not Overthinking"
 description: "How to tell a real anxious attachment pattern apart from normal dating nerves, what actually drives it, and what helps more than reassurance-seeking."
 answer: "Anxious attachment is a fear of abandonment and heightened sensitivity to distance, not clinginess or being too much. It differs from normal dating nerves by showing up consistently across relationships rather than with one particular person. Reassurance-seeking calms it briefly; naming the need plainly and tolerating uncertainty works better."
+quizCta: "anxious-attachment-test"
 date: 2026-09-07
 tags: ["attachment styles", "anxious attachment", "dating advice"]
 heroImage: "/assets/img/blog/signs-of-anxious-attachment-style/hero.jpg"

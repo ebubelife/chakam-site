@@ -2,6 +2,7 @@
 title: "Dating Rules for Men with Anxious Attachment"
 description: "Real dating guidelines for anxious attachment in men — including the specific pressure to mask it entirely, and why that usually backfires."
 answer: "Dating with anxious attachment as a man works better when you state a need plainly instead of masking it. Masking does not remove the need, it relocates it into overthinking and reactive behavior. Build a pause before reacting, notice the pull toward partners who withdraw, and expect a secure partner to calm the pattern."
+quizCta: "anxious-attachment-test"
 date: 2026-09-15
 tags: ["anxious attachment", "attachment styles", "dating advice"]
 heroImage: "/assets/img/blog/dating-rules-men-anxious-attachment/hero.jpg"

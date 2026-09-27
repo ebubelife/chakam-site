@@ -3,6 +3,7 @@ title: "Why You Overthink Texts (Especially During the Talking Stage) — And Ho
 seoTitle: "Overthinking Texts & the Talking Stage"
 description: "Why ambiguous texts hijack your brain, why the talking stage makes it worse, and the actual mechanism behind it — plus what genuinely helps you stop."
 answer: "You overthink texts because an ambiguous message carries no tone or timing, so your brain fills the gap, and the talking stage removes the certainty that would stop it. Rereading produces no new information. What helps is limiting rereads, replying as yourself, and accepting the ambiguity instead of trying to solve it."
+quizCta: "anxious-attachment-test"
 date: 2026-09-04
 tags: ["overthinking", "talking stage", "texting anxiety", "anxious attachment"]
 heroImage: "/assets/img/blog/overthinking-texts-talking-stage/hero.jpg"

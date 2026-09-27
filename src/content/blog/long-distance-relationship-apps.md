@@ -3,6 +3,7 @@ title: "5 Long Distance Relationship Apps That Actually Help"
 seoTitle: "5 Long Distance Relationship Apps (2026)"
 description: "Five long distance relationship apps compared on App Store data: Marco Polo, Locket, Agape, Hearo and Between, and what each one actually fixes."
 answer: "Long distance relationship apps each fix one failure. Marco Polo handles time zones with video your partner watches later, Locket puts them on your home screen, Agape supplies daily questions, Hearo lets you watch things together, and Between keeps a private shared space. Pick by the problem you actually have."
+quizCta: "anxious-attachment-test"
 date: 2026-09-27
 tags: ["long distance", "couples", "relationship apps", "relationship advice"]
 heroImage: "/assets/img/blog/long-distance-relationship-apps/hero.jpg"
