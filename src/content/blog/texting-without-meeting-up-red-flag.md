@@ -87,8 +87,8 @@ A direct, low-pressure suggestion works better than hinting — "would you want 
 
 ### Can someone be genuinely interested and still avoid meeting up?
 
-It's possible, but less common than it might feel — genuine interest usually does eventually translate into wanting to actually spend time together. If it consistently doesn't, that's worth taking as real information rather than assuming the interest is there and just delayed indefinitely.
+It's possible, but less common than it might feel — genuine interest usually does eventually translate into wanting to actually spend time together. If it consistently doesn't, that's worth taking as real information rather than assuming the interest is there and just delayed indefinitely. If it eventually stops entirely rather than stalling, [how to get over being ghosted](/blog/how-to-get-over-being-ghosted/) is the next read.
 
 ### Is a long-distance situation different from this pattern?
 
-Genuine logistical barriers are a real, different category — the distinguishing question is still the same one: is there an actual plan or a real conversation about eventually meeting, or is the distance being used as a permanent excuse to never move past texting.
+Genuine logistical barriers are a real, different category — the distinguishing question is still the same one: is there an actual plan or a real conversation about eventually meeting, or is the distance being used as a permanent excuse to never move past texting. Genuine distance is its own situation with its own tools, which we covered in [long distance relationship apps](/blog/long-distance-relationship-apps/).

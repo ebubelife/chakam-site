@@ -116,4 +116,4 @@ It's less about the specific number and more about not putting all the emotional
 
 ### Can anxious attachment actually change over time?
 
-Yes — attachment patterns are shaped by experience, which means they can shift with new experience too, especially with a consistently secure partner or real therapeutic work. It's not usually fast, and it's rarely linear, but it's genuinely not fixed for life.
+Yes — attachment patterns are shaped by experience, which means they can shift with new experience too, especially with a consistently secure partner or real therapeutic work. It's not usually fast, and it's rarely linear, but it's genuinely not fixed for life. If you are still working out whether this is you, start with [the signs of anxious attachment](/blog/signs-of-anxious-attachment-style/).

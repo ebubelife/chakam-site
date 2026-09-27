@@ -87,7 +87,7 @@ Not necessarily — genuine early enthusiasm and love bombing can look identical
 
 ### How long does the idealization phase usually last?
 
-There's no fixed timeline — it can be weeks or several months, and it often ends right around the point you'd naturally start feeling secure and comfortable. That timing isn't a coincidence; it tends to shift once the investment it was building has actually paid off.
+There's no fixed timeline — it can be weeks or several months, and it often ends right around the point you'd naturally start feeling secure and comfortable. That timing isn't a coincidence; it tends to shift once the investment it was building has actually paid off. Because it so often lands in the first few weeks, it is worth reading alongside [the other talking stage red flags](/blog/talking-stage-red-flags/).
 
 ### Can love bombing happen without someone realizing they're doing it?
 

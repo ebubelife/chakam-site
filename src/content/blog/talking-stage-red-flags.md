@@ -136,7 +136,7 @@ There's no fixed timeline, and it varies a lot with how often you're actually in
 
 ### Should I bring these things up during the talking stage, or wait?
 
-If something's bothering you enough that you're already building a mental list, it's usually worth naming plainly and early rather than waiting — the talking stage is a low-stakes place to ask a direct question compared to further in. How someone responds to a fair, calmly-asked question tells you a lot on its own.
+If something's bothering you enough that you're already building a mental list, it's usually worth naming plainly and early rather than waiting — the talking stage is a low-stakes place to ask a direct question compared to further in. How someone responds to a fair, calmly-asked question tells you a lot on its own. The one worth raising soonest is [endless texting with no plan to meet](/blog/texting-without-meeting-up-red-flag/), because waiting it out is what costs the most time.
 
 ### Can these patterns mean something totally innocent?
 

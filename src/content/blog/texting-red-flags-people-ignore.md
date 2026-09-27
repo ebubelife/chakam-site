@@ -132,8 +132,8 @@ Not on its own. A single instance of any of these — one deflected apology, one
 
 ### Can texting red flags be misread?
 
-Yes, especially in isolation. Tone doesn't always come through in text, and a message that reads as dismissive might not have been meant that way at all. This is exactly why looking at a pattern over time is more reliable than judging any single message — one flat reply could be anything; a month of them is a trend.
+Yes, especially in isolation. Tone doesn't always come through in text, and a message that reads as dismissive might not have been meant that way at all. This is exactly why looking at a pattern over time is more reliable than judging any single message — one flat reply could be anything; a month of them is a trend. One that is almost never misread is weeks of good conversation with [no movement toward actually meeting](/blog/texting-without-meeting-up-red-flag/).
 
 ### What's the difference between a red flag and just a bad day?
 
-A bad day is an exception to someone's normal pattern that resolves on its own. A red flag is the pattern itself — the thing that keeps showing up regardless of how good or bad the day was. The way to tell them apart isn't the moment, it's whether it repeats.
+A bad day is an exception to someone's normal pattern that resolves on its own. A red flag is the pattern itself — the thing that keeps showing up regardless of how good or bad the day was. The way to tell them apart isn't the moment, it's whether it repeats. Early on there is even less history to judge against, which is why [talking stage red flags](/blog/talking-stage-red-flags/) get their own list.

@@ -115,7 +115,7 @@ No. AI apps can fill gaps between sessions or help when therapy isn't available,
 
 ### Do both partners need to install the app?
 
-It depends on the app. Some are built for two people to join and answer separately, like Ember's Sparks or Paired's daily questions. Others, including Chakam, work for one person alone. Check the listing before you assume.
+It depends on the app. Some are built for two people to join and answer separately, like Ember's Sparks or Paired's daily questions. Others, including Chakam, work for one person alone. Check the listing before you assume. If you are apart rather than together, [long distance relationship apps](/blog/long-distance-relationship-apps/) is the more relevant list.
 
 ### Are AI apps for couples private?
 

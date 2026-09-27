@@ -61,6 +61,35 @@ def find_key() -> str:
     return key
 
 
+def verify_key_is_live(key: str, dry_run: bool = False) -> None:
+    """Check the key file is actually reachable BEFORE submitting.
+
+    A submission with an unreachable key is rejected with a 403, and the
+    failure is easy to miss because everything else looks normal: the
+    script ran, the sitemap parsed, the URLs were gathered. Someone else
+    running this loop had exactly that happen and did not notice for three
+    months, so the check is up front and fatal rather than a surprise
+    later.
+    """
+    url = f'https://{HOST}/{key}.txt'
+    if dry_run:
+        print(f'  (dry run, not checking {url})')
+        return
+    try:
+        with urllib.request.urlopen(url, timeout=20) as res:
+            served = res.read().decode().strip()
+    except urllib.error.HTTPError as e:
+        sys.exit(f'Key file returns HTTP {e.code} at {url}\n'
+                 'Deploy the site before submitting; the engine fetches this '
+                 'to prove you own the domain.')
+    except urllib.error.URLError as e:
+        sys.exit(f'Could not reach {url}: {e.reason}')
+    if served != key:
+        sys.exit(f'{url} serves {served!r}, expected {key!r}. '
+                 'Submissions will be rejected until they match.')
+    print(f'  key verified live at {url}')
+
+
 def sitemap_urls() -> list[str]:
     try:
         with urllib.request.urlopen(SITEMAP, timeout=30) as res:
@@ -82,6 +111,7 @@ def main() -> None:
     a = ap.parse_args()
 
     key = find_key()
+    verify_key_is_live(key, dry_run=a.dry_run)
     if a.urls:
         urls = [u if u.startswith('http') else f'https://{HOST}/{u.lstrip("/")}'
                 for u in a.urls]

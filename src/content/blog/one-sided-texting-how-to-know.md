@@ -156,4 +156,4 @@ Yes, genuinely. A demanding week, a hard stretch at work, low energy from someth
 
 ### Should I stop texting first completely to see what happens?
 
-A short, honest pause — a few days to a week — can be useful information, not as a manipulation tactic, but as an honest check on what actually happens without your initiation. It's not something to do forever, and it's not a substitute for an actual conversation about what you're noticing.
+A short, honest pause — a few days to a week — can be useful information, not as a manipulation tactic, but as an honest check on what actually happens without your initiation. It's not something to do forever, and it's not a substitute for an actual conversation about what you're noticing. If they resurface with just enough to keep you there and then go quiet again, that is [breadcrumbing](/blog/benching-breadcrumbing-microcheating-explained/) rather than a fluke.

@@ -173,7 +173,7 @@ Not always — inconsistent communication can come from anxiety, avoidant attach
 
 ### What's the difference between a narcissist and someone who's just insecure?
 
-Insecurity on its own tends to be self-focused — someone worried about being enough, seeking reassurance, sometimes clumsily. The patterns described here are other-focused in a specific way: they function to control, destabilize, or extract something from the other person, and they tend to persist even when the cost to the other person is made completely clear. The line isn't always crisp, but the direction the behavior serves is a useful thing to watch.
+Insecurity on its own tends to be self-focused — someone worried about being enough, seeking reassurance, sometimes clumsily. The patterns described here are other-focused in a specific way: they function to control, destabilize, or extract something from the other person, and they tend to persist even when the cost to the other person is made completely clear. The line isn't always crisp, but the direction the behavior serves is a useful thing to watch. The opening phase in particular overlaps heavily with [love bombing](/blog/how-to-tell-if-youre-being-love-bombed/), which is worth reading separately.
 
 ### Should I confront someone about these patterns?
 

@@ -131,11 +131,11 @@ Flirty texting is a means, not an end — at some point, a conversation that's g
 
 ### How do I know if my texts are actually flirty or just friendly?
 
-The clearest tell is whether there's any playful tension — a tease, a question left slightly open, something implied rather than fully stated. Purely friendly texting tends to resolve everything directly; flirty texting leaves a small gap that invites a response.
+The clearest tell is whether there's any playful tension — a tease, a question left slightly open, something implied rather than fully stated. Purely friendly texting tends to resolve everything directly; flirty texting leaves a small gap that invites a response. If the flirting has already turned suggestive and you are unsure what to send back, [how to reply to a dirty text](/blog/how-to-reply-to-a-dirty-text/) covers every version of that.
 
 ### What are "rizz lines" and do they actually work?
 
-"Rizz" is just current slang for charisma, and "rizz lines" usually means opening lines or one-liners meant to come across as smooth or confident. Generic ones can work occasionally, but they tend to underperform lines built around something specific to the actual person or conversation — specificity reads as attention, and attention is most of what flirting is actually communicating.
+"Rizz" is just current slang for charisma, and "rizz lines" usually means opening lines or one-liners meant to come across as smooth or confident. Generic ones can work occasionally, but they tend to underperform lines built around something specific to the actual person or conversation — specificity reads as attention, and attention is most of what flirting is actually communicating. Plenty of apps now generate them for you, and we compared the [best AI dating apps](/blog/best-ai-dating-apps/) on what they each actually do.
 
 ### How many emojis is too many when flirting over text?
 

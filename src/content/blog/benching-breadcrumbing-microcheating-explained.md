@@ -89,4 +89,4 @@ Definitions vary, and reasonable people draw the line in different places — bu
 
 ### What should I do if I think I'm being benched?
 
-The most direct approach is asking plainly where things actually stand and what they're looking for — not as an ultimatum, but as a genuine question. The answer, or the discomfort around answering it, usually tells you what the vague behavior alone couldn't.
+The most direct approach is asking plainly where things actually stand and what they're looking for — not as an ultimatum, but as a genuine question. The answer, or the discomfort around answering it, usually tells you what the vague behavior alone couldn't. It also helps to check the [signs that interest is genuinely fading](/blog/signs-someone-is-losing-interest-texting/), which are easier to measure than to feel.

@@ -104,7 +104,7 @@ No. Attachment style describes a pattern, not a fixed identity, and plenty of re
 
 ### How do I know if I'm anxious attachment and they're avoidant?
 
-This exact pairing is common, partly because the two styles reinforce each other's core fears — anxious pursuit reads as pressure to an avoidant partner, and avoidant withdrawal reads as abandonment to an anxious one. Recognizing your own pattern, not just theirs, is usually the more useful place to start.
+This exact pairing is common, partly because the two styles reinforce each other's core fears — anxious pursuit reads as pressure to an avoidant partner, and avoidant withdrawal reads as abandonment to an anxious one. Recognizing your own pattern, not just theirs, is usually the more useful place to start. Both halves have their own read: [the signs of anxious attachment](/blog/signs-of-anxious-attachment-style/) and [how to tell if your partner is avoidant](/blog/avoidant-attachment-partner/).
 
 ### Should I just leave if someone is avoidantly attached?
 

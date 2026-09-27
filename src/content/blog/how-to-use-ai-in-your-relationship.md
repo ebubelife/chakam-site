@@ -97,7 +97,7 @@ It depends entirely on what you're asking. Using it to get clearer on your own f
 
 ### Can AI actually detect red flags in a relationship?
 
-AI can describe patterns it's shown — reply speed, initiation, tone shifts, inconsistency — accurately, if it's actually reading real data rather than guessing from a vague description. What it can't do is know your partner's intentions or context. The useful version surfaces the pattern and lets you interpret it; the risky version hands you a confident conclusion about someone it's never actually met.
+AI can describe patterns it's shown — reply speed, initiation, tone shifts, inconsistency — accurately, if it's actually reading real data rather than guessing from a vague description. What it can't do is know your partner's intentions or context. The useful version surfaces the pattern and lets you interpret it; the risky version hands you a confident conclusion about someone it's never actually met. Different apps draw that line in very different places, which is the thing we compared in [the best AI dating apps](/blog/best-ai-dating-apps/).
 
 ### Should I tell my partner I'm using AI for relationship advice?
 

@@ -104,4 +104,4 @@ It can shift with consistent, safe experiences that repeatedly prove closeness d
 
 ### How is anxious attachment different from avoidant attachment?
 
-They're often described as opposite responses to the same underlying fear of not being securely loved — anxious attachment responds to uncertainty by pursuing closeness harder, while avoidant attachment responds by pulling back. The two patterns can pair up in a relationship in a way that reinforces both.
+They're often described as opposite responses to the same underlying fear of not being securely loved — anxious attachment responds to uncertainty by pursuing closeness harder, while avoidant attachment responds by pulling back. The two patterns can pair up in a relationship in a way that reinforces both. The other half of that pairing is covered in [what an avoidant attachment partner looks like](/blog/avoidant-attachment-partner/).

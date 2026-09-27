@@ -186,7 +186,7 @@ For most of them, yes. Paired, Evergreen, Agapé and Coral are built around two 
 
 ### Are these apps good for new relationships?
 
-Some, with care. Early on, a deep prompt can feel like an interrogation before there is enough trust to hold it. Stick to light decks for the first months. If you are still in the [talking stage and overthinking every message](/blog/overthinking-texts-talking-stage/), a couples app is probably premature.
+Some, with care. Early on, a deep prompt can feel like an interrogation before there is enough trust to hold it. Stick to light decks for the first months. If you are still in the [talking stage and overthinking every message](/blog/overthinking-texts-talking-stage/), a couples app is probably premature. For couples who are apart rather than new, [long distance relationship apps](/blog/long-distance-relationship-apps/) covers a different set again.
 
 ### Is it weird to need an app to talk to your partner?
 

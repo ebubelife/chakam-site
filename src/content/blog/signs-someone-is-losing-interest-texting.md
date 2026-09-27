@@ -153,8 +153,8 @@ Yes. A demanding stretch — work, family, health, just being generally overwhel
 
 ### Does a shorter reply always mean less interest?
 
-No. Some people simply text in short bursts as a permanent style and are still completely invested. What actually matters is a *change* — someone who used to write longer, more engaged replies now consistently doesn't, from a baseline that was genuinely different before.
+No. Some people simply text in short bursts as a permanent style and are still completely invested. What actually matters is a *change* — someone who used to write longer, more engaged replies now consistently doesn't, from a baseline that was genuinely different before. Replies that shrink to just enough to keep you there, without ever going anywhere, have a name: [breadcrumbing](/blog/benching-breadcrumbing-microcheating-explained/).
 
 ### Should I ask them directly if they're losing interest?
 
-Generally, yes, once you've actually confirmed there's a real pattern rather than a rough week. A direct, calm conversation almost always gets you more accurate information than continuing to silently track reply times, and it gives the other person a real chance to explain what's actually going on.
+Generally, yes, once you've actually confirmed there's a real pattern rather than a rough week. A direct, calm conversation almost always gets you more accurate information than continuing to silently track reply times, and it gives the other person a real chance to explain what's actually going on. And if the answer never comes at all, [how to get over being ghosted](/blog/how-to-get-over-being-ghosted/) covers what actually helps next.

@@ -144,11 +144,11 @@ This is one of the actual named patterns in Chakam's Patterns Library for exactl
 
 ### Is being left on read the same as being ghosted?
 
-Not quite — being left on read is one instance of an unanswered message, while ghosting is a sustained, repeated silence with no real intention of responding again. A single left-on-read can happen inside an otherwise healthy conversation; ghosting is that same silence stretched out until it becomes the answer.
+Not quite — being left on read is one instance of an unanswered message, while ghosting is a sustained, repeated silence with no real intention of responding again. A single left-on-read can happen inside an otherwise healthy conversation; ghosting is that same silence stretched out until it becomes the answer. If it has already become the sustained kind, [how to get over being ghosted](/blog/how-to-get-over-being-ghosted/) is the more useful read.
 
 ### How long should I wait before following up after being left on read?
 
-A day or two is well within normal range for most people, and reacting before then usually says more about the waiting than about the silence itself. If it stretches meaningfully longer than that person's usual pace, that's a more reasonable moment to send a calm, low-key follow-up.
+A day or two is well within normal range for most people, and reacting before then usually says more about the waiting than about the silence itself. If it stretches meaningfully longer than that person's usual pace, that's a more reasonable moment to send a calm, low-key follow-up. If the silences keep arriving in the same shape, that is closer to [breadcrumbing or benching](/blog/benching-breadcrumbing-microcheating-explained/) than to a busy week.
 
 ### Does turning off read receipts actually help?
 

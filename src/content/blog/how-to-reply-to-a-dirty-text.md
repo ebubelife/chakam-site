@@ -139,4 +139,4 @@ A plain, unapologetic sentence — "not really my thing over text, but I'm enjoy
 
 ### Does replying playfully mean I'm inviting more of the same?
 
-Not necessarily, but it's worth being aware that tone tends to set expectations either way. If the goal is to enjoy the moment without it becoming the main mode of the conversation, saying so at some point — even lightly — keeps that clear rather than assumed.
+Not necessarily, but it's worth being aware that tone tends to set expectations either way. If the goal is to enjoy the moment without it becoming the main mode of the conversation, saying so at some point — even lightly — keeps that clear rather than assumed. If you want the wider version of that skill rather than this one moment, [how to flirt over text](/blog/how-to-flirt-over-text/) covers it.

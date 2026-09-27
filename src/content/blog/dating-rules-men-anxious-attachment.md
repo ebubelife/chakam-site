@@ -116,4 +116,4 @@ Stated plainly and without excessive apology, it usually reads as grounded self-
 
 ### Can therapy actually help with this, or is it just how I am?
 
-Attachment patterns are shaped by real experience, which means they're genuinely responsive to new experience, including therapeutic work specifically focused on attachment. It's usually gradual, but it's not a fixed trait you're stuck with permanently.
+Attachment patterns are shaped by real experience, which means they're genuinely responsive to new experience, including therapeutic work specifically focused on attachment. It's usually gradual, but it's not a fixed trait you're stuck with permanently. Before that, it helps to be sure of what you are looking at: [the signs of anxious attachment](/blog/signs-of-anxious-attachment-style/) separate the pattern from ordinary dating nerves.

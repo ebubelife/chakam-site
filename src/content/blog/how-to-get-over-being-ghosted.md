@@ -89,4 +89,4 @@ There's no fixed timeline — it depends on how invested you were and what else 
 
 ### Does getting ghosted mean the person was a bad match anyway?
 
-Not necessarily about compatibility, but it does tell you something real about how they handle discomfort and endings — which is genuinely useful information, even though it doesn't make the experience of receiving it any less painful in the moment.
+Not necessarily about compatibility, but it does tell you something real about how they handle discomfort and endings — which is genuinely useful information, even though it doesn't make the experience of receiving it any less painful in the moment. Looking back, the [signs that interest was fading](/blog/signs-someone-is-losing-interest-texting/) are usually there in the messages well before the silence.

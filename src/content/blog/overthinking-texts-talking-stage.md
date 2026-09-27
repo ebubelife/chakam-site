@@ -141,7 +141,7 @@ It can be either, and the two aren't always easy to tell apart from the inside. 
 
 ### How long does the talking stage usually last?
 
-There's no fixed timeline — it varies enormously by the people involved and how often you're actually in contact. What matters more than a specific duration is the trend: is it moving toward more consistency, more clarity, and more real conversation over time, or has it been stuck in the same ambiguous holding pattern for a long stretch with no real movement either way.
+There's no fixed timeline — it varies enormously by the people involved and how often you're actually in contact. What matters more than a specific duration is the trend: is it moving toward more consistency, more clarity, and more real conversation over time, or has it been stuck in the same ambiguous holding pattern for a long stretch with no real movement either way. While you are in it, [the ten things worth watching for during the talking stage](/blog/talking-stage-red-flags/) are the ones that are cheapest to notice early.
 
 ### Should I tell someone I'm overthinking their texts?
 
