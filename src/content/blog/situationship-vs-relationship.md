@@ -124,7 +124,7 @@ Yes, and it happens often enough that it is not a special case. What it needs is
 
 ### Is a situationship the same as friends with benefits?
 
-Not quite. Friends with benefits is usually explicit about being physical and not romantic, which is its own kind of clarity. A situationship is undefined on purpose or by avoidance, and that lack of an agreed shape, romantic or not, is the actual difference.
+Not quite. Friends with benefits is usually explicit about being physical and not romantic, which is its own kind of clarity. A situationship is undefined on purpose or by avoidance, and that lack of an agreed shape, romantic or not, is the actual difference. If you are trying to work out the FWB side of that comparison specifically, [relationship vs FWB](/blog/relationship-vs-fwb/) covers it directly.
 
 ### How do you know if someone will never want a relationship with you?
 

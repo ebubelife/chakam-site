@@ -14,7 +14,7 @@ held to.
 
 ## Queue
 
-- [ ] **Relationship vs FWB** — target keyword: `relationship vs fwb` — slug: `relationship-vs-fwb`
+- [x] **Relationship vs FWB** — target keyword: `relationship vs fwb` — already live: [relationship-vs-fwb](/blog/relationship-vs-fwb/)
 - [ ] **Situationship vs FWB** — target keyword: `situationship vs fwb` — slug: `situationship-vs-fwb` — pairs with the two above into one cluster (situationship / relationship / FWB); the three should cross-link once all exist.
 - [ ] **How to analyze your WhatsApp chat for mixed signals and red flags** — target keyword: `analyze whatsapp chat red flags` — slug: `how-to-analyze-whatsapp-chat-red-flags` — direct funnel into the WhatsApp export flow.
 - [ ] **How to analyze iMessage for mixed signals and real interest** — target keyword: `analyze imessage mixed signals` — slug: `how-to-analyze-imessage-mixed-signals` — the screenshot/OCR path, not export; keep the how-to steps distinct from the WhatsApp post rather than reusing the same seven paragraphs with the app name swapped.
