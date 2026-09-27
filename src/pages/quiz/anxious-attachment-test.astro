@@ -58,16 +58,17 @@ const breadcrumbSchema = {
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: 'Quizzes', item: new URL('/quiz/', Astro.site).href },
     {
       '@type': 'ListItem',
-      position: 2,
+      position: 3,
       name: 'Anxious Attachment Test',
       item: new URL('/quiz/anxious-attachment-test/', Astro.site).href,
     },
   ],
 };
 ---
-<BaseLayout title={`${title} — Chakam`} description={description}>
+<BaseLayout title={`${title} — Chakam`} description={description} active="quiz">
   <Fragment slot="head">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -80,6 +81,7 @@ const breadcrumbSchema = {
 
   <div class="quiz-wrap">
     <header class="quiz-head">
+      <a class="quiz-backlink" href="/quiz/">&larr; All quizzes</a>
       <span class="quiz-kicker">Free test</span>
       <h1>Anxious Attachment Test</h1>
       <p class="quiz-sub">
@@ -267,53 +269,8 @@ const breadcrumbSchema = {
        would not match them. Every selector below is namespaced (.quiz-,
        .result-, .share-, .card-stage) so nothing leaks into other pages. -->
   <style is:global>
-    .quiz-wrap {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 0 20px 80px;
-    }
-
-    /* ---- header ---- */
-    .quiz-head { text-align: center; padding: 48px 0 32px; }
-
-    .quiz-kicker {
-      display: inline-block;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--ink);
-      background: var(--yellow);
-      padding: 6px 14px;
-      border-radius: 100px;
-    }
-
-    .quiz-head h1 {
-      font-size: 44px;
-      line-height: 1.05;
-      letter-spacing: -0.025em;
-      margin: 18px 0 14px;
-    }
-
-    .quiz-sub {
-      font-size: 17.5px;
-      line-height: 1.5;
-      color: var(--muted);
-      margin: 0 auto;
-      max-width: 34em;
-    }
-
-    .quiz-note {
-      font-size: 13.5px;
-      line-height: 1.45;
-      color: var(--muted);
-      max-width: 34em;
-      margin: 18px auto 0;
-      padding-top: 16px;
-      border-top: 1px solid var(--line);
-    }
-
-    /* ---- the test ---- */
+        /* ---- header ---- */
+                                /* ---- the test ---- */
     .quiz-card {
       background: var(--card);
       border: 1px solid var(--line);
@@ -666,32 +623,12 @@ const breadcrumbSchema = {
     }
 
     /* ---- the explainer below ---- */
-    .quiz-prose { margin-top: 64px; }
-    .quiz-prose h2 {
-      font-size: 27px;
-      letter-spacing: -0.018em;
-      margin: 44px 0 14px;
-    }
-    .quiz-prose h3 { font-size: 18.5px; margin: 26px 0 8px; }
-    .quiz-prose p {
-      font-size: 17px;
-      line-height: 1.62;
-      color: var(--ink);
-      margin: 0 0 16px;
-    }
-    .quiz-faq p { color: var(--muted); font-size: 16px; }
-
-    @media (max-width: 640px) {
-      .quiz-head { padding: 34px 0 26px; }
-      .quiz-head h1 { font-size: 33px; }
-      .quiz-sub { font-size: 16px; }
+                        @media (max-width: 640px) {
       .quiz-card, .result-band { padding: 24px 20px; border-radius: 20px; }
       .quiz-question { font-size: 21px; }
       .quiz-option { font-size: 15.5px; padding: 15px 16px; }
       .result-band h2 { font-size: 26px; }
       .result-reads, .result-app { padding: 22px 20px; }
-      .quiz-prose h2 { font-size: 23px; }
-      .quiz-prose p { font-size: 16px; }
       .result-actions .btn { flex: 1 1 100%; }
     }
   </style>

@@ -1,0 +1,244 @@
+---
+// The /quiz/ hub.
+//
+// NOT at /tools/quizzes: ToolsLayout sets noindex,nofollow and
+// astro.config.mjs keeps /tools/ out of the sitemap, because that path is
+// the private workspace for building TikTok slideshows. These pages are
+// meant to rank, so they live here and use BaseLayout.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'Relationship Quizzes: Free Attachment & Texting Tests';
+const description =
+  'Free relationship quizzes from Chakam. Take the anxious attachment test in your browser, and see the full set of attachment, texting and conflict tests in the app.';
+
+// Live on this site. One for now; this is a list so adding the next one
+// is a data change rather than a layout change.
+const webQuizzes = [
+  {
+    href: '/quiz/anxious-attachment-test/',
+    eyebrow: 'Free · 12 questions · 2 minutes',
+    title: 'Anxious Attachment Test',
+    blurb:
+      'How much does distance register as danger for you? Twelve questions on silence, reassurance and what happens in your head when a reply is slow.',
+  },
+];
+
+// The app-only set. Named individually on purpose: "and 12 more" persuades
+// nobody, whereas seeing the actual titles is the reason to download.
+const appQuizzes = [
+  { title: "What's Your Attachment Style?", blurb: 'All four patterns, not just the anxious one.' },
+  { title: "What's Your Texting Persona?", blurb: 'The overthinker, the double-texter, the slow burn, the direct one.' },
+  { title: 'Red Flag Radar', blurb: 'How well do you actually spot them?' },
+  { title: 'How Do You Handle Conflict?', blurb: 'What you reach for when it gets tense.' },
+  { title: 'How Do You Make Up After a Fight?', blurb: 'Repair style, which matters more than conflict style.' },
+  { title: 'Who Carries the Relationship?', blurb: 'Whose effort is holding it together.' },
+  { title: "What's Your Love Language?", blurb: 'How you give and want to receive.' },
+  { title: "What's Your Attraction Style?", blurb: 'What actually pulls you in.' },
+  { title: 'Push-Pull or Real Chemistry?', blurb: 'Telling intensity apart from a cycle.' },
+  { title: 'How Do You Handle Endings?', blurb: 'What you do when something is over.' },
+  { title: "When You're Called Out, What Do You Actually Do?", blurb: 'Accountability, honestly measured.' },
+  { title: 'Do You Show Narcissistic Traits?', blurb: 'The uncomfortable one, aimed at yourself.' },
+];
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: 'Quizzes', item: new URL('/quiz/', Astro.site).href },
+  ],
+};
+---
+<BaseLayout title={`${title} — Chakam`} description={description} active="quiz">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <div class="quiz-wrap">
+    <header class="quiz-head">
+      <span class="quiz-kicker">Quizzes</span>
+      <h1>Relationship Quizzes</h1>
+      <p class="quiz-sub">
+        Short tests on how you handle closeness, distance and conflict. The one
+        below runs in your browser and nothing you answer is sent anywhere. The
+        rest live in the Chakam app.
+      </p>
+    </header>
+
+    <section class="hub-section">
+      <h2 class="hub-heading">Take it here</h2>
+      {webQuizzes.map((q) => (
+        <a class="hub-card" href={q.href}>
+          <span class="hub-card-eyebrow">{q.eyebrow}</span>
+          <strong>{q.title}</strong>
+          <span class="hub-card-blurb">{q.blurb}</span>
+          <span class="hub-card-go">Start the test &rarr;</span>
+        </a>
+      ))}
+    </section>
+
+    <section class="hub-section">
+      <h2 class="hub-heading">In the app</h2>
+      <p class="hub-lead">
+        Twelve more, none of them on this site. The app scores them against your
+        real conversations too, so a result is not only what you say about
+        yourself.
+      </p>
+      <ul class="hub-list">
+        {appQuizzes.map((q) => (
+          <li>
+            <strong>{q.title}</strong>
+            <span>{q.blurb}</span>
+          </li>
+        ))}
+      </ul>
+      <div class="store-row">
+        <a class="store-badge" href="https://apps.apple.com/ng/app/chakam-chat-wrapped-red-flag/id6792742396">
+          <img src="/assets/img/apple_icon.png" alt="App Store" />
+          <span class="store-text">
+            <span class="store-eyebrow">Download on the</span>
+            <span class="store-name">App Store</span>
+          </span>
+        </a>
+        <a class="store-badge" href="https://play.google.com/store/apps/details?id=com.chakam.chatanalyzer">
+          <img src="/assets/img/png-clipart-goggle-playstore-icon-google-play-computer-icons-android-play-button-angle-rectangle.png" alt="Google Play" />
+          <span class="store-text">
+            <span class="store-eyebrow">Get it on</span>
+            <span class="store-name">Google Play</span>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <article class="quiz-prose">
+      <h2>What These Quizzes Are For</h2>
+      <p>
+        Every test here is self-report. It asks how you think you behave and
+        trusts your answer, which makes it useful for putting a name to something
+        you already half-suspect, and useless as a diagnosis. None of these is a
+        clinical instrument and none of them can tell you something is wrong with
+        you.
+      </p>
+      <p>
+        They work best when you answer about how you usually are rather than how
+        this week has gone. A single rough stretch pulls the same reactions out of
+        almost anyone, which is why a result taken mid-argument tends to say more
+        about the argument than about you.
+      </p>
+
+      <h2>Why the App Set Is Different</h2>
+      <p>
+        A quiz can only ever check your answers against themselves. The app checks
+        them against your actual messages: who reaches out first, how reply times
+        have moved, how conflict starts and who repairs it. That is the gap
+        between believing you are the calm one and finding out what the last three
+        months of a chat actually show.
+      </p>
+    </article>
+  </div>
+
+  <style is:global>
+    .hub-section { margin-bottom: 44px; }
+
+    .hub-heading {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 16px;
+    }
+
+    .hub-lead {
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--muted);
+      margin: -6px 0 18px;
+    }
+
+    .hub-card {
+      display: block;
+      background: var(--ink);
+      color: #fff;
+      border-radius: 24px;
+      padding: 30px 32px;
+      text-decoration: none;
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .hub-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 38px rgba(0, 0, 0, 0.2);
+    }
+
+    .hub-card-eyebrow {
+      display: block;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--yellow);
+    }
+
+    .hub-card strong {
+      display: block;
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin: 10px 0 8px;
+      line-height: 1.12;
+    }
+
+    .hub-card-blurb {
+      display: block;
+      font-size: 15.5px;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .hub-card-go {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--yellow);
+    }
+
+    .hub-list {
+      list-style: none;
+      margin: 0 0 22px;
+      padding: 0;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      overflow: hidden;
+    }
+
+    .hub-list li {
+      padding: 15px 22px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hub-list li:last-child { border-bottom: 0; }
+
+    .hub-list strong {
+      display: block;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.005em;
+    }
+
+    .hub-list span {
+      display: block;
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    @media (max-width: 640px) {
+      .hub-card { padding: 24px 22px; border-radius: 20px; }
+      .hub-card strong { font-size: 23px; }
+      .hub-list li { padding: 14px 18px; }
+    }
+  </style>
+</BaseLayout>

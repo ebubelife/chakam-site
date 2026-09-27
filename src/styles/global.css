@@ -1164,6 +1164,95 @@ footer.site .links a:hover { color: var(--ink); }
   .home-posts { grid-template-columns: minmax(0, 1fr); }
 }
 
+/* Shared chrome for every /quiz/ page: the hub and each test. Lives
+   here rather than in a page style block because both pages need it,
+   and a page-scoped copy meant the hub rendered unstyled. Test-only
+   styling (the question card, options, result, share card) stays in
+   anxious-attachment-test.astro. */
+.quiz-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+    }
+
+.quiz-head { text-align: center; padding: 48px 0 32px; }
+
+.quiz-backlink {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--muted);
+      text-decoration: none;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+.quiz-backlink:hover { color: var(--ink); }
+
+.quiz-kicker {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--yellow);
+      padding: 6px 14px;
+      border-radius: 100px;
+    }
+
+.quiz-head h1 {
+      font-size: 44px;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      margin: 18px 0 14px;
+    }
+
+.quiz-sub {
+      font-size: 17.5px;
+      line-height: 1.5;
+      color: var(--muted);
+      margin: 0 auto;
+      max-width: 34em;
+    }
+
+.quiz-note {
+      font-size: 13.5px;
+      line-height: 1.45;
+      color: var(--muted);
+      max-width: 34em;
+      margin: 18px auto 0;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+
+.quiz-prose { margin-top: 64px; }
+
+.quiz-prose h2 {
+      font-size: 27px;
+      letter-spacing: -0.018em;
+      margin: 44px 0 14px;
+    }
+
+.quiz-prose h3 { font-size: 18.5px; margin: 26px 0 8px; }
+
+.quiz-prose p {
+      font-size: 17px;
+      line-height: 1.62;
+      color: var(--ink);
+      margin: 0 0 16px;
+    }
+
+.quiz-faq p { color: var(--muted); font-size: 16px; }
+
+@media (max-width: 640px) {
+  .quiz-head { padding: 34px 0 26px; }
+  .quiz-head h1 { font-size: 33px; }
+  .quiz-sub { font-size: 16px; }
+  .quiz-prose h2 { font-size: 23px; }
+  .quiz-prose p { font-size: 16px; }
+}
+
 /* Blog index cards. A grid of boxes rather than a stack of text rows:
    every post carries a hero image, so leading with it makes the index
    scannable instead of a wall of similar-looking headlines. The newest
