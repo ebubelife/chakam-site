@@ -11,9 +11,16 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
   );
-  // 6 cards a page — plenty of room before pagination kicks in with
-  // today's post count, but wired up correctly for whenever it does.
-  return paginate(posts, { pageSize: 6 });
+  // Every post on one page, deliberately.
+  //
+  // At 6 a page this split into /blog/2/ through /blog/4/, and Search
+  // Console showed those pagination pages sitting in "Discovered –
+  // currently not indexed" with no crawl ever recorded. Any post only
+  // reachable through them was therefore behind a page Google had not
+  // fetched, which is close to being orphaned. One page puts every post a
+  // single hop from the nav. Images below the fold lazy-load, so the cost
+  // of a longer page is small; revisit if this grows past ~40 posts.
+  return paginate(posts, { pageSize: 48 });
 }
 
 const { page } = Astro.props;

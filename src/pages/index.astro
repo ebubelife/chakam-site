@@ -1,5 +1,20 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+// The home page is the most linked page on the site and, until now, sent
+// nothing to any post — the blog was reachable only through the nav, so
+// posts inherited none of its standing and sat several hops from anything
+// a crawler trusts. Three recent posts here is a cheap, honest fix.
+const latestPosts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const postDateFmt = new Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+});
 
 const appStoreUrl = 'https://apps.apple.com/ng/app/chakam-chat-wrapped-red-flag/id6792742396';
 const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.chakam.chatanalyzer';
@@ -413,6 +428,43 @@ const appSchema = {
           </div>
         ))}
       </div>
+    </div>
+  </section>
+
+  <section class="block" id="reading">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">From the blog</span>
+        <h2>Worth reading</h2>
+      </div>
+      <div class="home-posts">
+        {latestPosts.map((post) => (
+          <a class="post-card" href={`/blog/${post.id}/`}>
+            {post.data.heroImage && (
+              <div class="post-thumb">
+                <img
+                  src={post.data.heroImage}
+                  alt={post.data.heroImageAlt ?? post.data.title}
+                  loading="lazy"
+                  decoding="async"
+                  width="1344"
+                  height="750"
+                />
+              </div>
+            )}
+            <div class="post-card-body">
+              <div class="post-card-meta">
+                {post.data.tags[0] && <span class="post-card-tag">{post.data.tags[0]}</span>}
+                {post.data.tags[0] && <span class="dot">&bull;</span>}
+                <span class="post-date">{postDateFmt.format(post.data.date)}</span>
+              </div>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.description}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+      <p class="home-posts-more"><a href="/blog/">Read all posts &rarr;</a></p>
     </div>
   </section>
 

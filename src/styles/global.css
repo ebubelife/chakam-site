@@ -1116,6 +1116,54 @@ footer.site .links a:hover { color: var(--ink); }
   margin-top: 20px;
 }
 
+/* Three recent posts on the home page. Reuses the blog index's card
+   styles so there is one card design on the site, not two that drift. */
+.home-posts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.home-posts .post-card h3 {
+  font-size: 17.5px;
+  font-weight: 900;
+  margin: 0;
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+}
+
+.home-posts .post-card p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.home-posts-more {
+  margin: 24px 0 0;
+  text-align: center;
+}
+
+.home-posts-more a {
+  font-weight: 800;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 2px solid var(--yellow);
+  padding-bottom: 2px;
+}
+
+@media (max-width: 900px) {
+  .home-posts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 620px) {
+  .home-posts { grid-template-columns: minmax(0, 1fr); }
+}
+
 /* Blog index cards. A grid of boxes rather than a stack of text rows:
    every post carries a hero image, so leading with it makes the index
    scannable instead of a wall of similar-looking headlines. The newest
