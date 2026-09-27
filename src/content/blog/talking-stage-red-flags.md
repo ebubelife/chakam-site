@@ -132,7 +132,7 @@ Yes — nearly everyone shows up imperfectly somewhere on this list at some poin
 
 ### How long does the talking stage usually last before these things become clear?
 
-There's no fixed timeline, and it varies a lot with how often you're actually in contact. What matters more than a specific number of weeks is the trend: is effort and clarity moving in a consistent direction over time, or has it been stuck in the same ambiguous, inconsistent pattern for a while with no real movement either way.
+There's no fixed timeline, and it varies a lot with how often you're actually in contact. What matters more than a specific number of weeks is the trend: is effort and clarity moving in a consistent direction over time, or has it been stuck in the same ambiguous, inconsistent pattern for a while with no real movement either way. If it never resolves and just keeps going, that is usually the point where it has quietly become a [situationship rather than a relationship](/blog/situationship-vs-relationship/).
 
 ### Should I bring these things up during the talking stage, or wait?
 

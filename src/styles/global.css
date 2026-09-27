@@ -1620,6 +1620,55 @@ footer.site .links a:hover { color: var(--ink); }
 
 .prose a { text-decoration: underline; text-decoration-color: var(--line); }
 
+/* Comparison tables (situationship-vs-relationship and similar posts use
+   these directly in Markdown via GFM). Nothing styled them before, so they
+   fell back to the bare browser default: no borders, no row separation, no
+   header weight. Wrapped in a scroll container for narrow phones, where a
+   3+ column table cannot honestly fit and forcing it to would just break
+   the layout instead. */
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0 26px;
+  font-size: 15px;
+}
+
+.prose th, .prose td {
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.prose thead th {
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 2px solid var(--ink);
+}
+
+.prose tbody th, .prose td:first-child {
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.prose tbody tr:nth-child(even) { background: var(--card); }
+
+@media (max-width: 640px) {
+  .prose table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+  .prose td, .prose th { white-space: normal; }
+  .prose tbody th, .prose td:first-child { white-space: nowrap; }
+}
+
+
+
 .prose blockquote {
   margin: 24px 0;
   padding: 4px 20px;
