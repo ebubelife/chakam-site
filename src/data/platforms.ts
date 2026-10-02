@@ -753,3 +753,67 @@ export const platforms: Platform[] = [
 export function getPlatform(slug: string): Platform | undefined {
   return platforms.find((p) => p.slug === slug);
 }
+
+// Blog posts each platform page links out to, by post slug.
+//
+// These eight pages are the site's strongest indexed surface and linked to
+// zero posts, while 24 posts sat in Search Console as "Discovered —
+// currently not indexed": URLs Google knew about but had not spent a crawl
+// on. Links from a regularly-crawled page are what moves that, so each
+// platform points at posts a reader of THAT page would actually want — a
+// generic "recent posts" block would be link padding and would read like
+// it.
+//
+// Kept out of the Platform interface deliberately: threading another field
+// through eight large literals buries it, and this map is only useful when
+// you can see it at once to check what is and isn't covered.
+export const platformRelatedPosts: Record<string, string[]> = {
+  'whatsapp-chat-analyzer': [
+    'one-sided-texting-how-to-know',
+    'signs-someone-is-losing-interest-texting',
+    'texting-red-flags-people-ignore',
+    'what-does-left-on-read-mean',
+  ],
+  'instagram-chat-analyzer': [
+    'how-to-flirt-over-text',
+    'how-to-get-over-being-ghosted',
+    'talking-stage-red-flags',
+    'benching-breadcrumbing-microcheating-explained',
+  ],
+  'snapchat-chat-analyzer': [
+    'benching-breadcrumbing-microcheating-explained',
+    'texting-without-meeting-up-red-flag',
+    'overthinking-texts-talking-stage',
+    'signs-someone-is-losing-interest-texting',
+  ],
+  'messenger-chat-analyzer': [
+    'what-does-left-on-read-mean',
+    'one-sided-texting-how-to-know',
+    'signs-youre-texting-a-narcissist',
+    'how-to-tell-if-youre-being-love-bombed',
+  ],
+  'imessage-chat-analyzer': [
+    'what-does-left-on-read-mean',
+    'signs-someone-is-losing-interest-texting',
+    'overthinking-texts-talking-stage',
+    'texting-red-flags-people-ignore',
+  ],
+  'tinder-chat-analyzer': [
+    'talking-stage-red-flags',
+    'texting-without-meeting-up-red-flag',
+    'how-to-flirt-over-text',
+    'best-ai-dating-apps',
+  ],
+  'hinge-chat-analyzer': [
+    'situationship-vs-relationship',
+    'relationship-vs-fwb',
+    'talking-stage-red-flags',
+    'how-to-flirt-over-text',
+  ],
+  'bumble-chat-analyzer': [
+    'how-to-flirt-over-text',
+    'texting-without-meeting-up-red-flag',
+    'situationship-vs-relationship',
+    'best-ai-dating-apps',
+  ],
+};

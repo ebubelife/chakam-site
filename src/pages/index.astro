@@ -6,9 +6,16 @@ import { getCollection } from 'astro:content';
 // nothing to any post — the blog was reachable only through the nav, so
 // posts inherited none of its standing and sat several hops from anything
 // a crawler trusts. Three recent posts here is a cheap, honest fix.
+//
+// Raised from 3 to 9 after Search Console showed 24 posts stuck in
+// "Discovered – currently not indexed": Google knew the URLs but had not
+// spent a crawl on them, which is a crawl-demand problem, not a content
+// one. Every post was reachable only via /blog/, so a single page carried
+// the crawl signal for all 26. More links from the page Google crawls
+// most often is the cheapest way to raise that demand.
 const latestPosts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 3);
+  .slice(0, 9);
 
 const postDateFmt = new Intl.DateTimeFormat('en-US', {
   month: 'short',

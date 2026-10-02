@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ScreenshotSlot from '../components/ScreenshotSlot.astro';
-import { platforms } from '../data/platforms';
+import { getCollection } from 'astro:content';
+import { platforms, platformRelatedPosts } from '../data/platforms';
 
 export function getStaticPaths() {
   return platforms.map((p) => ({
@@ -11,6 +12,15 @@ export function getStaticPaths() {
 }
 
 const { platform: p } = Astro.props;
+
+// Ordered as listed in platformRelatedPosts, not by date — the curation is
+// the point. A slug that no longer exists drops out silently rather than
+// shipping a 404 into the one place this page sends crawlers.
+const wanted = platformRelatedPosts[p.slug] ?? [];
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const relatedPosts = wanted
+  .map((slug) => allPosts.find((post) => post.id === slug))
+  .filter((post) => post !== undefined);
 
 const appStoreUrl = 'https://apps.apple.com/ng/app/chakam-chat-wrapped-red-flag/id6792742396';
 const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.chakam.chatanalyzer';
@@ -150,6 +160,40 @@ const howToSchema = {
       ))}
     </div>
   </div>
+
+  {relatedPosts.length > 0 && (
+    <section class="block" id="reading">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Keep reading</span>
+          <h2>What your {p.name} chats are actually telling you</h2>
+        </div>
+        <div class="home-posts">
+          {relatedPosts.map((post) => (
+            <a class="post-card" href={`/blog/${post.id}/`}>
+              {post.data.heroImage && (
+                <div class="post-thumb">
+                  <img
+                    src={post.data.heroImage}
+                    alt={post.data.heroImageAlt ?? post.data.title}
+                    loading="lazy"
+                    decoding="async"
+                    width="1344"
+                    height="750"
+                  />
+                </div>
+              )}
+              <div class="post-card-body">
+                <h3>{post.data.title}</h3>
+                <p>{post.data.description}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+        <p class="home-posts-more"><a href="/blog/">Read all posts &rarr;</a></p>
+      </div>
+    </section>
+  )}
 
   <section class="block" id="download">
     <div class="wrap">

@@ -10,7 +10,26 @@
 // Everything runs in the browser. No answer is sent anywhere, which is
 // both true and the same promise the app makes, so the page says so.
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
 import { QUESTIONS, BANDS, MAX_SCORE } from '../../data/anxious-attachment-test';
+
+// The attachment cluster had no inbound link from any page Google crawls
+// often, which left those posts sitting in Search Console as "Discovered —
+// currently not indexed". This page is their natural parent: someone who
+// just scored themselves on attachment is the exact reader for them, so
+// the links earn their place rather than existing for the crawler.
+const attachmentSlugs = [
+  'signs-of-anxious-attachment-style',
+  'how-to-know-your-attachment-style',
+  'dating-rules-women-anxious-attachment',
+  'dating-rules-men-anxious-attachment',
+  'how-to-date-someone-avoidant-attachment',
+  'avoidant-attachment-partner',
+];
+const quizAllPosts = await getCollection('blog', ({ data }) => !data.draft);
+const attachmentPosts = attachmentSlugs
+  .map((slug) => quizAllPosts.find((post) => post.id === slug))
+  .filter((post) => post !== undefined);
 
 const title = 'Anxious Attachment Test: Free 2-Minute Quiz';
 const description =
@@ -262,6 +281,37 @@ const breadcrumbSchema = {
         </div>
       ))}
     </article>
+
+    {attachmentPosts.length > 0 && (
+      <section class="block" id="reading">
+        <div class="section-head">
+          <span class="kicker">Keep reading</span>
+          <h2>Read next</h2>
+        </div>
+        <div class="home-posts">
+          {attachmentPosts.map((post) => (
+            <a class="post-card" href={`/blog/${post.id}/`}>
+              {post.data.heroImage && (
+                <div class="post-thumb">
+                  <img
+                    src={post.data.heroImage}
+                    alt={post.data.heroImageAlt ?? post.data.title}
+                    loading="lazy"
+                    decoding="async"
+                    width="1344"
+                    height="750"
+                  />
+                </div>
+              )}
+              <div class="post-card-body">
+                <h3>{post.data.title}</h3>
+                <p>{post.data.description}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
   </div>
 
   <!-- is:global on purpose. The answer buttons are created in JS, so they
