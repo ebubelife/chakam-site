@@ -27,6 +27,8 @@ The early stage of dating doesn't ask much of anyone's nervous system — it's l
 
 A great stretch of closeness, followed by a sudden cooling — slower replies, more distance, a vague excuse for pulling back — followed eventually by a return to warmth once enough space has opened up. From the inside, it can feel completely bewildering: nothing you did seems to explain it, and nothing you do seems to fix it.
 
+The excuse for pulling back sometimes takes a specific shape: an idealised former partner who surfaces right after the good stretch. That is [the phantom ex](/blog/phantom-ex/), and it is the same cooling mechanism wearing a more convincing costume.
+
 <figure class="blog-fig">
   <img src="/assets/img/blog/how-to-date-someone-avoidant-attachment/pursue-withdraw.jpg" alt="Illustration of a push-pull cycle diagram showing pursuit leading to withdrawal, which leads back to pursuit" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
   <div class="blog-fig-placeholder">

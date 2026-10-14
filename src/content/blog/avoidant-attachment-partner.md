@@ -38,7 +38,7 @@ No single item here means anything on its own. Everyone does some of these somet
 - **The relationship stays slightly undefined.** Longer than the amount of time you have spent together would explain.
 - **Small criticisms of you surface when things are going well.** Something you do starts irritating them right as things get closer. This is often distance-making rather than a real complaint.
 - **They come back warm when you stop chasing.** The pattern reverses when the pressure drops, which is confusing and is the mechanic that keeps people stuck for years.
-- **Their exes are described in one dimension.** Usually as too much, too needy, too emotional.
+- **Their exes are described in one dimension.** Usually as too much, too needy, too emotional. Sometimes it runs the other way and one ex is remembered as flawless, which is [the phantom ex pattern](/blog/phantom-ex/) and does the same distance-making job from the opposite direction.
 
 ![A phone lying face down on a table next to a cup that has gone cold, the kind of quiet gap an avoidant attachment partner leaves after a good week](/assets/img/blog/avoidant-attachment-partner/phone-face-down.jpg)
 
