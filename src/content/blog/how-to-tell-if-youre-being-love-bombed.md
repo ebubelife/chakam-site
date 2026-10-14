@@ -22,7 +22,7 @@ This is the part that feels incredible — constant contact, over-the-top compli
 
 ### Phase Two: Devaluation
 
-Once you're invested — comfortable, attached, your guard down — this is where the actual pattern reveals itself. Increased control, jealousy about time spent with other people, upset over independent plans, subtle guilt-tripping, and sometimes gaslighting about whether any of this is really happening. The idealization phase wasn't the relationship. It was the setup for this phase.
+Once you're invested — comfortable, attached, your guard down — this is where the actual pattern reveals itself. Increased control, jealousy about time spent with other people, upset over independent plans, subtle guilt-tripping, and sometimes [gaslighting](/blog/gaslighting-in-text/) about whether any of this is really happening. The idealization phase wasn't the relationship. It was the setup for this phase.
 
 ## What Are the Signs of Love Bombing?
 

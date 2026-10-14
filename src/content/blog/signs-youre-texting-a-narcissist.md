@@ -45,6 +45,8 @@ Not a busy day — a deliberate, unexplained withdrawal that follows a disagreem
 
 You can literally scroll up and show them what they wrote, and they'll still say "I never said that" or "you're twisting my words." This is one of the more disorienting patterns because it directly attacks your grip on reality using evidence that should settle the question instantly. When denial persists even against clear, visible proof, that's not a memory disagreement — that's a tactic.
 
+This one has enough shapes to be worth its own read: [how to spot gaslighting in text](/blog/gaslighting-in-text/) covers the common phrases, how to separate it from someone genuinely misremembering, and how to check your own chat history for it.
+
 <figure class="blog-fig">
   <img src="/assets/img/blog/signs-youre-texting-a-narcissist/gaslighting-chat.jpg" alt="Illustration of a WhatsApp-style chat where one person quotes an earlier message back, and the other flatly denies ever having said it" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
   <div class="blog-fig-placeholder">
